@@ -1,0 +1,2438 @@
+{
+  "routes": [
+    {
+      "geometry": "y}v{s@ukpwaDwAlE}CcAwCwAiCwBcFoEgCiC_B_Dm@_D_BoCqBaCsDwDqJiHaQuH{FaDqCpEyGfSgBhb@iJ`^wEzE}E`EmAlHHjQl@nUGtCaApA_^f[aNjQaYzWxT`[bXt]pObSrTjYh}@tiA`CpDlNnQbNvQhNnSb@h@r@|@d^ve@tZpa@hv@oS`Jx@zLdBj`@xGfAAj@}@`Hw^pF{ItDaEnEgEzQ}PjFuEzBwArRcRhIqGhHkErMp@nJf@xVaDpi@vAte@bBzY|EnBT|_@hFzBTlCv@zDyAtDo@jC}@hNeApk@iDpK{@dEcAbIuCxFaCjF_CdAi@zBkAnCJ~Lq@xDj@`Dl@hLIlQLbIs@jIeCrMqDpIeA`a@{Dx@@~IA|BFfB@tBG~_@gFpL}EnCe@hEQdMrAl`@jLva@rIlIrBvEbA`AX\\JzFvAdGxAxj@bNfHdBtHhB`f@hLbG|A|FnAd[vGpqBhh@tHzC~EnBZPjB`A`OjF`[vJbCp@pc@bMfR`GjCt@RuA`@wBpHmt@nL__ApAkJdMiv@jI{j@pL_u@hGgZpK`EvHxDxRvJpNnG`OjHdCrAzH`D~C~BlBnCxdAvr@lI|ExCgT|G{]hBcJpB}H~AcK`@iG`@uQViRtAqdA\\oWDcDV_Qx@ma@PeHhAeb@RkNa@kHb@mUTsK\\qQfCoaABe_@OiO{AePsFg]SaMLoSn@gR~BsV|A}Q|Ged@xDcLdSjIr\\nLzH`CfElBzLfFjIme@vBqN",
+      "legs": [
+        {
+          "annotation": {
+            "distance": [
+              11.259398337174277,
+              9.402831854253458,
+              9.498440984079068,
+              9.684577884748174,
+              16.29742902937332,
+              10.166045643822526,
+              9.514842263116059,
+              8.280890256774155,
+              8.873933243849443,
+              9.007935889440873,
+              13.499637079011745,
+              25.270102219130813,
+              35.58244296291797,
+              16.12435644372114,
+              13.144547596770861,
+              35.54380586855042,
+              55.92242670238437,
+              52.90797005515819,
+              16.173094322122246,
+              15.608209920432403,
+              15.485403679243875,
+              28.94862453786848,
+              35.53296712606656,
+              7.396884055284969,
+              5.45565017105079,
+              70.87723988016775,
+              39.44921809032048,
+              60.71582653462839,
+              58.827379159914194,
+              65.84613328919542,
+              43.285621247873706,
+              56.63022589847528,
+              161.670558782987,
+              11.359513523939478,
+              40.049111974865035,
+              39.95989400992704,
+              42.25276972869901,
+              2.877933943934971,
+              4.204412148814967,
+              82.49919591332214,
+              73.42900433916844,
+              103.59653962452654,
+              19.893000450457073,
+              25.197554119823806,
+              60.995447674622376,
+              4.00535693450331,
+              3.9118123559883484,
+              52.549184327090416,
+              21.78489943363236,
+              13.915627833013392,
+              15.189945398057615,
+              43.89406063478526,
+              16.82943584882231,
+              8.143733499338824,
+              46.1232352986608,
+              22.77570968619793,
+              19.377807447500135,
+              26.1430755226185,
+              20.560144857492883,
+              43.12104346279632,
+              75.86888368061264,
+              69.0248414014544,
+              49.05998706647776,
+              6.322124357499958,
+              59.73741285563907,
+              6.980554575650969,
+              8.36440820554265,
+              11.355260958678182,
+              10.393752313724132,
+              8.362700182669965,
+              27.46745744018438,
+              79.74469537845232,
+              22.550760223833134,
+              11.508993438185717,
+              19.4730410871069,
+              15.30547276085191,
+              14.558967245806508,
+              4.407923460315473,
+              7.845576850678915,
+              8.030052514666234,
+              25.035983754192948,
+              10.568401670636781,
+              9.289569023565388,
+              23.69631606404234,
+              32.81899601231168,
+              18.19959519860969,
+              19.606623957040156,
+              27.46250048458224,
+              19.11051192994172,
+              61.32079483853643,
+              3.2270650654614976,
+              19.57607640527229,
+              7.0183158334363,
+              5.784605596019821,
+              6.574159112031273,
+              59.827789137402995,
+              26.495209557521786,
+              8.223894883416698,
+              11.268752172810562,
+              25.584784619495807,
+              63.12640176842033,
+              64.06703862442288,
+              19.432853745004326,
+              12.470196572976489,
+              3.887253755392453,
+              1.7699011745993383,
+              14.66886503580007,
+              15.229431585184205,
+              81.52933360123383,
+              17.2103800788449,
+              18.01258738356534,
+              72.61120877593032,
+              15.181936834768054,
+              14.6645382105922,
+              52.02266365423689,
+              214.01462825976657,
+              18.87346820215172,
+              13.623167589878804,
+              1.7916788295300352,
+              6.82884695096168,
+              30.856324213738382,
+              53.26112672073219,
+              7.7426837253578995,
+              68.76761747395236,
+              36.53680984507284,
+              8.227248041164241,
+              4.3777629409941,
+              6.203263179582496,
+              85.89261853769214,
+              103.65381405820467,
+              18.492291408151072,
+              90.72822385513628,
+              71.54813756214182,
+              88.43421332292885,
+              45.409480631689384,
+              24.311378699896117,
+              19.619622777166803,
+              39.82311256688292,
+              30.76318900956306,
+              32.17572833106721,
+              8.522851560616866,
+              19.29907912323621,
+              10.903782878385725,
+              9.364243843216483,
+              148.60437534968563,
+              21.552132082312383,
+              34.55829724909215,
+              51.17913491275773,
+              18.492676431116276,
+              16.891866487234125,
+              19.835489927628817,
+              13.232516346539745,
+              29.503669411633815,
+              30.456996204688984,
+              109.70326811494989,
+              38.63694116968076,
+              8.081570824107281,
+              28.39124197175944,
+              54.353712971449106,
+              14.509917772087137,
+              55.59213743622701,
+              24.249580270072894,
+              14.891301462429047,
+              35.40801594911695,
+              19.92889436689977,
+              29.293675612005657,
+              105.04667713073049,
+              50.713503018713446,
+              25.716557047426566,
+              27.558863144852758,
+              49.55443494033315,
+              22.18403596225,
+              32.30810375013237,
+              30.44653935520047,
+              37.896891855604764,
+              30.291456551208263,
+              60.7112843548939,
+              23.1219666966138,
+              39.470097179521446,
+              56.85022300291044,
+              18.703108869916708,
+              12.371179813805005,
+              27.206411508656576,
+              63.31307769252486,
+              25.411822449198198
+            ],
+            "congestion": [
+              "unknown",
+              "unknown",
+              "unknown",
+              "unknown",
+              "unknown",
+              "unknown",
+              "unknown",
+              "unknown",
+              "unknown",
+              "unknown",
+              "unknown",
+              "unknown",
+              "unknown",
+              "unknown",
+              "unknown",
+              "unknown",
+              "unknown",
+              "unknown",
+              "unknown",
+              "unknown",
+              "unknown",
+              "unknown",
+              "unknown",
+              "unknown",
+              "unknown",
+              "unknown",
+              "unknown",
+              "unknown",
+              "unknown",
+              "unknown",
+              "unknown",
+              "unknown",
+              "heavy",
+              "heavy",
+              "heavy",
+              "heavy",
+              "unknown",
+              "unknown",
+              "moderate",
+              "moderate",
+              "moderate",
+              "unknown",
+              "unknown",
+              "unknown",
+              "low",
+              "low",
+              "low",
+              "low",
+              "low",
+              "unknown",
+              "unknown",
+              "unknown",
+              "unknown",
+              "unknown",
+              "unknown",
+              "unknown",
+              "unknown",
+              "unknown",
+              "unknown",
+              "unknown",
+              "unknown",
+              "unknown",
+              "unknown",
+              "unknown",
+              "unknown",
+              "unknown",
+              "unknown",
+              "unknown",
+              "moderate",
+              "moderate",
+              "moderate",
+              "moderate",
+              "moderate",
+              "unknown",
+              "unknown",
+              "unknown",
+              "unknown",
+              "unknown",
+              "unknown",
+              "unknown",
+              "unknown",
+              "unknown",
+              "unknown",
+              "unknown",
+              "unknown",
+              "unknown",
+              "unknown",
+              "unknown",
+              "unknown",
+              "unknown",
+              "unknown",
+              "unknown",
+              "unknown",
+              "unknown",
+              "unknown",
+              "unknown",
+              "unknown",
+              "unknown",
+              "unknown",
+              "unknown",
+              "unknown",
+              "unknown",
+              "unknown",
+              "unknown",
+              "unknown",
+              "unknown",
+              "moderate",
+              "moderate",
+              "moderate",
+              "unknown",
+              "unknown",
+              "heavy",
+              "heavy",
+              "unknown",
+              "unknown",
+              "moderate",
+              "heavy",
+              "heavy",
+              "unknown",
+              "unknown",
+              "unknown",
+              "unknown",
+              "unknown",
+              "moderate",
+              "moderate",
+              "moderate",
+              "unknown",
+              "unknown",
+              "unknown",
+              "unknown",
+              "low",
+              "low",
+              "moderate",
+              "moderate",
+              "low",
+              "moderate",
+              "moderate",
+              "moderate",
+              "moderate",
+              "moderate",
+              "unknown",
+              "unknown",
+              "unknown",
+              "unknown",
+              "unknown",
+              "unknown",
+              "low",
+              "low",
+              "unknown",
+              "unknown",
+              "unknown",
+              "unknown",
+              "unknown",
+              "unknown",
+              "low",
+              "unknown",
+              "heavy",
+              "moderate",
+              "heavy",
+              "unknown",
+              "unknown",
+              "unknown",
+              "unknown",
+              "unknown",
+              "unknown",
+              "unknown",
+              "unknown",
+              "unknown",
+              "unknown",
+              "unknown",
+              "moderate",
+              "moderate",
+              "moderate",
+              "moderate",
+              "moderate",
+              "moderate",
+              "heavy",
+              "heavy",
+              "unknown",
+              "unknown",
+              "unknown",
+              "unknown",
+              "unknown",
+              "unknown",
+              "unknown"
+            ]
+          },
+          "summary": "Thirbam Sadak, Pashupati Marg",
+          "weight": 1420.5,
+          "duration": 1217.8,
+          "steps": [
+            {
+              "intersections": [
+                {
+                  "out": 0,
+                  "entry": [
+                    true
+                  ],
+                  "bearings": [
+                    296
+                  ],
+                  "location": [
+                    85.336779,
+                    27.733997
+                  ]
+                }
+              ],
+              "driving_side": "left",
+              "geometry": "y}v{s@ukpwaDwAlE",
+              "mode": "driving",
+              "maneuver": {
+                "bearing_after": 296,
+                "bearing_before": 0,
+                "location": [
+                  85.336779,
+                  27.733997
+                ],
+                "type": "depart",
+                "instruction": "Head northwest"
+              },
+              "weight": 53.5,
+              "duration": 24.9,
+              "name": "",
+              "distance": 11.3,
+              "voiceInstructions": [
+                {
+                  "distanceAlongGeometry": 11.3,
+                  "announcement": "Head northwest, then turn right onto Lamtangin Marga",
+                  "ssmlAnnouncement": "<speak><amazon:effect name=\"drc\"><prosody rate=\"1.08\">Head northwest, then turn right onto Lamtangin Marga</prosody></amazon:effect></speak>"
+                },
+                {
+                  "distanceAlongGeometry": 6.8,
+                  "announcement": "Turn right onto Lamtangin Marga",
+                  "ssmlAnnouncement": "<speak><amazon:effect name=\"drc\"><prosody rate=\"1.08\">Turn right onto Lamtangin Marga</prosody></amazon:effect></speak>"
+                }
+              ],
+              "bannerInstructions": [
+                {
+                  "distanceAlongGeometry": 11.3,
+                  "primary": {
+                    "text": "Lamtangin Marga",
+                    "components": [
+                      {
+                        "text": "Lamtangin Marga",
+                        "type": "text"
+                      }
+                    ],
+                    "type": "turn",
+                    "modifier": "right"
+                  },
+                  "secondary": null
+                }
+              ]
+            },
+            {
+              "intersections": [
+                {
+                  "out": 0,
+                  "in": 1,
+                  "entry": [
+                    true,
+                    false,
+                    true
+                  ],
+                  "bearings": [
+                    15,
+                    120,
+                    195
+                  ],
+                  "location": [
+                    85.336676,
+                    27.734041
+                  ]
+                },
+                {
+                  "out": 0,
+                  "in": 1,
+                  "entry": [
+                    true,
+                    false,
+                    true
+                  ],
+                  "bearings": [
+                    75,
+                    225,
+                    300
+                  ],
+                  "location": [
+                    85.337067,
+                    27.734495
+                  ]
+                }
+              ],
+              "driving_side": "left",
+              "geometry": "q`w{s@gepwaD}CcAwCwAiCwBcFoEgCiC_B_Dm@_D_BoCqBaCsDwDqJiHaQuH{FaD",
+              "mode": "driving",
+              "maneuver": {
+                "bearing_after": 19,
+                "bearing_before": 295,
+                "location": [
+                  85.336676,
+                  27.734041
+                ],
+                "modifier": "right",
+                "type": "turn",
+                "instruction": "Turn right onto Lamtangin Marga"
+              },
+              "weight": 64.6,
+              "duration": 44.400000000000006,
+              "name": "Lamtangin Marga",
+              "distance": 181.2,
+              "voiceInstructions": [
+                {
+                  "distanceAlongGeometry": 161.2,
+                  "announcement": "In 200 meters, turn left onto Chun Devi Marga",
+                  "ssmlAnnouncement": "<speak><amazon:effect name=\"drc\"><prosody rate=\"1.08\">In 200 meters, turn left onto Chun Devi Marga</prosody></amazon:effect></speak>"
+                },
+                {
+                  "distanceAlongGeometry": 61.2,
+                  "announcement": "Turn left onto Chun Devi Marga",
+                  "ssmlAnnouncement": "<speak><amazon:effect name=\"drc\"><prosody rate=\"1.08\">Turn left onto Chun Devi Marga</prosody></amazon:effect></speak>"
+                }
+              ],
+              "bannerInstructions": [
+                {
+                  "distanceAlongGeometry": 181.2,
+                  "primary": {
+                    "text": "Chun Devi Marga",
+                    "components": [
+                      {
+                        "text": "Chun Devi Marga",
+                        "type": "text"
+                      }
+                    ],
+                    "type": "turn",
+                    "modifier": "left"
+                  },
+                  "secondary": null
+                }
+              ]
+            },
+            {
+              "intersections": [
+                {
+                  "out": 3,
+                  "in": 2,
+                  "entry": [
+                    true,
+                    true,
+                    false,
+                    true
+                  ],
+                  "bearings": [
+                    0,
+                    30,
+                    210,
+                    315
+                  ],
+                  "location": [
+                    85.337761,
+                    27.735313
+                  ]
+                },
+                {
+                  "out": 2,
+                  "in": 0,
+                  "entry": [
+                    false,
+                    true,
+                    true
+                  ],
+                  "bearings": [
+                    135,
+                    195,
+                    315
+                  ],
+                  "location": [
+                    85.33616,
+                    27.735868
+                  ]
+                },
+                {
+                  "out": 2,
+                  "in": 1,
+                  "entry": [
+                    true,
+                    false,
+                    true
+                  ],
+                  "bearings": [
+                    0,
+                    105,
+                    270
+                  ],
+                  "location": [
+                    85.335912,
+                    27.736018
+                  ]
+                },
+                {
+                  "out": 2,
+                  "in": 0,
+                  "entry": [
+                    false,
+                    true,
+                    true
+                  ],
+                  "bearings": [
+                    90,
+                    150,
+                    270
+                  ],
+                  "location": [
+                    85.335258,
+                    27.73599
+                  ]
+                }
+              ],
+              "driving_side": "left",
+              "geometry": "apy{s@airwaDqCpEyGfSgBhb@iJ`^wEzE}E`EmAlHHjQl@nUGtC",
+              "mode": "driving",
+              "maneuver": {
+                "bearing_after": 306,
+                "bearing_before": 25,
+                "location": [
+                  85.337761,
+                  27.735313
+                ],
+                "modifier": "left",
+                "type": "turn",
+                "instruction": "Turn left onto Chun Devi Marga"
+              },
+              "weight": 46,
+              "duration": 41.6,
+              "name": "Chun Devi Marga",
+              "distance": 276.7,
+              "voiceInstructions": [
+                {
+                  "distanceAlongGeometry": 256.7,
+                  "announcement": "In 300 meters, turn right to stay on Chun Devi Marga",
+                  "ssmlAnnouncement": "<speak><amazon:effect name=\"drc\"><prosody rate=\"1.08\">In 300 meters, turn right to stay on Chun Devi Marga</prosody></amazon:effect></speak>"
+                },
+                {
+                  "distanceAlongGeometry": 99.8,
+                  "announcement": "Turn right to stay on Chun Devi Marga",
+                  "ssmlAnnouncement": "<speak><amazon:effect name=\"drc\"><prosody rate=\"1.08\">Turn right to stay on Chun Devi Marga</prosody></amazon:effect></speak>"
+                }
+              ],
+              "bannerInstructions": [
+                {
+                  "distanceAlongGeometry": 276.7,
+                  "primary": {
+                    "text": "Chun Devi Marga",
+                    "components": [
+                      {
+                        "text": "Chun Devi Marga",
+                        "type": "text"
+                      }
+                    ],
+                    "type": "turn",
+                    "modifier": "right"
+                  },
+                  "secondary": null
+                }
+              ]
+            },
+            {
+              "intersections": [
+                {
+                  "out": 2,
+                  "in": 0,
+                  "entry": [
+                    false,
+                    true,
+                    true
+                  ],
+                  "bearings": [
+                    90,
+                    195,
+                    315
+                  ],
+                  "location": [
+                    85.335183,
+                    27.735994
+                  ]
+                },
+                {
+                  "out": 2,
+                  "in": 1,
+                  "entry": [
+                    true,
+                    false,
+                    true
+                  ],
+                  "bearings": [
+                    45,
+                    135,
+                    315
+                  ],
+                  "location": [
+                    85.33469,
+                    27.736523
+                  ]
+                }
+              ],
+              "driving_side": "left",
+              "geometry": "szz{s@}gmwaDaApA_^f[aNjQaYzW",
+              "mode": "driving",
+              "maneuver": {
+                "bearing_after": 319,
+                "bearing_before": 272,
+                "location": [
+                  85.335183,
+                  27.735994
+                ],
+                "modifier": "right",
+                "type": "continue",
+                "instruction": "Turn right to stay on Chun Devi Marga"
+              },
+              "weight": 40.2,
+              "duration": 26.700000000000003,
+              "name": "Chun Devi Marga",
+              "distance": 176.5,
+              "voiceInstructions": [
+                {
+                  "distanceAlongGeometry": 156.5,
+                  "announcement": "In 200 meters, turn left onto Maharajganj Road (F25)",
+                  "ssmlAnnouncement": "<speak><amazon:effect name=\"drc\"><prosody rate=\"1.08\">In 200 meters, turn left onto Maharajganj Road (<say-as interpret-as=\"address\">F25</say-as>)</prosody></amazon:effect></speak>"
+                },
+                {
+                  "distanceAlongGeometry": 99.2,
+                  "announcement": "Turn left onto Maharajganj Road (F25)",
+                  "ssmlAnnouncement": "<speak><amazon:effect name=\"drc\"><prosody rate=\"1.08\">Turn left onto Maharajganj Road (<say-as interpret-as=\"address\">F25</say-as>)</prosody></amazon:effect></speak>"
+                }
+              ],
+              "bannerInstructions": [
+                {
+                  "distanceAlongGeometry": 176.5,
+                  "primary": {
+                    "text": "Maharajganj Road",
+                    "components": [
+                      {
+                        "text": "Maharajganj Road",
+                        "type": "text",
+                        "abbr": "Maharajganj Rd",
+                        "abbr_priority": 0
+                      }
+                    ],
+                    "type": "turn",
+                    "modifier": "left"
+                  },
+                  "secondary": {
+                    "text": "F25",
+                    "components": [
+                      {
+                        "text": "F25",
+                        "type": "icon"
+                      }
+                    ],
+                    "type": "turn",
+                    "modifier": "left"
+                  }
+                }
+              ]
+            },
+            {
+              "intersections": [
+                {
+                  "out": 2,
+                  "in": 1,
+                  "entry": [
+                    true,
+                    false,
+                    true
+                  ],
+                  "bearings": [
+                    45,
+                    135,
+                    225
+                  ],
+                  "location": [
+                    85.333998,
+                    27.737181
+                  ]
+                },
+                {
+                  "out": 1,
+                  "in": 0,
+                  "entry": [
+                    false,
+                    true,
+                    true
+                  ],
+                  "bearings": [
+                    45,
+                    225,
+                    285
+                  ],
+                  "location": [
+                    85.333058,
+                    27.73643
+                  ]
+                },
+                {
+                  "out": 2,
+                  "in": 0,
+                  "entry": [
+                    false,
+                    true,
+                    true
+                  ],
+                  "bearings": [
+                    45,
+                    135,
+                    225
+                  ],
+                  "location": [
+                    85.332314,
+                    27.735819
+                  ]
+                },
+                {
+                  "out": 1,
+                  "in": 0,
+                  "entry": [
+                    false,
+                    true
+                  ],
+                  "bearings": [
+                    45,
+                    225
+                  ],
+                  "location": [
+                    85.330734,
+                    27.73451
+                  ]
+                },
+                {
+                  "out": 2,
+                  "in": 0,
+                  "entry": [
+                    false,
+                    true,
+                    true
+                  ],
+                  "bearings": [
+                    45,
+                    105,
+                    225
+                  ],
+                  "location": [
+                    85.330434,
+                    27.734268
+                  ]
+                },
+                {
+                  "out": 1,
+                  "in": 0,
+                  "entry": [
+                    false,
+                    true,
+                    true
+                  ],
+                  "bearings": [
+                    45,
+                    225,
+                    315
+                  ],
+                  "location": [
+                    85.330085,
+                    27.734005
+                  ]
+                }
+              ],
+              "driving_side": "left",
+              "geometry": "yd}{s@{}jwaDxT`[bXt]pObSrTjYh}@tiA`CpDlNnQbNvQhNnSb@h@r@|@d^ve@tZpa@",
+              "mode": "driving",
+              "maneuver": {
+                "bearing_after": 227,
+                "bearing_before": 319,
+                "location": [
+                  85.333998,
+                  27.737181
+                ],
+                "modifier": "left",
+                "type": "end of road",
+                "instruction": "Turn left onto Maharajganj Road (F25)"
+              },
+              "ref": "F25",
+              "weight": 137.5,
+              "duration": 134,
+              "name": "Maharajganj Road (F25)",
+              "distance": 682.9,
+              "voiceInstructions": [
+                {
+                  "distanceAlongGeometry": 662.9,
+                  "announcement": "Continue on Maharajganj Road (F25) for 700 meters",
+                  "ssmlAnnouncement": "<speak><amazon:effect name=\"drc\"><prosody rate=\"1.08\">Continue on Maharajganj Road (<say-as interpret-as=\"address\">F25</say-as>) for 700 meters</prosody></amazon:effect></speak>"
+                },
+                {
+                  "distanceAlongGeometry": 356.7,
+                  "announcement": "In 400 meters, turn left onto Thirbam Sadak",
+                  "ssmlAnnouncement": "<speak><amazon:effect name=\"drc\"><prosody rate=\"1.08\">In 400 meters, turn left onto Thirbam Sadak</prosody></amazon:effect></speak>"
+                },
+                {
+                  "distanceAlongGeometry": 76.4,
+                  "announcement": "Turn left onto Thirbam Sadak",
+                  "ssmlAnnouncement": "<speak><amazon:effect name=\"drc\"><prosody rate=\"1.08\">Turn left onto Thirbam Sadak</prosody></amazon:effect></speak>"
+                }
+              ],
+              "bannerInstructions": [
+                {
+                  "distanceAlongGeometry": 682.9,
+                  "primary": {
+                    "text": "Thirbam Sadak",
+                    "components": [
+                      {
+                        "text": "Thirbam Sadak",
+                        "type": "text"
+                      }
+                    ],
+                    "type": "turn",
+                    "modifier": "left"
+                  },
+                  "secondary": null
+                }
+              ]
+            },
+            {
+              "intersections": [
+                {
+                  "out": 2,
+                  "in": 0,
+                  "entry": [
+                    false,
+                    true,
+                    true,
+                    true
+                  ],
+                  "bearings": [
+                    45,
+                    105,
+                    165,
+                    225
+                  ],
+                  "location": [
+                    85.328881,
+                    27.733037
+                  ]
+                },
+                {
+                  "out": 1,
+                  "in": 0,
+                  "entry": [
+                    false,
+                    true,
+                    true
+                  ],
+                  "bearings": [
+                    15,
+                    195,
+                    270
+                  ],
+                  "location": [
+                    85.32918,
+                    27.731975
+                  ]
+                },
+                {
+                  "out": 2,
+                  "in": 0,
+                  "entry": [
+                    false,
+                    true,
+                    true
+                  ],
+                  "bearings": [
+                    15,
+                    105,
+                    195
+                  ],
+                  "location": [
+                    85.329129,
+                    27.731753
+                  ]
+                },
+                {
+                  "out": 0,
+                  "in": 2,
+                  "entry": [
+                    true,
+                    true,
+                    false
+                  ],
+                  "bearings": [
+                    135,
+                    210,
+                    315
+                  ],
+                  "location": [
+                    85.329702,
+                    27.730895
+                  ]
+                },
+                {
+                  "out": 1,
+                  "in": 2,
+                  "entry": [
+                    true,
+                    true,
+                    false
+                  ],
+                  "bearings": [
+                    60,
+                    135,
+                    315
+                  ],
+                  "location": [
+                    85.329899,
+                    27.7307
+                  ]
+                },
+                {
+                  "out": 1,
+                  "in": 2,
+                  "entry": [
+                    true,
+                    true,
+                    false
+                  ],
+                  "bearings": [
+                    30,
+                    135,
+                    330
+                  ],
+                  "location": [
+                    85.330337,
+                    27.730218
+                  ]
+                },
+                {
+                  "out": 2,
+                  "in": 3,
+                  "entry": [
+                    true,
+                    true,
+                    true,
+                    false
+                  ],
+                  "bearings": [
+                    15,
+                    135,
+                    180,
+                    330
+                  ],
+                  "location": [
+                    85.330882,
+                    27.72959
+                  ]
+                },
+                {
+                  "out": 1,
+                  "in": 0,
+                  "entry": [
+                    false,
+                    true,
+                    true
+                  ],
+                  "bearings": [
+                    0,
+                    180,
+                    285
+                  ],
+                  "location": [
+                    85.330857,
+                    27.729356
+                  ]
+                },
+                {
+                  "out": 1,
+                  "in": 2,
+                  "entry": [
+                    true,
+                    true,
+                    false
+                  ],
+                  "bearings": [
+                    75,
+                    180,
+                    345
+                  ],
+                  "location": [
+                    85.330918,
+                    27.728791
+                  ]
+                },
+                {
+                  "out": 1,
+                  "in": 0,
+                  "entry": [
+                    false,
+                    true,
+                    true
+                  ],
+                  "bearings": [
+                    0,
+                    180,
+                    285
+                  ],
+                  "location": [
+                    85.330874,
+                    27.72811
+                  ]
+                },
+                {
+                  "out": 1,
+                  "in": 0,
+                  "entry": [
+                    false,
+                    true,
+                    true
+                  ],
+                  "bearings": [
+                    15,
+                    195,
+                    270
+                  ],
+                  "location": [
+                    85.330713,
+                    27.727061
+                  ]
+                },
+                {
+                  "out": 2,
+                  "in": 0,
+                  "entry": [
+                    false,
+                    true,
+                    true
+                  ],
+                  "bearings": [
+                    15,
+                    105,
+                    195
+                  ],
+                  "location": [
+                    85.330702,
+                    27.727005
+                  ]
+                },
+                {
+                  "out": 1,
+                  "in": 0,
+                  "entry": [
+                    false,
+                    true,
+                    true
+                  ],
+                  "bearings": [
+                    15,
+                    150,
+                    285
+                  ],
+                  "location": [
+                    85.330546,
+                    27.726345
+                  ]
+                },
+                {
+                  "out": 1,
+                  "in": 3,
+                  "entry": [
+                    true,
+                    true,
+                    true,
+                    false
+                  ],
+                  "bearings": [
+                    30,
+                    150,
+                    240,
+                    345
+                  ],
+                  "location": [
+                    85.33097,
+                    27.724545
+                  ]
+                }
+              ],
+              "driving_side": "left",
+              "geometry": "yau{s@a~`waDhv@oS`Jx@zLdBj`@xGfAAj@}@`Hw^pF{ItDaEnEgEzQ}PjFuEzBwArRcRhIqGhHkErMp@nJf@xVaDpi@vAte@bBzY|EnBT|_@hFzBTlCv@zDyAtDo@jC}@hNeApk@iDpK{@dEcAbIuCxFaCjF_CdAi@zBkA",
+              "mode": "driving",
+              "maneuver": {
+                "bearing_after": 161,
+                "bearing_before": 227,
+                "location": [
+                  85.328881,
+                  27.733037
+                ],
+                "modifier": "left",
+                "type": "turn",
+                "instruction": "Turn left onto Thirbam Sadak"
+              },
+              "weight": 196.70000000000002,
+              "duration": 192.2,
+              "name": "Thirbam Sadak",
+              "distance": 1076.3,
+              "voiceInstructions": [
+                {
+                  "distanceAlongGeometry": 1056.3,
+                  "announcement": "Continue on Thirbam Sadak for 1 kilometer",
+                  "ssmlAnnouncement": "<speak><amazon:effect name=\"drc\"><prosody rate=\"1.08\">Continue on Thirbam Sadak for 1 kilometer</prosody></amazon:effect></speak>"
+                },
+                {
+                  "distanceAlongGeometry": 392,
+                  "announcement": "In 400 meters, make a slight right to stay on Thirbam Sadak",
+                  "ssmlAnnouncement": "<speak><amazon:effect name=\"drc\"><prosody rate=\"1.08\">In 400 meters, make a slight right to stay on Thirbam Sadak</prosody></amazon:effect></speak>"
+                },
+                {
+                  "distanceAlongGeometry": 84,
+                  "announcement": "Make a slight right to stay on Thirbam Sadak",
+                  "ssmlAnnouncement": "<speak><amazon:effect name=\"drc\"><prosody rate=\"1.08\">Make a slight right to stay on Thirbam Sadak</prosody></amazon:effect></speak>"
+                }
+              ],
+              "bannerInstructions": [
+                {
+                  "distanceAlongGeometry": 1076.3,
+                  "primary": {
+                    "text": "Thirbam Sadak",
+                    "components": [
+                      {
+                        "text": "Thirbam Sadak",
+                        "type": "text"
+                      }
+                    ],
+                    "type": "turn",
+                    "modifier": "slight right"
+                  },
+                  "secondary": null
+                }
+              ]
+            },
+            {
+              "intersections": [
+                {
+                  "out": 1,
+                  "in": 2,
+                  "entry": [
+                    true,
+                    true,
+                    false
+                  ],
+                  "bearings": [
+                    120,
+                    180,
+                    330
+                  ],
+                  "location": [
+                    85.331093,
+                    27.72433
+                  ]
+                },
+                {
+                  "out": 2,
+                  "in": 0,
+                  "entry": [
+                    false,
+                    true,
+                    true
+                  ],
+                  "bearings": [
+                    0,
+                    90,
+                    195
+                  ],
+                  "location": [
+                    85.33109,
+                    27.723941
+                  ]
+                },
+                {
+                  "out": 1,
+                  "in": 0,
+                  "entry": [
+                    false,
+                    true,
+                    true
+                  ],
+                  "bearings": [
+                    15,
+                    180,
+                    285
+                  ],
+                  "location": [
+                    85.331067,
+                    27.72386
+                  ]
+                },
+                {
+                  "out": 1,
+                  "in": 0,
+                  "entry": [
+                    false,
+                    true,
+                    true
+                  ],
+                  "bearings": [
+                    0,
+                    165,
+                    270
+                  ],
+                  "location": [
+                    85.331065,
+                    27.723352
+                  ]
+                },
+                {
+                  "out": 1,
+                  "in": 2,
+                  "entry": [
+                    true,
+                    true,
+                    false
+                  ],
+                  "bearings": [
+                    75,
+                    165,
+                    345
+                  ],
+                  "location": [
+                    85.331158,
+                    27.723024
+                  ]
+                },
+                {
+                  "out": 1,
+                  "in": 2,
+                  "entry": [
+                    true,
+                    true,
+                    false
+                  ],
+                  "bearings": [
+                    105,
+                    165,
+                    345
+                  ],
+                  "location": [
+                    85.331247,
+                    27.72279
+                  ]
+                },
+                {
+                  "out": 1,
+                  "in": 2,
+                  "entry": [
+                    true,
+                    true,
+                    false
+                  ],
+                  "bearings": [
+                    45,
+                    180,
+                    345
+                  ],
+                  "location": [
+                    85.331376,
+                    27.722076
+                  ]
+                },
+                {
+                  "out": 1,
+                  "in": 0,
+                  "entry": [
+                    false,
+                    true,
+                    true
+                  ],
+                  "bearings": [
+                    0,
+                    165,
+                    270
+                  ],
+                  "location": [
+                    85.331372,
+                    27.721808
+                  ]
+                },
+                {
+                  "out": 0,
+                  "in": 2,
+                  "entry": [
+                    true,
+                    true,
+                    false
+                  ],
+                  "bearings": [
+                    150,
+                    285,
+                    345
+                  ],
+                  "location": [
+                    85.331491,
+                    27.721169
+                  ]
+                },
+                {
+                  "out": 2,
+                  "in": 0,
+                  "entry": [
+                    false,
+                    true,
+                    true
+                  ],
+                  "bearings": [
+                    15,
+                    90,
+                    195
+                  ],
+                  "location": [
+                    85.331588,
+                    27.720552
+                  ]
+                },
+                {
+                  "out": 1,
+                  "in": 0,
+                  "entry": [
+                    false,
+                    true,
+                    true
+                  ],
+                  "bearings": [
+                    15,
+                    195,
+                    285
+                  ],
+                  "location": [
+                    85.331204,
+                    27.719461
+                  ]
+                },
+                {
+                  "out": 2,
+                  "in": 0,
+                  "entry": [
+                    false,
+                    true,
+                    true
+                  ],
+                  "bearings": [
+                    15,
+                    105,
+                    195
+                  ],
+                  "location": [
+                    85.331112,
+                    27.719186
+                  ]
+                },
+                {
+                  "out": 1,
+                  "in": 0,
+                  "entry": [
+                    false,
+                    true,
+                    true
+                  ],
+                  "bearings": [
+                    15,
+                    195,
+                    285
+                  ],
+                  "location": [
+                    85.331093,
+                    27.719138
+                  ]
+                },
+                {
+                  "out": 2,
+                  "in": 0,
+                  "entry": [
+                    false,
+                    true,
+                    true
+                  ],
+                  "bearings": [
+                    15,
+                    105,
+                    195
+                  ],
+                  "location": [
+                    85.330711,
+                    27.718032
+                  ]
+                },
+                {
+                  "out": 1,
+                  "in": 0,
+                  "entry": [
+                    false,
+                    true,
+                    true
+                  ],
+                  "bearings": [
+                    15,
+                    195,
+                    270
+                  ],
+                  "location": [
+                    85.330658,
+                    27.717877
+                  ]
+                },
+                {
+                  "out": 2,
+                  "in": 0,
+                  "entry": [
+                    false,
+                    true,
+                    true,
+                    true
+                  ],
+                  "bearings": [
+                    15,
+                    105,
+                    195,
+                    285
+                  ],
+                  "location": [
+                    85.330398,
+                    27.717122
+                  ]
+                },
+                {
+                  "out": 2,
+                  "in": 0,
+                  "entry": [
+                    false,
+                    true,
+                    true
+                  ],
+                  "bearings": [
+                    15,
+                    105,
+                    195
+                  ],
+                  "location": [
+                    85.330218,
+                    27.716544
+                  ]
+                },
+                {
+                  "out": 1,
+                  "in": 0,
+                  "entry": [
+                    false,
+                    true,
+                    true
+                  ],
+                  "bearings": [
+                    30,
+                    210,
+                    285
+                  ],
+                  "location": [
+                    85.329423,
+                    27.714444
+                  ]
+                },
+                {
+                  "out": 2,
+                  "in": 0,
+                  "entry": [
+                    false,
+                    true,
+                    true
+                  ],
+                  "bearings": [
+                    30,
+                    105,
+                    195
+                  ],
+                  "location": [
+                    85.329414,
+                    27.71443
+                  ]
+                },
+                {
+                  "out": 2,
+                  "in": 0,
+                  "entry": [
+                    false,
+                    true,
+                    true,
+                    true
+                  ],
+                  "bearings": [
+                    15,
+                    105,
+                    195,
+                    285
+                  ],
+                  "location": [
+                    85.32905,
+                    27.713604
+                  ]
+                }
+              ],
+              "driving_side": "left",
+              "geometry": "sad{s@ihewaDnCJ~Lq@xDj@`Dl@hLIlQLbIs@jIeCrMqDpIeA`a@{Dx@@~IA|BFfB@tBG~_@gFpL}EnCe@hEQdMrAl`@jLva@rIlIrBvEbA`AX\\JzFvAdGxAxj@bNfHdBtHhB`f@hLbG|A|FnAd[vGpqBhh@tHzC~EnBZPjB`A`OjF`[vJbCp@pc@bMfR`GjCt@",
+              "mode": "driving",
+              "maneuver": {
+                "bearing_after": 177,
+                "bearing_before": 150,
+                "location": [
+                  85.331093,
+                  27.72433
+                ],
+                "modifier": "slight right",
+                "type": "continue",
+                "instruction": "Make a slight right to stay on Thirbam Sadak"
+              },
+              "weight": 307.70000000000005,
+              "duration": 290,
+              "name": "Thirbam Sadak",
+              "distance": 1355.1,
+              "voiceInstructions": [
+                {
+                  "distanceAlongGeometry": 1335.1,
+                  "announcement": "Continue on Thirbam Sadak for 1 kilometer",
+                  "ssmlAnnouncement": "<speak><amazon:effect name=\"drc\"><prosody rate=\"1.08\">Continue on Thirbam Sadak for 1 kilometer</prosody></amazon:effect></speak>"
+                },
+                {
+                  "distanceAlongGeometry": 327.1,
+                  "announcement": "In 300 meters, turn left onto Naxal Bhagawati Marg",
+                  "ssmlAnnouncement": "<speak><amazon:effect name=\"drc\"><prosody rate=\"1.08\">In 300 meters, turn left onto Naxal Bhagawati Marg</prosody></amazon:effect></speak>"
+                },
+                {
+                  "distanceAlongGeometry": 70.1,
+                  "announcement": "Turn left onto Naxal Bhagawati Marg",
+                  "ssmlAnnouncement": "<speak><amazon:effect name=\"drc\"><prosody rate=\"1.08\">Turn left onto Naxal Bhagawati Marg</prosody></amazon:effect></speak>"
+                }
+              ],
+              "bannerInstructions": [
+                {
+                  "distanceAlongGeometry": 1355.1,
+                  "primary": {
+                    "text": "Naxal Bhagawati Marg",
+                    "components": [
+                      {
+                        "text": "Naxal Bhagawati Marg",
+                        "type": "text"
+                      }
+                    ],
+                    "type": "turn",
+                    "modifier": "left"
+                  },
+                  "secondary": null
+                }
+              ]
+            },
+            {
+              "intersections": [
+                {
+                  "out": 1,
+                  "in": 0,
+                  "entry": [
+                    false,
+                    true,
+                    true
+                  ],
+                  "bearings": [
+                    15,
+                    105,
+                    285
+                  ],
+                  "location": [
+                    85.328668,
+                    27.712641
+                  ]
+                },
+                {
+                  "out": 0,
+                  "in": 2,
+                  "entry": [
+                    true,
+                    true,
+                    false
+                  ],
+                  "bearings": [
+                    105,
+                    195,
+                    285
+                  ],
+                  "location": [
+                    85.328711,
+                    27.712631
+                  ]
+                },
+                {
+                  "out": 1,
+                  "in": 2,
+                  "entry": [
+                    true,
+                    true,
+                    false
+                  ],
+                  "bearings": [
+                    0,
+                    105,
+                    285
+                  ],
+                  "location": [
+                    85.329626,
+                    27.712461
+                  ]
+                },
+                {
+                  "out": 1,
+                  "in": 3,
+                  "entry": [
+                    true,
+                    true,
+                    true,
+                    false
+                  ],
+                  "bearings": [
+                    15,
+                    105,
+                    180,
+                    285
+                  ],
+                  "location": [
+                    85.331717,
+                    27.711977
+                  ]
+                },
+                {
+                  "out": 1,
+                  "in": 2,
+                  "entry": [
+                    true,
+                    true,
+                    false
+                  ],
+                  "bearings": [
+                    15,
+                    105,
+                    285
+                  ],
+                  "location": [
+                    85.332419,
+                    27.711811
+                  ]
+                }
+              ],
+              "driving_side": "left",
+              "geometry": "agmzs@wp`waDRuA`@wBpHmt@nL__ApAkJdMiv@jI{j@pL_u@hGgZ",
+              "mode": "driving",
+              "maneuver": {
+                "bearing_after": 104,
+                "bearing_before": 198,
+                "location": [
+                  85.328668,
+                  27.712641
+                ],
+                "modifier": "left",
+                "type": "end of road",
+                "instruction": "Turn left onto Naxal Bhagawati Marg"
+              },
+              "weight": 127.1,
+              "duration": 91.6,
+              "name": "Naxal Bhagawati Marg",
+              "distance": 514.7,
+              "voiceInstructions": [
+                {
+                  "distanceAlongGeometry": 494.7,
+                  "announcement": "In 500 meters, turn right onto Gyaneshwar Marg",
+                  "ssmlAnnouncement": "<speak><amazon:effect name=\"drc\"><prosody rate=\"1.08\">In 500 meters, turn right onto Gyaneshwar Marg</prosody></amazon:effect></speak>"
+                },
+                {
+                  "distanceAlongGeometry": 84.3,
+                  "announcement": "Turn right onto Gyaneshwar Marg",
+                  "ssmlAnnouncement": "<speak><amazon:effect name=\"drc\"><prosody rate=\"1.08\">Turn right onto Gyaneshwar Marg</prosody></amazon:effect></speak>"
+                }
+              ],
+              "bannerInstructions": [
+                {
+                  "distanceAlongGeometry": 514.7,
+                  "primary": {
+                    "text": "Gyaneshwar Marg",
+                    "components": [
+                      {
+                        "text": "Gyaneshwar Marg",
+                        "type": "text"
+                      }
+                    ],
+                    "type": "turn",
+                    "modifier": "right"
+                  },
+                  "secondary": null
+                }
+              ]
+            },
+            {
+              "intersections": [
+                {
+                  "out": 1,
+                  "in": 2,
+                  "entry": [
+                    true,
+                    true,
+                    false
+                  ],
+                  "bearings": [
+                    90,
+                    210,
+                    285
+                  ],
+                  "location": [
+                    85.333719,
+                    27.711461
+                  ]
+                },
+                {
+                  "out": 1,
+                  "in": 0,
+                  "entry": [
+                    false,
+                    true,
+                    true
+                  ],
+                  "bearings": [
+                    30,
+                    210,
+                    285
+                  ],
+                  "location": [
+                    85.333055,
+                    27.710281
+                  ]
+                },
+                {
+                  "out": 1,
+                  "in": 0,
+                  "entry": [
+                    false,
+                    true,
+                    true
+                  ],
+                  "bearings": [
+                    45,
+                    210,
+                    300
+                  ],
+                  "location": [
+                    85.332796,
+                    27.709921
+                  ]
+                }
+              ],
+              "driving_side": "left",
+              "geometry": "i}jzs@mljwaDpK`EvHxDxRvJpNnG`OjHdCrAzH`D~C~BlBnCxdAvr@lI|E",
+              "mode": "driving",
+              "maneuver": {
+                "bearing_after": 202,
+                "bearing_before": 108,
+                "location": [
+                  85.333719,
+                  27.711461
+                ],
+                "modifier": "right",
+                "type": "turn",
+                "instruction": "Turn right onto Gyaneshwar Marg"
+              },
+              "weight": 101.1,
+              "duration": 75.5,
+              "name": "Gyaneshwar Marg",
+              "distance": 364.9,
+              "voiceInstructions": [
+                {
+                  "distanceAlongGeometry": 344.9,
+                  "announcement": "In 300 meters, turn left onto Pashupati Marga",
+                  "ssmlAnnouncement": "<speak><amazon:effect name=\"drc\"><prosody rate=\"1.08\">In 300 meters, turn left onto Pashupati Marga</prosody></amazon:effect></speak>"
+                },
+                {
+                  "distanceAlongGeometry": 72.5,
+                  "announcement": "Turn left onto Pashupati Marga",
+                  "ssmlAnnouncement": "<speak><amazon:effect name=\"drc\"><prosody rate=\"1.08\">Turn left onto Pashupati Marga</prosody></amazon:effect></speak>"
+                }
+              ],
+              "bannerInstructions": [
+                {
+                  "distanceAlongGeometry": 364.9,
+                  "primary": {
+                    "text": "Pashupati Marga",
+                    "components": [
+                      {
+                        "text": "Pashupati Marga",
+                        "type": "text"
+                      }
+                    ],
+                    "type": "turn",
+                    "modifier": "left"
+                  },
+                  "secondary": null
+                }
+              ]
+            },
+            {
+              "intersections": [
+                {
+                  "out": 1,
+                  "in": 0,
+                  "entry": [
+                    false,
+                    true,
+                    true
+                  ],
+                  "bearings": [
+                    30,
+                    105,
+                    270
+                  ],
+                  "location": [
+                    85.331857,
+                    27.708637
+                  ]
+                },
+                {
+                  "out": 0,
+                  "in": 2,
+                  "entry": [
+                    true,
+                    true,
+                    false
+                  ],
+                  "bearings": [
+                    105,
+                    210,
+                    285
+                  ],
+                  "location": [
+                    85.333028,
+                    27.708307
+                  ]
+                },
+                {
+                  "out": 0,
+                  "in": 2,
+                  "entry": [
+                    true,
+                    true,
+                    false
+                  ],
+                  "bearings": [
+                    90,
+                    180,
+                    285
+                  ],
+                  "location": [
+                    85.333355,
+                    27.708242
+                  ]
+                },
+                {
+                  "out": 1,
+                  "in": 3,
+                  "entry": [
+                    true,
+                    true,
+                    true,
+                    false
+                  ],
+                  "bearings": [
+                    30,
+                    90,
+                    195,
+                    270
+                  ],
+                  "location": [
+                    85.333963,
+                    27.708213
+                  ]
+                },
+                {
+                  "out": 0,
+                  "in": 2,
+                  "entry": [
+                    true,
+                    true,
+                    false
+                  ],
+                  "bearings": [
+                    90,
+                    195,
+                    270
+                  ],
+                  "location": [
+                    85.335076,
+                    27.70817
+                  ]
+                },
+                {
+                  "out": 1,
+                  "in": 2,
+                  "entry": [
+                    true,
+                    true,
+                    false
+                  ],
+                  "bearings": [
+                    15,
+                    90,
+                    270
+                  ],
+                  "location": [
+                    85.335468,
+                    27.708155
+                  ]
+                },
+                {
+                  "out": 1,
+                  "in": 3,
+                  "entry": [
+                    true,
+                    true,
+                    true,
+                    false
+                  ],
+                  "bearings": [
+                    60,
+                    90,
+                    135,
+                    270
+                  ],
+                  "location": [
+                    85.336389,
+                    27.708111
+                  ]
+                },
+                {
+                  "out": 0,
+                  "in": 1,
+                  "entry": [
+                    true,
+                    false
+                  ],
+                  "bearings": [
+                    90,
+                    270
+                  ],
+                  "location": [
+                    85.336536,
+                    27.708102
+                  ]
+                },
+                {
+                  "out": 1,
+                  "in": 3,
+                  "entry": [
+                    true,
+                    true,
+                    true,
+                    false
+                  ],
+                  "bearings": [
+                    45,
+                    90,
+                    255,
+                    270
+                  ],
+                  "location": [
+                    85.337345,
+                    27.708055
+                  ]
+                },
+                {
+                  "out": 0,
+                  "in": 2,
+                  "entry": [
+                    true,
+                    true,
+                    false
+                  ],
+                  "bearings": [
+                    90,
+                    195,
+                    270
+                  ],
+                  "location": [
+                    85.338056,
+                    27.708043
+                  ]
+                },
+                {
+                  "out": 1,
+                  "in": 2,
+                  "entry": [
+                    true,
+                    true,
+                    false
+                  ],
+                  "bearings": [
+                    15,
+                    90,
+                    270
+                  ],
+                  "location": [
+                    85.338353,
+                    27.708028
+                  ]
+                },
+                {
+                  "out": 1,
+                  "in": 3,
+                  "entry": [
+                    true,
+                    true,
+                    true,
+                    false
+                  ],
+                  "bearings": [
+                    30,
+                    90,
+                    180,
+                    270
+                  ],
+                  "location": [
+                    85.339417,
+                    27.70796
+                  ]
+                },
+                {
+                  "out": 1,
+                  "in": 2,
+                  "entry": [
+                    true,
+                    true,
+                    false
+                  ],
+                  "bearings": [
+                    0,
+                    75,
+                    255
+                  ],
+                  "location": [
+                    85.340468,
+                    27.708012
+                  ]
+                },
+                {
+                  "out": 0,
+                  "in": 2,
+                  "entry": [
+                    true,
+                    true,
+                    false
+                  ],
+                  "bearings": [
+                    105,
+                    255,
+                    285
+                  ],
+                  "location": [
+                    85.342191,
+                    27.708049
+                  ]
+                }
+              ],
+              "driving_side": "left",
+              "geometry": "ylezs@axfwaDxCgT|G{]hBcJpB}H~AcK`@iG`@uQViRtAqdA\\oWDcDV_Qx@ma@PeHhAeb@RkNa@kHb@mUTsK\\qQfCoaABe_@OiO{AePsFg]SaMLoSn@gR~BsV|A}Q|Ged@xDcL",
+              "mode": "driving",
+              "maneuver": {
+                "bearing_after": 104,
+                "bearing_before": 210,
+                "location": [
+                  85.331857,
+                  27.708637
+                ],
+                "modifier": "left",
+                "type": "end of road",
+                "instruction": "Turn left onto Pashupati Marga"
+              },
+              "weight": 232.20000000000002,
+              "duration": 201,
+              "name": "Pashupati Marga",
+              "distance": 1142.7,
+              "voiceInstructions": [
+                {
+                  "distanceAlongGeometry": 1122.7,
+                  "announcement": "Continue on Pashupati Marga for 1 kilometer",
+                  "ssmlAnnouncement": "<speak><amazon:effect name=\"drc\"><prosody rate=\"1.08\">Continue on Pashupati Marga for 1 kilometer</prosody></amazon:effect></speak>"
+                },
+                {
+                  "distanceAlongGeometry": 398,
+                  "announcement": "In 400 meters, turn right onto Battisputali Marg",
+                  "ssmlAnnouncement": "<speak><amazon:effect name=\"drc\"><prosody rate=\"1.08\">In 400 meters, turn right onto Battisputali Marg</prosody></amazon:effect></speak>"
+                },
+                {
+                  "distanceAlongGeometry": 85.3,
+                  "announcement": "Turn right onto Battisputali Marg",
+                  "ssmlAnnouncement": "<speak><amazon:effect name=\"drc\"><prosody rate=\"1.08\">Turn right onto Battisputali Marg</prosody></amazon:effect></speak>"
+                }
+              ],
+              "bannerInstructions": [
+                {
+                  "distanceAlongGeometry": 1142.7,
+                  "primary": {
+                    "text": "Battisputali Marg",
+                    "components": [
+                      {
+                        "text": "Battisputali Marg",
+                        "type": "text"
+                      }
+                    ],
+                    "type": "turn",
+                    "modifier": "right"
+                  },
+                  "secondary": null
+                }
+              ]
+            },
+            {
+              "intersections": [
+                {
+                  "out": 2,
+                  "in": 3,
+                  "entry": [
+                    true,
+                    true,
+                    true,
+                    false
+                  ],
+                  "bearings": [
+                    30,
+                    105,
+                    210,
+                    300
+                  ],
+                  "location": [
+                    85.343299,
+                    27.707766
+                  ]
+                }
+              ],
+              "driving_side": "left",
+              "geometry": "kvczs@ec}waDdSjIr\\nLzH`CfElBzLfF",
+              "mode": "driving",
+              "maneuver": {
+                "bearing_after": 203,
+                "bearing_before": 115,
+                "location": [
+                  85.343299,
+                  27.707766
+                ],
+                "modifier": "right",
+                "type": "turn",
+                "instruction": "Turn right onto Battisputali Marg"
+              },
+              "weight": 60.6,
+              "duration": 42.6,
+              "name": "Battisputali Marg",
+              "distance": 154.6,
+              "voiceInstructions": [
+                {
+                  "distanceAlongGeometry": 134.6,
+                  "announcement": "In 100 meters, turn left onto Benkatesh Marga",
+                  "ssmlAnnouncement": "<speak><amazon:effect name=\"drc\"><prosody rate=\"1.08\">In 100 meters, turn left onto Benkatesh Marga</prosody></amazon:effect></speak>"
+                },
+                {
+                  "distanceAlongGeometry": 54.4,
+                  "announcement": "Turn left onto Benkatesh Marga, then you will arrive at your destination",
+                  "ssmlAnnouncement": "<speak><amazon:effect name=\"drc\"><prosody rate=\"1.08\">Turn left onto Benkatesh Marga, then you will arrive at your destination</prosody></amazon:effect></speak>"
+                }
+              ],
+              "bannerInstructions": [
+                {
+                  "distanceAlongGeometry": 154.6,
+                  "primary": {
+                    "text": "Benkatesh Marga",
+                    "components": [
+                      {
+                        "text": "Benkatesh Marga",
+                        "type": "text"
+                      }
+                    ],
+                    "type": "turn",
+                    "modifier": "left"
+                  },
+                  "secondary": null
+                }
+              ]
+            },
+            {
+              "intersections": [
+                {
+                  "out": 1,
+                  "in": 0,
+                  "entry": [
+                    false,
+                    true,
+                    true
+                  ],
+                  "bearings": [
+                    30,
+                    105,
+                    195
+                  ],
+                  "location": [
+                    85.342681,
+                    27.706489
+                  ]
+                }
+              ],
+              "driving_side": "left",
+              "geometry": "qfazs@q|{waDjIme@vBqN",
+              "mode": "driving",
+              "maneuver": {
+                "bearing_after": 106,
+                "bearing_before": 203,
+                "location": [
+                  85.342681,
+                  27.706489
+                ],
+                "modifier": "left",
+                "type": "turn",
+                "instruction": "Turn left onto Benkatesh Marga"
+              },
+              "weight": 53.3,
+              "duration": 53.3,
+              "name": "Benkatesh Marga",
+              "distance": 88.7,
+              "voiceInstructions": [
+                {
+                  "distanceAlongGeometry": 8.3,
+                  "announcement": "You have arrived at your destination, on the left",
+                  "ssmlAnnouncement": "<speak><amazon:effect name=\"drc\"><prosody rate=\"1.08\">You have arrived at your destination, on the left</prosody></amazon:effect></speak>"
+                }
+              ],
+              "bannerInstructions": [
+                {
+                  "distanceAlongGeometry": 88.7,
+                  "primary": {
+                    "text": "You will arrive",
+                    "components": [
+                      {
+                        "text": "You will arrive",
+                        "type": "text"
+                      }
+                    ],
+                    "type": "arrive",
+                    "modifier": "left"
+                  },
+                  "secondary": null
+                },
+                {
+                  "distanceAlongGeometry": 8.3,
+                  "primary": {
+                    "text": "You have arrived",
+                    "components": [
+                      {
+                        "text": "You have arrived",
+                        "type": "text"
+                      }
+                    ],
+                    "type": "arrive",
+                    "modifier": "left"
+                  },
+                  "secondary": null
+                }
+              ]
+            },
+            {
+              "intersections": [
+                {
+                  "in": 0,
+                  "entry": [
+                    true
+                  ],
+                  "bearings": [
+                    285
+                  ],
+                  "location": [
+                    85.343545,
+                    27.706263
+                  ]
+                }
+              ],
+              "driving_side": "left",
+              "geometry": "mx`zs@qr}waD",
+              "mode": "driving",
+              "maneuver": {
+                "bearing_after": 0,
+                "bearing_before": 105,
+                "location": [
+                  85.343545,
+                  27.706263
+                ],
+                "modifier": "left",
+                "type": "arrive",
+                "instruction": "You have arrived at your destination, on the left"
+              },
+              "weight": 0,
+              "duration": 0,
+              "name": "Benkatesh Marga",
+              "distance": 0,
+              "voiceInstructions": [],
+              "bannerInstructions": []
+            }
+          ],
+          "distance": 6025.7
+        }
+      ],
+      "weight_name": "routability",
+      "weight": 1420.5,
+      "duration": 1217.8,
+      "distance": 6025.7,
+      "voiceLocale": "en-US"
+    }
+  ],
+  "waypoints": [
+    {
+      "distance": 2.8099647489391057,
+      "name": "",
+      "location": [
+        85.336779,
+        27.733997
+      ]
+    },
+    {
+      "distance": 34.59184498466717,
+      "name": "Benkatesh Marga",
+      "location": [
+        85.343545,
+        27.706263
+      ]
+    }
+  ],
+  "code": "Ok",
+  "uuid": "ck7wwnnp400e171owd00876al"
+}

@@ -1,0 +1,57 @@
+apply plugin: 'com.github.kt3k.coveralls'
+apply plugin: 'jacoco'
+
+buildscript {
+    apply from: "${rootDir}/gradle/dependencies.gradle"
+
+    repositories {
+        google()
+        mavenCentral()
+        jcenter()
+        maven { url 'https://plugins.gradle.org/m2' }
+        maven { url 'https://maven.fabric.io/public' }
+    }
+    dependencies {
+        classpath pluginDependencies.gradle
+        classpath pluginDependencies.kotlin
+        classpath pluginDependencies.coveralls
+        classpath pluginDependencies.errorprone
+        classpath pluginDependencies.dependencyUpdates
+        classpath pluginDependencies.jacoco
+        classpath pluginDependencies.mapboxSdkVersions
+        classpath pluginDependencies.bintray
+        classpath pluginDependencies.artifactory
+    }
+}
+
+task testReport(type: TestReport, group: 'Build') {
+    description = 'Generates an aggregate test report'
+    destinationDir = file("${buildDir}/reports/allTests")
+}
+
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
+        jcenter()
+        maven { url 'https://plugins.gradle.org/m2' }
+        maven { url "https://oss.sonatype.org/content/repositories/snapshots" }
+    }
+
+    group = GROUP
+    version = VERSION_NAME
+}
+
+subprojects {
+    apply plugin: 'idea'
+    apply plugin: 'net.ltgt.errorprone'
+    apply from: "${rootDir}/gradle/dependencies.gradle"
+
+    dependencies {
+        errorprone dependenciesList.errorprone
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}

@@ -1,0 +1,147 @@
+ext {
+
+  androidVersions = [
+      minSdkVersion    : 14,
+      targetSdkVersion : 29,
+      compileSdkVersion: 29,
+      buildToolsVersion: '28.0.3'
+  ]
+
+  version = [
+      mapboxMapSdk       : '6.5.0',
+      mapboxSdkServices  : '4.0.0',
+      mapboxEvents       : '3.2.0',
+      locationLayerPlugin: '0.8.1',
+      supportAnnotationsVersion : '1.1.0',
+      autoValue                 : '1.5.4',
+      autoValueParcel           : '0.2.5',
+      junit                     : '4.12',
+      supportLibVersion         : '27.1.1',
+      androidXCoreVersion       : '1.1.0',
+      constraintLayout          : '1.1.3',
+      mockito                   : '2.23.4',
+      mockkVersion              : '1.9.3',
+      hamcrest                  : '2.0.0.0',
+      errorprone                : '2.3.1',
+      butterknife               : '10.1.0',
+      leakCanaryVersion         : '1.6.3',
+      timber                    : '4.7.1',
+      testRunnerVersion         : '1.1.0',
+      espressoVersion           : '3.1.0',
+      spoonRunner               : '1.6.2',
+      commonsIO                 : '2.6',
+      robolectric               : '4.1',
+      mockwebserver             : '3.12.0',
+      lifecycle                 : '1.1.1',
+      picasso                   : '2.71828',
+      gmsLocation               : '16.0.0',
+      ktlint                    : '0.34.2',
+      kotlinStdLib              : '1.3.70',
+      ankoCommon                : '0.10.0',
+      firebaseCore              : '16.0.7',
+      crashlytics               : '2.9.9',
+      multidex                  : '2.0.0',
+      json                      : '20180813',
+      coroutinesAndroid         : '1.3.3',
+      okhttp                    : '3.12.0',
+      okio                      : '2.4.3',
+      androidxTestJunit         : '1.1.1',
+      barista                   : '3.2.0',
+      workTesting               : '2.2.0'
+  ]
+
+  pluginVersion = [
+      checkstyle       : '8.2',
+      pmd              : '5.8.1',
+      errorprone       : '0.0.13',
+      coveralls        : '2.8.1',
+      spotbugs         : '1.3',
+      gradle           : '3.5.3',
+      dependencyGraph  : '0.3.0',
+      dependencyUpdates: '0.20.0',
+      kotlin           : '1.3.70',
+      license          : '0.8.5',
+      jacoco           : '0.8.2',
+      playPublisher    : '2.3.0',
+      googleServices   : '4.2.0',
+      crashlytics      : '1.26.1',
+      mapboxSdkVersions: '1.0.0',
+      mavenPublish     : '3.6.2',
+      bintray          : '1.8.4',
+      artifactory      : '4.9.3',
+      dokka            : '0.10.0'
+  ]
+
+  dependenciesList = [
+          // mapbox
+          mapboxMapSdk           : "com.mapbox.mapboxsdk:mapbox-android-sdk:${version.mapboxMapSdk}",
+          mapboxSdkServices      : "com.mapbox.mapboxsdk:mapbox-sdk-services:${version.mapboxSdkServices}",
+          mapboxSdkTurf          : "com.mapbox.mapboxsdk:mapbox-sdk-turf:${version.mapboxSdkServices}",
+          mapboxEvents           : "com.mapbox.mapboxsdk:mapbox-android-telemetry:${version.mapboxEvents}",
+          locationLayerPlugin    : "com.mapbox.mapboxsdk:mapbox-android-plugin-locationlayer:${version.locationLayerPlugin}",
+
+          // AutoValue
+          autoValue              : "com.google.auto.value:auto-value:${version.autoValue}",
+          autoValuesParcel       : "com.ryanharter.auto.value:auto-value-parcel:${version.autoValueParcel}",
+          autoValuesParcelAdapter: "com.ryanharter.auto.value:auto-value-parcel-adapter:${version.autoValueParcel}",
+
+          // butterknife
+          butterKnife            : "com.jakewharton:butterknife:${version.butterknife}",
+          butterKnifeProcessor   : "com.jakewharton:butterknife-compiler:${version.butterknife}",
+
+          // support
+          supportAnnotation      : 'androidx.annotation:annotation:1.0.0',
+          supportAppcompatV7     : 'androidx.appcompat:appcompat:1.0.0',
+          supportV4              : "com.android.support:support-v4:${version.supportLibVersion}",
+          supportDesign          : 'com.google.android.material:material:1.0.0',
+          supportRecyclerView    : 'androidx.recyclerview:recyclerview:1.0.0',
+          supportCardView        : 'androidx.cardview:cardview:1.0.0',
+          supportConstraintLayout: 'androidx.constraintlayout:constraintlayout:1.1.3',
+
+          // architecture
+          lifecycleExtensions    : 'androidx.lifecycle:lifecycle-extensions:2.0.0',
+          lifecycleCompiler      : 'androidx.lifecycle:lifecycle-compiler:2.0.0',
+
+          // square crew
+          timber                 : "com.jakewharton.timber:timber:${version.timber}",
+          picasso                : "com.squareup.picasso:picasso:${version.picasso}",
+          leakCanaryDebug        : "com.squareup.leakcanary:leakcanary-android:${version.leakCanaryVersion}",
+          leakCanaryRelease      : "com.squareup.leakcanary:leakcanary-android-no-op:${version.leakCanaryVersion}",
+          leakCanaryTest         : "com.squareup.leakcanary:leakcanary-android-no-op:${version.leakCanaryVersion}",
+
+          // instrumentation test
+          testSpoonRunner        : "com.squareup.spoon:spoon-client:${version.spoonRunner}",
+          testRunner             : "com.android.support.test:runner:${version.testRunnerVersion}",
+          testRules              : "com.android.support.test:rules:${version.testRunnerVersion}",
+          testEspressoCore       : "com.android.support.test.espresso:espresso-core:${version.espressoVersion}",
+          testEspressoIntents    : "com.android.support.test.espresso:espresso-intents:${version.espressoVersion}",
+
+          // unit test
+          junit                  : "junit:junit:${version.junit}",
+          mockito                : "org.mockito:mockito-core:${version.mockito}",
+          hamcrest               : "org.hamcrest:hamcrest-junit:${version.hamcrest}",
+          commonsIO              : "commons-io:commons-io:${version.commonsIO}",
+          robolectric            : "org.robolectric:robolectric:${version.robolectric}",
+
+          // play services
+          gmsLocation            : "com.google.android.gms:play-services-location:${version.gmsLocation}",
+
+          errorprone             : "com.google.errorprone:error_prone_core:${version.errorprone}"
+
+  ]
+
+  pluginDependencies = [
+      gradle           : "com.android.tools.build:gradle:${pluginVersion.gradle}",
+ kotlin           : "org.jetbrains.kotlin:kotlin-gradle-plugin:${pluginVersion.kotlin}",
+coveralls        : "org.kt3k.gradle.plugin:coveralls-gradle-plugin:${pluginVersion.coveralls}",
+      checkstyle       : "com.puppycrawl.tools:checkstyle:${pluginVersion.checkstyle}",
+      spotbugs         : "gradle.plugin.com.github.spotbugs:gradlePlugin:${pluginVersion.spotbugs}",
+      errorprone       : "net.ltgt.gradle:gradle-errorprone-plugin:${pluginVersion.errorprone}",
+mapboxSdkVersions: "com.mapbox.mapboxsdk:mapbox-android-sdk-versions:${pluginVersion.mapboxSdkVersions}",
+      dependencyGraph  : "com.vanniktech:gradle-dependency-graph-generator-plugin:${pluginVersion.dependencyGraph}",
+      jacoco           : "com.github.ben-manes:gradle-versions-plugin:${pluginVersion.jacoco}",
+      bintray          : "com.jfrog.bintray.gradle:gradle-bintray-plugin:${pluginVersion.bintray}",
+      artifactory      : "org.jfrog.buildinfo:build-info-extractor-gradle:${pluginVersion.artifactory}",
+      dependencyUpdates: "com.github.ben-manes:gradle-versions-plugin:${pluginVersion.dependencyUpdates}"
+  ]
+}
