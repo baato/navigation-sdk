@@ -80,7 +80,9 @@ import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
+import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
+import okhttp3.Request;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -131,15 +133,52 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         return navigateResponseConverter;
     }
 
+    public static Retrofit retrofit(final String token) {
+        Retrofit.Builder builder = new Retrofit.Builder()
+                .baseUrl("http://178.128.59.143:8080/api/v2/")
+                .addConverterFactory(GsonConverterFactory.create());
+
+        OkHttpClient.Builder okHttpBuilder = new OkHttpClient.Builder();
+        okHttpBuilder.addInterceptor(new Interceptor() {
+            @Override
+            public okhttp3.Response intercept(Chain chain) throws IOException {
+                Request original = chain.request();
+                Request request = original.newBuilder()
+                        .header("Authorization", "Bearer " + token)
+                        .method(original.method(), original.body())
+                        .build();
+
+                return chain.proceed(request);
+            }
+        });
+        builder.client(okHttpBuilder.build());
+        Retrofit retrofit = builder.build();
+        return retrofit;
+    }
+
     public ApiInterface getApiInterface() {
         OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
         httpClient.connectTimeout(100, TimeUnit.SECONDS);
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.1.103:8080")
-                .addConverterFactory(GsonConverterFactory.create())
-                .client(httpClient.build())
-                .build();
-        return retrofit.create(ApiInterface.class);
+        Retrofit.Builder retrofit = new Retrofit.Builder()
+                .baseUrl("http://178.128.59.143:8080")
+                .addConverterFactory(GsonConverterFactory.create());
+
+        httpClient.addInterceptor(new Interceptor() {
+            @Override
+            public okhttp3.Response intercept(Chain chain) throws IOException {
+                Request original = chain.request();
+                Request request = original.newBuilder()
+                        .header("Authorization", "Bearer " + Constants.token)
+                        .method(original.method(), original.body())
+                        .build();
+
+                return chain.proceed(request);
+            }
+        });
+        retrofit.client(httpClient.build());
+        Retrofit retrofit1 = retrofit.build();
+
+        return retrofit1.create(ApiInterface.class);
     }
 
 
@@ -152,8 +191,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             permissionsManager.requestLocationPermissions(this);
         }
         // Mapbox Access token
-//        Mapbox.getInstance(getApplicationContext(), getString(R.string.mapbox_access_token));
-        Mapbox.getInstance(getApplicationContext(), "pk.xxx");
+        Mapbox.getInstance(getApplicationContext(), getString(R.string.mapbox_access_token));
+//        Mapbox.getInstance(getApplicationContext(), "pk.xxx");
         setContentView(R.layout.activity_main);
         mapView = (MapView) findViewById(R.id.mapView);
         button = findViewById(R.id.startButton);
@@ -320,7 +359,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 //                        } catch (IOException e) {
 //                            e.printStackTrace();
 //                        }
-                        Log.d("current route:", String.valueOf(currentRoute));
+//                        Log.d("current route:", String.valueOf(currentRoute));
                         NavigationLauncherOptions options = NavigationLauncherOptions.builder()
                                 .directionsRoute(currentRoute)
                                 .shouldSimulateRoute(simulateRoute)

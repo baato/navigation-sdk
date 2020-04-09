@@ -7,9 +7,10 @@ buildscript {
     repositories {
         google()
         mavenCentral()
-        jcenter()
         maven { url 'https://plugins.gradle.org/m2' }
         maven { url 'https://maven.fabric.io/public' }
+        jcenter()
+
     }
     dependencies {
         classpath pluginDependencies.gradle
@@ -33,9 +34,13 @@ allprojects {
     repositories {
         google()
         mavenCentral()
-        jcenter()
         maven { url 'https://plugins.gradle.org/m2' }
         maven { url "https://oss.sonatype.org/content/repositories/snapshots" }
+        maven {
+            url "https://jitpack.io"
+            credentials { username authToken }
+        }
+        jcenter()
     }
 
     group = GROUP

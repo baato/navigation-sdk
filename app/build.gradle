@@ -1,6 +1,16 @@
 apply plugin: 'com.android.application'
 
 android {
+    packagingOptions {
+        exclude 'translations/en.json'
+        exclude 'translations/ru.json'
+        exclude 'translations/zh-Hans.json'
+        exclude 'translations/fr.json'
+        exclude 'translations/sv.json'
+        exclude 'translations/nl.json'
+        exclude 'translations/de.json'
+        exclude 'translations/vi.json'
+    }
     compileSdkVersion 29
     buildToolsVersion "29.0.1"
     defaultConfig {
@@ -31,15 +41,15 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
     // Mapbox Navigation SDK
     implementation project(':libandroid-navigation-ui')
-    implementation 'androidx.appcompat:appcompat:1.2.0-alpha02'
+    implementation 'androidx.appcompat:appcompat:1.2.0-beta01'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
 
 
     implementation 'com.google.android.material:material:1.1.0'
-    testImplementation 'junit:junit:4.12'
+    testImplementation 'junit:junit:4.13'
     androidTestImplementation 'androidx.test:runner:1.2.0'
 //    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 //    implementation 'com.mapbox.mapboxsdk:mapbox-android-sdk:8.6.2'
@@ -53,9 +63,13 @@ dependencies {
         exclude group: 'org.openstreetmap.osmosis', module: 'osmosis-osm-binary'
         exclude group: 'org.apache.xmlgraphics', module: 'xmlgraphics-commons'
     }
-    implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.0.1'
+    implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.9.8'
 
 //    implementation 'com.graphhopper.navigation:navigation-android:0.1.0'
 //    implementation 'com.graphhopper:graphhopper-web:1.0-SNAPSHOT'
 //    implementation 'com.mapbox.mapboxsdk:mapbox-android-navigation-ui:0.42.6'
+
+    implementation 'org.kathmandulivinglabs.code.bhawak.baato-navigation:graphhopper-navigation-android:v1.0.1'
+    implementation 'org.kathmandulivinglabs.code.bhawak.baato-navigation:graphhopper-navigation-android-ui:v1.0.1'
+
 }
