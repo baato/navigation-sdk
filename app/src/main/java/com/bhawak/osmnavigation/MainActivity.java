@@ -133,29 +133,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         return navigateResponseConverter;
     }
 
-    public static Retrofit retrofit(final String token) {
-        Retrofit.Builder builder = new Retrofit.Builder()
-                .baseUrl("http://178.128.59.143:8080/api/v2/")
-                .addConverterFactory(GsonConverterFactory.create());
-
-        OkHttpClient.Builder okHttpBuilder = new OkHttpClient.Builder();
-        okHttpBuilder.addInterceptor(new Interceptor() {
-            @Override
-            public okhttp3.Response intercept(Chain chain) throws IOException {
-                Request original = chain.request();
-                Request request = original.newBuilder()
-                        .header("Authorization", "Bearer " + token)
-                        .method(original.method(), original.body())
-                        .build();
-
-                return chain.proceed(request);
-            }
-        });
-        builder.client(okHttpBuilder.build());
-        Retrofit retrofit = builder.build();
-        return retrofit;
-    }
-
     public ApiInterface getApiInterface() {
         OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
         httpClient.connectTimeout(100, TimeUnit.SECONDS);
