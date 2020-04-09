@@ -14,10 +14,6 @@ allprojects{
 }
 ```
 
-## Built With
-
-* [Retrofit](https://github.com/square/retrofit) - Used to handle API requests
-* [Maven](https://maven.apache.org/) - Dependency Management
 2.Open up your application's build.gradle file. Add the following code:
 ```
 android {
@@ -34,3 +30,8 @@ dependencies {
    implementation 'org.kathmandulivinglabs.code.bhawak.baato-navigation:graphhopper-navigation-android-ui:${latest-version}'
 }
 ```
+
+## Built With
+
+* [Retrofit](https://github.com/square/retrofit) - Used to handle API requests
+* [Maven](https://maven.apache.org/) - Dependency Management
