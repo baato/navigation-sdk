@@ -2,6 +2,8 @@ package com.bhawak.osmnavigation;
 
 import android.app.Application;
 
+import com.mapbox.mapboxsdk.BuildConfig;
+
 import timber.log.Timber;
 
 public class OSMNavigation extends Application {

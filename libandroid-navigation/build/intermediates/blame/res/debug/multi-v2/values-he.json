@@ -1,0 +1,48 @@
+{
+    "logs": [
+        {
+            "outputFile": "/Users/bhawak/Desktop/KLL/OSMNavigation/libandroid-navigation/build/intermediates/incremental/mergeDebugResources/merged.dir/values-he/values-he.xml",
+            "map": [
+                {
+                    "source": "/Users/bhawak/Desktop/KLL/OSMNavigation/libandroid-navigation/src/main/res/values-he/strings.xml",
+                    "from": {
+                        "startLines": "3,2,4",
+                        "startColumns": "4,4,4",
+                        "startOffsets": "104,50,158",
+                        "endColumns": "53,53,69",
+                        "endOffsets": "153,99,223"
+                    },
+                    "to": {
+                        "startLines": "2,3,4",
+                        "startColumns": "4,4,4",
+                        "startOffsets": "55,109,163",
+                        "endColumns": "53,53,69",
+                        "endOffsets": "104,158,228"
+                    }
+                }
+            ]
+        },
+        {
+            "outputFile": "/Users/bhawak/Desktop/KLL/OSMNavigation/libandroid-navigation/build/intermediates/res/merged/debug/values-he/values-he.xml",
+            "map": [
+                {
+                    "source": "/Users/bhawak/Desktop/KLL/OSMNavigation/libandroid-navigation/src/main/res/values-he/strings.xml",
+                    "from": {
+                        "startLines": "3,2,4",
+                        "startColumns": "4,4,4",
+                        "startOffsets": "104,50,158",
+                        "endColumns": "53,53,69",
+                        "endOffsets": "153,99,223"
+                    },
+                    "to": {
+                        "startLines": "2,3,4",
+                        "startColumns": "4,4,4",
+                        "startOffsets": "55,109,163",
+                        "endColumns": "53,53,69",
+                        "endOffsets": "104,158,228"
+                    }
+                }
+            ]
+        }
+    ]
+}

@@ -6,7 +6,6 @@ import android.location.Location;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.location.LocationManagerCompat;
 
 import android.util.Log;
 import android.view.View;
@@ -19,10 +18,7 @@ import com.bhawak.osmnavigation.navigation.DistanceUtils;
 import com.bhawak.osmnavigation.navigation.NavResponse;
 import com.bhawak.osmnavigation.navigation.NavigateResponseConverter;
 import com.bhawak.osmnavigation.navigation.NavigateResponseConverterTranslationMap;
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.graphhopper.GHResponse;
 import com.graphhopper.util.TranslationMap;
 import com.mapbox.android.core.location.LocationEngine;
 import com.mapbox.android.core.location.LocationEngineListener;
@@ -31,17 +27,14 @@ import com.mapbox.android.core.permissions.PermissionsListener;
 import com.mapbox.android.core.permissions.PermissionsManager;
 import com.mapbox.api.directions.v5.models.DirectionsResponse;
 import com.mapbox.api.directions.v5.models.DirectionsRoute;
-import com.mapbox.api.directions.v5.models.DirectionsWaypoint;
 import com.mapbox.geojson.Feature;
 import com.mapbox.geojson.FeatureCollection;
 import com.mapbox.geojson.LineString;
 import com.mapbox.geojson.Point;
-import com.mapbox.geojson.utils.PolylineUtils;
 import com.mapbox.mapboxsdk.Mapbox;
 import com.mapbox.mapboxsdk.annotations.Marker;
 import com.mapbox.mapboxsdk.camera.CameraPosition;
 import com.mapbox.mapboxsdk.camera.CameraUpdateFactory;
-import com.mapbox.mapboxsdk.constants.Style;
 import com.mapbox.mapboxsdk.exceptions.InvalidLatLngBoundsException;
 import com.mapbox.mapboxsdk.geometry.LatLng;
 import com.mapbox.mapboxsdk.geometry.LatLngBounds;
@@ -60,11 +53,9 @@ import com.mapbox.mapboxsdk.style.sources.GeoJsonSource;
 import com.mapbox.mapboxsdk.utils.ColorUtils;
 import com.mapbox.services.android.navigation.ui.v5.NavigationLauncher;
 import com.mapbox.services.android.navigation.ui.v5.NavigationLauncherOptions;
-import com.mapbox.services.android.navigation.ui.v5.NavigationViewOptions;
-import com.mapbox.services.android.navigation.ui.v5.map.NavigationMapboxMap;
+import com.mapbox.services.android.navigation.ui.v5.OnNavigationReadyCallback;
 import com.mapbox.services.android.navigation.ui.v5.route.NavigationMapRoute;
 import com.mapbox.services.android.navigation.ui.v5.route.OnRouteSelectionChangeListener;
-import com.mapbox.services.android.navigation.v5.navigation.NavigationRoute;
 import com.mapbox.services.android.navigation.v5.utils.LocaleUtils;
 
 import java.io.BufferedReader;
@@ -98,7 +89,7 @@ import static com.mapbox.mapboxsdk.style.layers.PropertyFactory.lineWidth;
 import static com.mapbox.mapboxsdk.style.layers.PropertyFactory.visibility;
 
 public class MainActivity extends AppCompatActivity implements OnMapReadyCallback,
-        MapboxMap.OnMapClickListener, LocationEngineListener, OnRouteSelectionChangeListener, PermissionsListener {
+        MapboxMap.OnMapClickListener, LocationEngineListener, OnRouteSelectionChangeListener, PermissionsListener, OnNavigationReadyCallback {
     private static final int CAMERA_ANIMATION_DURATION = 1000;
     private static final int DEFAULT_CAMERA_ZOOM = 16;
     private static final int CHANGE_SETTING_REQUEST_CODE = 1;
@@ -131,11 +122,11 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         return navigateResponseConverter;
     }
 
-    public ApiInterface getApiInterface() {
+    public static ApiInterface getApiInterface() {
         OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
         httpClient.connectTimeout(100, TimeUnit.SECONDS);
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.1.103:8080")
+                .baseUrl("http://192.168.1.101:8080")
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(httpClient.build())
                 .build();
@@ -152,8 +143,10 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             permissionsManager.requestLocationPermissions(this);
         }
         // Mapbox Access token
-//        Mapbox.getInstance(getApplicationContext(), getString(R.string.mapbox_access_token));
         Mapbox.getInstance(getApplicationContext(), "pk.xxx");
+//        "pk.xxx"
+//        getString(R.string.mapbox_access_token);
+//        Mapbox.getInstance(getApplicationContext(),null);
         setContentView(R.layout.activity_main);
         mapView = (MapView) findViewById(R.id.mapView);
         button = findViewById(R.id.startButton);
@@ -285,12 +278,14 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         locationLayer = new LocationLayerPlugin(mapView, mapboxMap, locationEngine);
         locationLayer.setRenderMode(RenderMode.COMPASS);
     }
+
     @Override
     public void onMapReady(MapboxMap mapboxMap) {
         this.mapboxMap = mapboxMap;
         initLocationEngine();
         initLocationLayer();
-        mapboxMap.setStyleUrl("http://178.128.59.143:8080/api/v2/styles/bdfaa22bc8f24d49b838da1b59f705fb.json", new MapboxMap.OnStyleLoadedListener() {
+
+        mapboxMap.setStyleUrl("http://178.128.59.143:8080/api/v2/styles/a1e37ae99cdb4f29910cdf27a51a0282.json", new MapboxMap.OnStyleLoadedListener() {
             @Override
             public void onStyleLoaded(@NonNull String style) {
                 mapboxMap.addOnMapClickListener(MainActivity.this);
@@ -304,22 +299,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                     @Override
                     public void onClick(View v) {
                         boolean simulateRoute = true;
-//                        try {
-//                            DirectionsResponse directionsResponse = DirectionsResponse.fromJson(returnFromRaw());
-//
-//                            DirectionsRoute locle = directionsResponse.routes().get(0);
-//                            String code = "Ok";
-//                            String message = "";
-//                            Log.wtf("Local Direction", String.valueOf(locle));
-//                            navMapRoute(locle);
-//                            NavigationLauncherOptions options = NavigationLauncherOptions.builder()
-//                                    .directionsRoute(locle)
-//                                    .shouldSimulateRoute(simulateRoute)
-//                                    .build();
-//                            NavigationLauncher.startNavigation(MainActivity.this, options);
-//                        } catch (IOException e) {
-//                            e.printStackTrace();
-//                        }
+
                         Log.d("current route:", String.valueOf(currentRoute));
                         NavigationLauncherOptions options = NavigationLauncherOptions.builder()
                                 .directionsRoute(currentRoute)
@@ -420,11 +400,13 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         }
         button.setEnabled(true);
         button.setBackgroundResource(R.color.mapbox_blue);
-        if (locationEngine.getLastLocation() != null) {
-          Point originPoint = Point.fromLngLat(locationEngine.getLastLocation().getLongitude(),
-                    locationEngine.getLastLocation().getLatitude());
-            getRoute(originPoint, destinationPoint);
-        }
+        Point originPoint = Point.fromLngLat(85.3407169, 27.7244709);
+        getRoute(originPoint, destinationPoint);
+//        if (locationEngine.getLastLocation() != null) {
+//          Point originPoint = Point.fromLngLat(locationEngine.getLastLocation().getLongitude(),
+//                    locationEngine.getLastLocation().getLatitude());
+//            getRoute(originPoint, destinationPoint);
+//        }
     }
 
     private void initRouteCoordinates() {
@@ -449,6 +431,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         call.enqueue(new Callback<NavResponse>() {
             @Override
             public void onResponse(Call<NavResponse> call, Response<NavResponse> response) {
+                Log.d("request::", String.valueOf(call.request()));
                 if (response.body() == null) {
                     Log.e(TAG, "No routes found, make sure you set the right user and access token.");
                     return;
@@ -456,6 +439,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                     Log.e(TAG, "No routes found");
                     return;
                 }
+                Timber.wtf("Anno: " + String.valueOf(response.body().getPath().getInstructions().get(0).getAnnotation()));
                 encodedPolyline = response.body().getEncoded_polyline();
                 initRouteCoordinates();
 
@@ -466,8 +450,11 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 DirectionsResponse directionsResponse = DirectionsResponse.fromJson(obj.toString());
 
                 currentRoute = directionsResponse.routes().get(0);
-
-
+//                try {
+//                    currentRoute = DirectionsResponse.fromJson(returnFromRaw()).routes().get(0);
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
                 Timber.d("On direction:" + obj);
                 navMapRoute(currentRoute);
 //                boundCameraToRoute();
@@ -516,6 +503,15 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     @Override
     public void onNewPrimaryRouteSelected(DirectionsRoute directionsRoute) {
 
+    }
+
+    @Override
+    public void onNavigationReady(boolean isRunning) {
+        mapboxMap.setStyleUrl("http://178.128.59.143:8080/api/v2/styles/a1e37ae99cdb4f29910cdf27a51a0282.json", new MapboxMap.OnStyleLoadedListener() {
+            @Override
+            public void onStyleLoaded(@NonNull String style) {
+            }
+        });
     }
 }
 

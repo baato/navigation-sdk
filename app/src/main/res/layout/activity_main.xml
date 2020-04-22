@@ -11,7 +11,6 @@
         android:id="@+id/mapView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        mapbox:mapbox_styleUrl="mapbox://styles/mapbox/dark-v9"
         />
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/back_to_camera_tracking_mode"

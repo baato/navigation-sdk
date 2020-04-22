@@ -44,16 +44,27 @@ dependencies {
 //    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 //    implementation 'com.mapbox.mapboxsdk:mapbox-android-sdk:8.6.2'
     implementation dependenciesList.mapboxMapSdk
+//    implementation 'com.mapbox.mapboxsdk:mapbox-android-sdk:9.1.0'
+//    implementation 'com.mapbox.mapboxsdk:mapbox-android-navigation-ui:0.42.6'
     // Mapbox plugins
     implementation dependenciesList.locationLayerPlugin
     implementation 'androidx.localbroadcastmanager:localbroadcastmanager:1.0.0'
+//    implementation 'com.mapbox.mapboxsdk:mapbox-android-plugin-locationlayer:0.11.0'
 
     implementation(group: 'com.graphhopper', name: 'graphhopper-core', version: '1.0-SNAPSHOT') {
         exclude group: 'com.google.protobuf', module: 'protobuf-java'
         exclude group: 'org.openstreetmap.osmosis', module: 'osmosis-osm-binary'
         exclude group: 'org.apache.xmlgraphics', module: 'xmlgraphics-commons'
     }
+    implementation 'com.jakewharton.timber:timber:4.7.1'
+//    implementation dependenciesList.butterKnife
+    implementation 'com.jakewharton:butterknife:10.2.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.1'
     implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.0.1'
+
+    // AutoValues
+    annotationProcessor dependenciesList.autoValue
+    compileOnly dependenciesList.autoValue
 
 //    implementation 'com.graphhopper.navigation:navigation-android:0.1.0'
 //    implementation 'com.graphhopper:graphhopper-web:1.0-SNAPSHOT'

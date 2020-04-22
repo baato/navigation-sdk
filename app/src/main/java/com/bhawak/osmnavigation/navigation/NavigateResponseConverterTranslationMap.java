@@ -29,6 +29,11 @@ public class NavigateResponseConverterTranslationMap extends TranslationMap {
         try {
             for (String locale : Arrays.asList("en_US", "en_US")) {
                 TranslationHashMap trMap = new TranslationHashMap(getLocale(locale));
+                trMap.put("in_km_singular", "In 1 kilometer");
+                trMap.put("in_km","In %1$s kilometers");
+                trMap.put("in_m","In %1$s meters");
+                trMap.put("for_km","for %1$s kilometers");
+                trMap.put("then","then");
 //                trMap.doImport(NavigateResponseConverterTranslationMap.class.getResourceAsStream(locale + ".txt"));
                 add(trMap);
             }
