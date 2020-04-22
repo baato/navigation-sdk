@@ -126,7 +126,7 @@ public class NavigateResponseConverter {
         allCord = waypointsg;
         ObjectNode pathJson = routesJson.addObject();
         for (int i = 0; i < waypointsg.size(); i++) {routePoints.add(waypointsg.get(i).get(0), waypointsg.get(i).get(1));}
-        putRouteInformation(pathJson, ghResponse.getPath(),0, locale, distanceConfig, routePoints);
+        putRouteInformation(pathJson,0, locale, distanceConfig, routePoints);
         final ArrayNode waypointsJson = json.putArray("waypoints");
         getWaypoints(waypointsJson, waypointsg, 0);
         getWaypoints(waypointsJson, waypointsg, ghResponsee.getInstructionList().size()-1);
@@ -152,7 +152,7 @@ public class NavigateResponseConverter {
        return ghResponse.getInstructionList().get(index).getName();
     }
 
-    private static void putRouteInformation(ObjectNode pathJson, OSMPathWrapper path, int routeNr, Locale locale, DistanceConfig distanceConfig, PointList polyline) {
+    private static void putRouteInformation(ObjectNode pathJson, int routeNr, Locale locale, DistanceConfig distanceConfig, PointList polyline) {
         ArrayList<Instruction> instructions = (ArrayList<Instruction>) ghResponse.getInstructionList();
 //        pathJson.put("geometry",ghResponse.getEncoded_polyline());
         pathJson.put("geometry", WebHelper.encodePolyline(polyline,false, 1e6));
@@ -174,7 +174,7 @@ public class NavigateResponseConverter {
             distance += instruction.getDistance();
             isFirstInstructionOfLeg = false;
             if (instruction.getSign() == Instruction.REACHED_VIA || instruction.getSign() == Instruction.FINISH) {
-                putLegInformation(legJson, path, routeNr, time, distance);
+                putLegInformation(legJson, routeNr, time, distance);
                 isFirstInstructionOfLeg = true;
                 time = 0;
                 distance = 0;
@@ -188,13 +188,14 @@ public class NavigateResponseConverter {
         }
         ObjectNode routeObject =
         pathJson.put("weight_name", "routability");
-        pathJson.put("weight", Helper.round(path.getRouteWeight(), 1));
-        pathJson.put("duration", convertToSeconds(path.getTime()));
-        pathJson.put("distance", Helper.round(path.getDistance(), 1));
-        pathJson.put("routeOptions",getRouteOptions(path, "pk.xxx"));
+        double weight = ghResponse.getTimeInMs()/100;
+        pathJson.put("weight", Helper.round(weight, 1));
+        pathJson.put("duration", convertToSeconds(ghResponse.getTimeInMs()));
+        pathJson.put("distance", Helper.round(ghResponse.getDistanceInMeters(), 1));
+        pathJson.put("routeOptions",getRouteOptions("pk.xxx"));
         pathJson.put("voiceLocale", "en-US");
     }
-    private static ObjectNode getRouteOptions(OSMPathWrapper path, String accessKey){
+    private static ObjectNode getRouteOptions(String accessKey){
         ObjectNode json = JsonNodeFactory.instance.objectNode();
         json.put("baseUrl", "https://api.mapbox.com");
         json.put("user", "mapbox");
@@ -233,12 +234,13 @@ public class NavigateResponseConverter {
 //        return "[["+ a1 + "," + a2 +"],[" + a3 + ","+ a4 + "]]";
     }
 
-    private static void putLegInformation(ObjectNode legJson, OSMPathWrapper path, int i, long time, double distance) {
+    private static void putLegInformation(ObjectNode legJson, int i, long time, double distance) {
+
         // TODO: Improve path descriptions, so that every path has a description, not just alternative routes
         String summary;
-        if (!path.getDescription().isEmpty())
-            summary = TextUtils.join(",", path.getDescription());
-        else
+//        if (!path.getDescription().isEmpty())
+//            summary = TextUtils.join(",", path.getDescription());
+//        else
             summary = "GraphHopper Route " + i;
         legJson.put("summary", summary);
 

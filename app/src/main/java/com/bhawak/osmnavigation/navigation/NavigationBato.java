@@ -53,7 +53,7 @@ public final class NavigationBato {
                 if (response.body() == null) {
                     Log.e(TAG, "No routes found, make sure you set the right user and access token.");
                     return;
-                } else if (response.body().getInstructionList() != null && response.body().getInstructionList().size() == 0 && !response.body().getPath().hasErrors()) {
+                } else if (response.body().getInstructionList() != null && response.body().getInstructionList().size() == 0) {
                     Log.e(TAG, "No routes found");
                     return;
                 }

@@ -8,8 +8,9 @@ import java.util.List;
 
 public class NavResponse {
         private String encoded_polyline;
-        private OSMPathWrapper path;
-        private double distance;
+//        private OSMPathWrapper path;
+        private double routeWeight;
+        private double distanceInMeters;
         private long timeInMs;
         private List<com.graphhopper.util.Instruction> instructionList = null;
 
@@ -21,21 +22,36 @@ public class NavResponse {
         this.encoded_polyline = encoded_polyline;
     }
 
-        public OSMPathWrapper getPath () {
-        return path;
+    public double getRouteWeight() {
+        return routeWeight;
     }
 
-        public void setPath (OSMPathWrapper path){
-        this.path = path;
+    public void setRouteWeight(double routeWeight) {
+        this.routeWeight = routeWeight;
     }
 
-        public double getDistance () {
-        return distance;
+    public double getDistanceInMeters() {
+        return distanceInMeters;
     }
 
-        public void setDistance ( double distance){
-        this.distance = distance;
+    public void setDistanceInMeters(double distanceInMeters) {
+        this.distanceInMeters = distanceInMeters;
     }
+//        public OSMPathWrapper getPath () {
+//        return path;
+//    }
+//
+//        public void setPath (OSMPathWrapper path){
+//        this.path = path;
+//    }
+//
+//        public double getDistance () {
+//        return distance;
+//    }
+//
+//        public void setDistance ( double distance){
+//        this.distance = distance;
+//    }
 
         public long getTimeInMs () {
         return timeInMs;
@@ -53,22 +69,22 @@ public class NavResponse {
         this.instructionList = instructionList;
     }
 
-    public NavResponse(String encoded_polyline, double distance, long timeInMs, List<
+    public NavResponse(String encoded_polyline, double distanceInMeters, long timeInMs, List<
         Instruction > instructionList){
         this.encoded_polyline = encoded_polyline;
-        this.distance = distance;
+        this.distanceInMeters = distanceInMeters;
         this.timeInMs = timeInMs;
         this.instructionList = instructionList;
     }
 
-    public NavResponse(String encoded_polyline, OSMPathWrapper path, double distance,
-        long timeInMs, List<Instruction > instructionList){
-        this.encoded_polyline = encoded_polyline;
-        this.path = path;
-        this.distance = distance;
-        this.timeInMs = timeInMs;
-        this.instructionList = instructionList;
-    }
+//    public NavResponse(String encoded_polyline, double distanceInMeters,
+//        long timeInMs, List<Instruction > instructionList){
+//        this.encoded_polyline = encoded_polyline;
+////        this.path = path;
+//        this.distanceInMeters = distanceInMeters;
+//        this.timeInMs = timeInMs;
+//        this.instructionList = instructionList;
+//    }
 
     public NavResponse() {
         super();
@@ -77,7 +93,7 @@ public class NavResponse {
 
         @Override
         public String toString () {
-        return "NavigationResponse [encoded_polyline=" + encoded_polyline + ", distance=" + distance + ", timeInMs="
+        return "NavigationResponse [encoded_polyline=" + encoded_polyline + ", distance=" + distanceInMeters + ", timeInMs="
                 + timeInMs + ", instructionList=" + instructionList + "]";
     }
     }

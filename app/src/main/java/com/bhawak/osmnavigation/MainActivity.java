@@ -35,6 +35,7 @@ import com.mapbox.mapboxsdk.Mapbox;
 import com.mapbox.mapboxsdk.annotations.Marker;
 import com.mapbox.mapboxsdk.camera.CameraPosition;
 import com.mapbox.mapboxsdk.camera.CameraUpdateFactory;
+import com.mapbox.mapboxsdk.constants.Style;
 import com.mapbox.mapboxsdk.exceptions.InvalidLatLngBoundsException;
 import com.mapbox.mapboxsdk.geometry.LatLng;
 import com.mapbox.mapboxsdk.geometry.LatLngBounds;
@@ -284,6 +285,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         this.mapboxMap = mapboxMap;
         initLocationEngine();
         initLocationLayer();
+//        mapboxMap.setStyleUrl("http://178.128.59.143:8080/api/v2/styles/a1e37ae99cdb4f29910cdf27a51a0282.json"
 
         mapboxMap.setStyleUrl("http://178.128.59.143:8080/api/v2/styles/a1e37ae99cdb4f29910cdf27a51a0282.json", new MapboxMap.OnStyleLoadedListener() {
             @Override
@@ -435,11 +437,11 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 if (response.body() == null) {
                     Log.e(TAG, "No routes found, make sure you set the right user and access token.");
                     return;
-                } else if (response.body().getInstructionList() != null && response.body().getInstructionList().size() == 0 && !response.body().getPath().hasErrors()) {
+                } else if (response.body().getInstructionList() != null && response.body().getInstructionList().size() == 0) {
                     Log.e(TAG, "No routes found");
                     return;
                 }
-                Timber.wtf("Anno: " + String.valueOf(response.body().getPath().getInstructions().get(0).getAnnotation()));
+//                Timber.wtf("Anno: " + String.valueOf(response.body().getPath().getInstructions().get(0).getAnnotation()));
                 encodedPolyline = response.body().getEncoded_polyline();
                 initRouteCoordinates();
 
