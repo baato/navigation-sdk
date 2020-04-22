@@ -126,7 +126,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
         httpClient.connectTimeout(100, TimeUnit.SECONDS);
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.1.101:8080")
+                .baseUrl("http://178.128.59.143:8080")
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(httpClient.build())
                 .build();
@@ -427,7 +427,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         points[0] = origin.latitude() + "," + origin.longitude();
 //        points[0] = "27.713042695157757,85.2703857421875";
         points[1] = destination.latitude() + "," + destination.longitude();
-        Call<NavResponse> call = getApiInterface().getRoutes(points, "car", false);
+        Call<NavResponse> call = getApiInterface().getNavigationRoute("token.1NsVYoB2lSogxPMlthmHPM9jxtNccGbnkajFd7x5dgjI", points, "car", false, true);
         call.enqueue(new Callback<NavResponse>() {
             @Override
             public void onResponse(Call<NavResponse> call, Response<NavResponse> response) {
@@ -439,29 +439,30 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                     Log.e(TAG, "No routes found");
                     return;
                 }
-                Timber.wtf("Anno: " + String.valueOf(response.body().getPath().getInstructions().get(0).getAnnotation()));
+//                Timber.wtf("Anno: " + String.valueOf(response.body().getPath().getInstructions().get(0).getAnnotation()));
+
                 encodedPolyline = response.body().getEncoded_polyline();
                 initRouteCoordinates();
 
                 ObjectNode obj = NavigateResponseConverter.convertFromGHResponse(response.body(), Locale.ENGLISH, new DistanceConfig(DistanceUtils.Unit.METRIC, translationMap, navigateResponseConverterTranslationMap, Locale.ENGLISH));
-//                Timber.d( "MapObj" + obj);
-//                Log.d(TAG, "onResponse: " + response.body().toString());
-//                Timber.d(response.body().toString());
-                DirectionsResponse directionsResponse = DirectionsResponse.fromJson(obj.toString());
-
-                currentRoute = directionsResponse.routes().get(0);
-//                try {
-//                    currentRoute = DirectionsResponse.fromJson(returnFromRaw()).routes().get(0);
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
-                Timber.d("On direction:" + obj);
-                navMapRoute(currentRoute);
-//                boundCameraToRoute();
-//                Log.wtf("My route",String.valueOf(directionsRoute));
-
-//                Timber.d(String.valueOf(obj));
-//                addLine("simplifiedLine", Feature.fromGeometry(LineString.fromLngLats(PolylineUtils.simplify(points, 0.001))), "#3bb2d0");
+////                Timber.d( "MapObj" + obj);
+////                Log.d(TAG, "onResponse: " + response.body().toString());
+////                Timber.d(response.body().toString());
+//                DirectionsResponse directionsResponse = DirectionsResponse.fromJson(obj.toString());
+//
+//                currentRoute = directionsResponse.routes().get(0);
+////                try {
+////                    currentRoute = DirectionsResponse.fromJson(returnFromRaw()).routes().get(0);
+////                } catch (IOException e) {
+////                    e.printStackTrace();
+////                }
+//                Timber.d("On direction:" + obj);
+//                navMapRoute(currentRoute);
+////                boundCameraToRoute();
+////                Log.wtf("My route",String.valueOf(directionsRoute));
+//
+////                Timber.d(String.valueOf(obj));
+////                addLine("simplifiedLine", Feature.fromGeometry(LineString.fromLngLats(PolylineUtils.simplify(points, 0.001))), "#3bb2d0");
             }
 
             @Override

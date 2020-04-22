@@ -1,33 +1,33 @@
 -- Merging decision tree log ---
 manifest
-ADDED from /Users/bhawak/Desktop/KLL/OSMNavigation/libandroid-navigation-ui/src/main/AndroidManifest.xml:1:1-10:12
-INJECTED from /Users/bhawak/Desktop/KLL/OSMNavigation/libandroid-navigation-ui/src/main/AndroidManifest.xml:1:1-10:12
-INJECTED from /Users/bhawak/Desktop/KLL/OSMNavigation/libandroid-navigation-ui/src/main/AndroidManifest.xml:1:1-10:12
+ADDED from /home/samyoga/baato-navigation/libandroid-navigation-ui/src/main/AndroidManifest.xml:1:1-10:12
+INJECTED from /home/samyoga/baato-navigation/libandroid-navigation-ui/src/main/AndroidManifest.xml:1:1-10:12
+INJECTED from /home/samyoga/baato-navigation/libandroid-navigation-ui/src/main/AndroidManifest.xml:1:1-10:12
 	package
-		ADDED from /Users/bhawak/Desktop/KLL/OSMNavigation/libandroid-navigation-ui/src/main/AndroidManifest.xml:2:5-59
-		INJECTED from /Users/bhawak/Desktop/KLL/OSMNavigation/libandroid-navigation-ui/src/main/AndroidManifest.xml
-		INJECTED from /Users/bhawak/Desktop/KLL/OSMNavigation/libandroid-navigation-ui/src/main/AndroidManifest.xml
+		ADDED from /home/samyoga/baato-navigation/libandroid-navigation-ui/src/main/AndroidManifest.xml:2:5-59
+		INJECTED from /home/samyoga/baato-navigation/libandroid-navigation-ui/src/main/AndroidManifest.xml
+		INJECTED from /home/samyoga/baato-navigation/libandroid-navigation-ui/src/main/AndroidManifest.xml
 	xmlns:android
-		ADDED from /Users/bhawak/Desktop/KLL/OSMNavigation/libandroid-navigation-ui/src/main/AndroidManifest.xml:3:5-63
+		ADDED from /home/samyoga/baato-navigation/libandroid-navigation-ui/src/main/AndroidManifest.xml:3:5-63
 application
-ADDED from /Users/bhawak/Desktop/KLL/OSMNavigation/libandroid-navigation-ui/src/main/AndroidManifest.xml:5:3-8:17
+ADDED from /home/samyoga/baato-navigation/libandroid-navigation-ui/src/main/AndroidManifest.xml:5:3-8:17
 activity#com.mapbox.services.android.navigation.ui.v5.MapboxNavigationActivity
-ADDED from /Users/bhawak/Desktop/KLL/OSMNavigation/libandroid-navigation-ui/src/main/AndroidManifest.xml:6:5-7:47
+ADDED from /home/samyoga/baato-navigation/libandroid-navigation-ui/src/main/AndroidManifest.xml:6:5-7:47
 	android:screenOrientation
-		ADDED from /Users/bhawak/Desktop/KLL/OSMNavigation/libandroid-navigation-ui/src/main/AndroidManifest.xml:7:9-45
+		ADDED from /home/samyoga/baato-navigation/libandroid-navigation-ui/src/main/AndroidManifest.xml:7:9-45
 	android:name
-		ADDED from /Users/bhawak/Desktop/KLL/OSMNavigation/libandroid-navigation-ui/src/main/AndroidManifest.xml:6:15-55
+		ADDED from /home/samyoga/baato-navigation/libandroid-navigation-ui/src/main/AndroidManifest.xml:6:15-55
 uses-sdk
-INJECTED from /Users/bhawak/Desktop/KLL/OSMNavigation/libandroid-navigation-ui/src/main/AndroidManifest.xml reason: use-sdk injection requested
-INJECTED from /Users/bhawak/Desktop/KLL/OSMNavigation/libandroid-navigation-ui/src/main/AndroidManifest.xml
-INJECTED from /Users/bhawak/Desktop/KLL/OSMNavigation/libandroid-navigation-ui/src/main/AndroidManifest.xml
-INJECTED from /Users/bhawak/Desktop/KLL/OSMNavigation/libandroid-navigation-ui/src/main/AndroidManifest.xml
-INJECTED from /Users/bhawak/Desktop/KLL/OSMNavigation/libandroid-navigation-ui/src/main/AndroidManifest.xml
+INJECTED from /home/samyoga/baato-navigation/libandroid-navigation-ui/src/main/AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from /home/samyoga/baato-navigation/libandroid-navigation-ui/src/main/AndroidManifest.xml
+INJECTED from /home/samyoga/baato-navigation/libandroid-navigation-ui/src/main/AndroidManifest.xml
+INJECTED from /home/samyoga/baato-navigation/libandroid-navigation-ui/src/main/AndroidManifest.xml
+INJECTED from /home/samyoga/baato-navigation/libandroid-navigation-ui/src/main/AndroidManifest.xml
 	android:targetSdkVersion
-		INJECTED from /Users/bhawak/Desktop/KLL/OSMNavigation/libandroid-navigation-ui/src/main/AndroidManifest.xml
-		ADDED from /Users/bhawak/Desktop/KLL/OSMNavigation/libandroid-navigation-ui/src/main/AndroidManifest.xml
-		INJECTED from /Users/bhawak/Desktop/KLL/OSMNavigation/libandroid-navigation-ui/src/main/AndroidManifest.xml
+		INJECTED from /home/samyoga/baato-navigation/libandroid-navigation-ui/src/main/AndroidManifest.xml
+		ADDED from /home/samyoga/baato-navigation/libandroid-navigation-ui/src/main/AndroidManifest.xml
+		INJECTED from /home/samyoga/baato-navigation/libandroid-navigation-ui/src/main/AndroidManifest.xml
 	android:minSdkVersion
-		INJECTED from /Users/bhawak/Desktop/KLL/OSMNavigation/libandroid-navigation-ui/src/main/AndroidManifest.xml
-		ADDED from /Users/bhawak/Desktop/KLL/OSMNavigation/libandroid-navigation-ui/src/main/AndroidManifest.xml
-		INJECTED from /Users/bhawak/Desktop/KLL/OSMNavigation/libandroid-navigation-ui/src/main/AndroidManifest.xml
+		INJECTED from /home/samyoga/baato-navigation/libandroid-navigation-ui/src/main/AndroidManifest.xml
+		ADDED from /home/samyoga/baato-navigation/libandroid-navigation-ui/src/main/AndroidManifest.xml
+		INJECTED from /home/samyoga/baato-navigation/libandroid-navigation-ui/src/main/AndroidManifest.xml
