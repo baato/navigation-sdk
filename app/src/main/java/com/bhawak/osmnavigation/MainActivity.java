@@ -35,6 +35,7 @@ import com.mapbox.mapboxsdk.Mapbox;
 import com.mapbox.mapboxsdk.annotations.Marker;
 import com.mapbox.mapboxsdk.camera.CameraPosition;
 import com.mapbox.mapboxsdk.camera.CameraUpdateFactory;
+import com.mapbox.mapboxsdk.constants.Style;
 import com.mapbox.mapboxsdk.exceptions.InvalidLatLngBoundsException;
 import com.mapbox.mapboxsdk.geometry.LatLng;
 import com.mapbox.mapboxsdk.geometry.LatLngBounds;
@@ -143,7 +144,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             permissionsManager.requestLocationPermissions(this);
         }
         // Mapbox Access token
-        Mapbox.getInstance(getApplicationContext(), "pk.xxx");
+        Mapbox.getInstance(getApplicationContext(), "pk.eyJ1IjoiYmhhd2FrIiwiYSI6ImNqdXJ1d3dkNzBmODIzeW42OGxsYzM2ZmMifQ.pw4f4jlgom6wSzovGQIT7w");
 //        "pk.xxx"
 //        getString(R.string.mapbox_access_token);
 //        Mapbox.getInstance(getApplicationContext(),null);
@@ -401,7 +402,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         button.setEnabled(true);
         button.setBackgroundResource(R.color.mapbox_blue);
         Point originPoint = Point.fromLngLat(85.3407169, 27.7244709);
-        getRoute(originPoint, destinationPoint);
+//        getRoute(originPoint, destinationPoint);
 //        if (locationEngine.getLastLocation() != null) {
 //          Point originPoint = Point.fromLngLat(locationEngine.getLastLocation().getLongitude(),
 //                    locationEngine.getLastLocation().getLatitude());
@@ -431,38 +432,38 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         call.enqueue(new Callback<NavResponse>() {
             @Override
             public void onResponse(Call<NavResponse> call, Response<NavResponse> response) {
-                Log.d("request::", String.valueOf(call.request()));
+//                Log.d("request::", String.valueOf(call.request()));
+//                Log.d(TAG, "onResponse: " + String.valueOf(call.request()));
                 if (response.body() == null) {
                     Log.e(TAG, "No routes found, make sure you set the right user and access token.");
                     return;
-                } else if (response.body().getInstructionList() != null && response.body().getInstructionList().size() == 0 && !response.body().getPath().hasErrors()) {
+                } else if (response.body().getInstructionList() != null && response.body().getInstructionList().size() == 0) {
                     Log.e(TAG, "No routes found");
                     return;
                 }
 //                Timber.wtf("Anno: " + String.valueOf(response.body().getPath().getInstructions().get(0).getAnnotation()));
-
                 encodedPolyline = response.body().getEncoded_polyline();
                 initRouteCoordinates();
 
                 ObjectNode obj = NavigateResponseConverter.convertFromGHResponse(response.body(), Locale.ENGLISH, new DistanceConfig(DistanceUtils.Unit.METRIC, translationMap, navigateResponseConverterTranslationMap, Locale.ENGLISH));
-////                Timber.d( "MapObj" + obj);
-////                Log.d(TAG, "onResponse: " + response.body().toString());
-////                Timber.d(response.body().toString());
-//                DirectionsResponse directionsResponse = DirectionsResponse.fromJson(obj.toString());
-//
-//                currentRoute = directionsResponse.routes().get(0);
-////                try {
-////                    currentRoute = DirectionsResponse.fromJson(returnFromRaw()).routes().get(0);
-////                } catch (IOException e) {
-////                    e.printStackTrace();
-////                }
-//                Timber.d("On direction:" + obj);
-//                navMapRoute(currentRoute);
-////                boundCameraToRoute();
-////                Log.wtf("My route",String.valueOf(directionsRoute));
-//
-////                Timber.d(String.valueOf(obj));
-////                addLine("simplifiedLine", Feature.fromGeometry(LineString.fromLngLats(PolylineUtils.simplify(points, 0.001))), "#3bb2d0");
+//                Timber.d( "MapObj" + obj);
+//                Log.d(TAG, "onResponse: " + response.body().toString());
+//                Timber.d(response.body().toString());
+                DirectionsResponse directionsResponse = DirectionsResponse.fromJson(obj.toString());
+
+                currentRoute = directionsResponse.routes().get(0);
+//                try {
+//                    currentRoute = DirectionsResponse.fromJson(returnFromRaw()).routes().get(0);
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+                Timber.d("On direction:" + obj);
+                navMapRoute(currentRoute);
+//                boundCameraToRoute();
+//                Log.wtf("My route",String.valueOf(directionsRoute));
+
+//                Timber.d(String.valueOf(obj));
+//                addLine("simplifiedLine", Feature.fromGeometry(LineString.fromLngLats(PolylineUtils.simplify(points, 0.001))), "#3bb2d0");
             }
 
             @Override

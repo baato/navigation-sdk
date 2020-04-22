@@ -120,11 +120,12 @@ public class ComponentNavigationActivity extends AppCompatActivity implements On
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
     // For styling the InstructionView
     setTheme(R.style.CustomInstructionView);
-    super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_component_navigation);
-//    ButterKnife.bind(this);
+    Mapbox.getInstance(getApplicationContext(), "pk.xxx");
+    ButterKnife.bind(this);
     mapView.onCreate(savedInstanceState);
 
     // Will call onMapReady
@@ -466,11 +467,11 @@ public class ComponentNavigationActivity extends AppCompatActivity implements On
         if (response.body() == null) {
 //          Log.e(TAG, "No routes found, make sure you set the right user and access token.");
           return;
-        } else if (response.body().getInstructionList() != null && response.body().getInstructionList().size() == 0 && !response.body().getPath().hasErrors()) {
+        } else if (response.body().getInstructionList() != null && response.body().getInstructionList().size() == 0 ) {
 //          Log.e(TAG, "No routes found");
           return;
         }
-        Timber.wtf("Anno: " + String.valueOf(response.body().getPath().getInstructions().get(0).getAnnotation()));
+//        Timber.wtf("Anno: " + String.valueOf(response.body().getPath().getInstructions().get(0).getAnnotation()));
 //        encodedPolyline = response.body().getEncoded_polyline();
 //        initRouteCoordinates();
         TranslationMap translationMap = null;
