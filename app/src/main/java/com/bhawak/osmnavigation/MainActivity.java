@@ -402,7 +402,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         button.setEnabled(true);
         button.setBackgroundResource(R.color.mapbox_blue);
         Point originPoint = Point.fromLngLat(85.3407169, 27.7244709);
-//        getRoute(originPoint, destinationPoint);
+        getRoute(originPoint, destinationPoint);
 //        if (locationEngine.getLastLocation() != null) {
 //          Point originPoint = Point.fromLngLat(locationEngine.getLastLocation().getLongitude(),
 //                    locationEngine.getLastLocation().getLatitude());
@@ -428,24 +428,26 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         points[0] = origin.latitude() + "," + origin.longitude();
 //        points[0] = "27.713042695157757,85.2703857421875";
         points[1] = destination.latitude() + "," + destination.longitude();
-        Call<NavResponse> call = getApiInterface().getNavigationRoute("token.1NsVYoB2lSogxPMlthmHPM9jxtNccGbnkajFd7x5dgjI", points, "car", false, true);
-        call.enqueue(new Callback<NavResponse>() {
+        Call<NavAPIResponse> call = getApiInterface().getNavigationRoute("token.1NsVYoB2lSogxPMlthmHPM9jxtNccGbnkajFd7x5dgjI", points, "car", false, true);
+        call.enqueue(new Callback<NavAPIResponse>() {
             @Override
-            public void onResponse(Call<NavResponse> call, Response<NavResponse> response) {
+            public void onResponse(Call<NavAPIResponse> call, Response<NavAPIResponse> response) {
 //                Log.d("request::", String.valueOf(call.request()));
 //                Log.d(TAG, "onResponse: " + String.valueOf(call.request()));
                 if (response.body() == null) {
                     Log.e(TAG, "No routes found, make sure you set the right user and access token.");
                     return;
-                } else if (response.body().getInstructionList() != null && response.body().getInstructionList().size() == 0) {
+                } else if (response.body().data.get(0).getInstructionList() != null && response.body().data.get(0).getInstructionList().size() == 0) {
                     Log.e(TAG, "No routes found");
                     return;
                 }
+                NavResponse navResponse = response.body().data.get(0);
+                encodedPolyline = navResponse.getEncoded_polyline();
 //                Timber.wtf("Anno: " + String.valueOf(response.body().getPath().getInstructions().get(0).getAnnotation()));
-                encodedPolyline = response.body().getEncoded_polyline();
+//                encodedPolyline = response.body().getEncoded_polyline();
                 initRouteCoordinates();
 
-                ObjectNode obj = NavigateResponseConverter.convertFromGHResponse(response.body(), Locale.ENGLISH, new DistanceConfig(DistanceUtils.Unit.METRIC, translationMap, navigateResponseConverterTranslationMap, Locale.ENGLISH));
+                ObjectNode obj = NavigateResponseConverter.convertFromGHResponse(navResponse, Locale.ENGLISH, new DistanceConfig(DistanceUtils.Unit.METRIC, translationMap, navigateResponseConverterTranslationMap, Locale.ENGLISH));
 //                Timber.d( "MapObj" + obj);
 //                Log.d(TAG, "onResponse: " + response.body().toString());
 //                Timber.d(response.body().toString());
@@ -467,7 +469,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             }
 
             @Override
-            public void onFailure(Call<NavResponse> call, Throwable t) {
+            public void onFailure(Call<NavAPIResponse> call, Throwable t) {
                 Log.d(TAG, "onFailure: " + t);
                 Log.d(TAG, "Request:" + call.request());
             }

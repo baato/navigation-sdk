@@ -1,0 +1,37 @@
+-- Merging decision tree log ---
+manifest
+ADDED from /home/samyoga/baato-navigation/libandroid-navigation/src/main/AndroidManifest.xml:1:1-11:12
+INJECTED from /home/samyoga/baato-navigation/libandroid-navigation/src/main/AndroidManifest.xml:1:1-11:12
+INJECTED from /home/samyoga/baato-navigation/libandroid-navigation/src/main/AndroidManifest.xml:1:1-11:12
+	package
+		ADDED from /home/samyoga/baato-navigation/libandroid-navigation/src/main/AndroidManifest.xml:3:5-53
+		INJECTED from /home/samyoga/baato-navigation/libandroid-navigation/src/main/AndroidManifest.xml
+		INJECTED from /home/samyoga/baato-navigation/libandroid-navigation/src/main/AndroidManifest.xml
+	xmlns:tools
+		ADDED from /home/samyoga/baato-navigation/libandroid-navigation/src/main/AndroidManifest.xml:2:5-51
+	xmlns:android
+		ADDED from /home/samyoga/baato-navigation/libandroid-navigation/src/main/AndroidManifest.xml:1:11-69
+application
+ADDED from /home/samyoga/baato-navigation/libandroid-navigation/src/main/AndroidManifest.xml:5:5-9:19
+service#com.mapbox.services.android.navigation.v5.navigation.NavigationService
+ADDED from /home/samyoga/baato-navigation/libandroid-navigation/src/main/AndroidManifest.xml:6:9-105
+	android:name
+		ADDED from /home/samyoga/baato-navigation/libandroid-navigation/src/main/AndroidManifest.xml:6:18-103
+service#com.mapbox.services.android.telemetry.service.TelemetryService
+ADDED from /home/samyoga/baato-navigation/libandroid-navigation/src/main/AndroidManifest.xml:8:9-97
+	android:name
+		ADDED from /home/samyoga/baato-navigation/libandroid-navigation/src/main/AndroidManifest.xml:8:18-95
+uses-sdk
+INJECTED from /home/samyoga/baato-navigation/libandroid-navigation/src/main/AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from /home/samyoga/baato-navigation/libandroid-navigation/src/main/AndroidManifest.xml
+INJECTED from /home/samyoga/baato-navigation/libandroid-navigation/src/main/AndroidManifest.xml
+INJECTED from /home/samyoga/baato-navigation/libandroid-navigation/src/main/AndroidManifest.xml
+INJECTED from /home/samyoga/baato-navigation/libandroid-navigation/src/main/AndroidManifest.xml
+	android:targetSdkVersion
+		INJECTED from /home/samyoga/baato-navigation/libandroid-navigation/src/main/AndroidManifest.xml
+		ADDED from /home/samyoga/baato-navigation/libandroid-navigation/src/main/AndroidManifest.xml
+		INJECTED from /home/samyoga/baato-navigation/libandroid-navigation/src/main/AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from /home/samyoga/baato-navigation/libandroid-navigation/src/main/AndroidManifest.xml
+		ADDED from /home/samyoga/baato-navigation/libandroid-navigation/src/main/AndroidManifest.xml
+		INJECTED from /home/samyoga/baato-navigation/libandroid-navigation/src/main/AndroidManifest.xml
