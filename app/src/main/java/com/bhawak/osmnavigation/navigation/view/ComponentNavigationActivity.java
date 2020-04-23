@@ -45,9 +45,11 @@ import com.mapbox.mapboxsdk.maps.MapView;
 import com.mapbox.mapboxsdk.maps.MapboxMap;
 import com.mapbox.mapboxsdk.maps.OnMapReadyCallback;
 
+import com.mapbox.services.android.navigation.ui.v5.FeedbackButton;
 import com.mapbox.services.android.navigation.ui.v5.camera.DynamicCamera;
 import com.mapbox.services.android.navigation.ui.v5.instruction.InstructionView;
 import com.mapbox.services.android.navigation.ui.v5.map.NavigationMapboxMap;
+import com.mapbox.services.android.navigation.ui.v5.summary.SummaryBottomSheet;
 import com.mapbox.services.android.navigation.ui.v5.voice.NavigationSpeechPlayer;
 import com.mapbox.services.android.navigation.ui.v5.voice.SpeechAnnouncement;
 import com.mapbox.services.android.navigation.ui.v5.voice.SpeechPlayerProvider;
@@ -98,8 +100,14 @@ public class ComponentNavigationActivity extends AppCompatActivity implements On
   @BindView(R.id.instructionView)
   InstructionView instructionView;
 
+//  @BindView(R.id.feedbackFab)
+//  FloatingActionButton feedbackFab;
+
   @BindView(R.id.startNavigationFab)
   FloatingActionButton startNavigationFab;
+
+  @BindView(R.id.summaryBottomSheet)
+  SummaryBottomSheet summaryBottomSheet;
 
   @BindView(R.id.cancelNavigationFab)
   FloatingActionButton cancelNavigationFab;
@@ -112,6 +120,7 @@ public class ComponentNavigationActivity extends AppCompatActivity implements On
   private DirectionsRoute route;
   private Point destination;
   private MapState mapState;
+
 
   private enum MapState {
     INFO,
@@ -134,6 +143,15 @@ public class ComponentNavigationActivity extends AppCompatActivity implements On
 
   @Override
   public void onMapReady(MapboxMap mapboxMap) {
+//    mapboxMap.setStyleUrl("http://178.128.59.143:8080/api/v2/styles/a1e37ae99cdb4f29910cdf27a51a0282.json", new MapboxMap.OnStyleLoadedListener() {
+//      @Override
+//      public void onStyleLoaded(@NonNull String style) {
+    mapboxMap.setStyleUrl("http://178.128.59.143:8080/api/v2/styles/a1e37ae99cdb4f29910cdf27a51a0282.json");
+        mapboxMap.setCameraPosition(new CameraPosition.Builder()
+                .target(new LatLng(27.7172, 85.3240))
+        .zoom(12)
+        .build());
+//        }});
     mapState = MapState.INFO;
     navigationMap = new NavigationMapboxMap(mapView, mapboxMap);
 
@@ -164,10 +182,10 @@ public class ComponentNavigationActivity extends AppCompatActivity implements On
 
     // Update camera to new destination
     moveCameraToInclude(destination);
-    vibrate();
+//    vibrate();
   }
 
-//  @OnClick(R.id.startNavigationFab)
+  @OnClick(R.id.startNavigationFab)
   public void onStartNavigationClick(FloatingActionButton floatingActionButton) {
     // Transition to navigation state
     mapState = MapState.NAVIGATION;
@@ -178,16 +196,18 @@ public class ComponentNavigationActivity extends AppCompatActivity implements On
     // Show the InstructionView
     TransitionManager.beginDelayedTransition(navigationLayout);
     instructionView.setVisibility(View.VISIBLE);
+    summaryBottomSheet.setVisibility(View.VISIBLE);
+//    feedbackFab.setVisibility(View.GONE);
 
     // Start navigation
     adjustMapPaddingForNavigation();
+//    mapView.findViewById(R.id.feedbackFab).setVisibility(View.GONE);
     navigation.startNavigation(route);
-
     // Location updates will be received from ProgressChangeListener
     removeLocationEngineListener();
   }
 
-//  @OnClick(R.id.cancelNavigationFab)
+  @OnClick(R.id.cancelNavigationFab)
   public void onCancelNavigationClick(FloatingActionButton floatingActionButton) {
     // Transition to info state
     mapState = MapState.INFO;
@@ -197,6 +217,7 @@ public class ComponentNavigationActivity extends AppCompatActivity implements On
     // Hide the InstructionView
     TransitionManager.beginDelayedTransition(navigationLayout);
     instructionView.setVisibility(View.INVISIBLE);
+    summaryBottomSheet.setVisibility(View.INVISIBLE);
 
     // Reset map camera and pitch
     resetMapAfterNavigation();
@@ -241,6 +262,7 @@ public class ComponentNavigationActivity extends AppCompatActivity implements On
 
     // Update InstructionView data from RouteProgress
     instructionView.update(routeProgress);
+    summaryBottomSheet.update(routeProgress);
   }
 
   @Override
@@ -328,7 +350,7 @@ public class ComponentNavigationActivity extends AppCompatActivity implements On
   private void initializeLocationEngine() {
     LocationEngineProvider locationEngineProvider = new LocationEngineProvider(this);
     locationEngine = locationEngineProvider.obtainBestLocationEngineAvailable();
-    locationEngine.setPriority(LocationEnginePriority.HIGH_ACCURACY);
+    locationEngine.setPriority(LocationEnginePriority.BALANCED_POWER_ACCURACY);
     locationEngine.addLocationEngineListener(this);
     locationEngine.setFastestInterval(ONE_SECOND_INTERVAL);
     locationEngine.activate();
@@ -336,7 +358,7 @@ public class ComponentNavigationActivity extends AppCompatActivity implements On
   }
 
   private void initializeNavigation(MapboxMap mapboxMap) {
-    navigation = new MapboxNavigation(this, "pk.xx");
+    navigation = new MapboxNavigation(this, "pk.xFxx");
     navigation.setLocationEngine(locationEngine);
     navigation.setCameraEngine(new DynamicCamera(mapboxMap));
     navigation.addProgressChangeListener(this);
@@ -522,4 +544,5 @@ public class ComponentNavigationActivity extends AppCompatActivity implements On
       vibrator.vibrate(ONE_HUNDRED_MILLISECONDS);
     }
   }
+
 }

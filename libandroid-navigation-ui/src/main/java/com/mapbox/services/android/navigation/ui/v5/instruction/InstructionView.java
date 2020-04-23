@@ -385,6 +385,7 @@ public class InstructionView extends RelativeLayout implements FeedbackBottomShe
     rvInstructions = findViewById(R.id.rvInstructions);
     soundButton = findViewById(R.id.soundLayout);
     feedbackButton = findViewById(R.id.feedbackLayout);
+    feedbackButton.hide();
     initializeInstructionAutoSize();
   }
 

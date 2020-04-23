@@ -58,7 +58,7 @@ public class FeedbackButton extends ConstraintLayout implements NavigationButton
    */
   @Override
   public void show() {
-    setVisibility(VISIBLE);
+    setVisibility(GONE);
   }
 
   @Override

@@ -1,5 +1,7 @@
 package com.bhawak.osmnavigation.navigation;
 
+import androidx.annotation.Nullable;
+
 import com.bhawak.osmnavigation.navigation.OSMPath;
 import com.bhawak.osmnavigation.navigation.OSMPathWrapper;
 
@@ -9,7 +11,7 @@ import java.util.List;
 public class NavResponse {
         private String encoded_polyline;
 //        private OSMPathWrapper path;
-        private double routeWeight;
+        private Double routeWeight = 0.0;
         private double distanceInMeters;
         private long timeInMs;
         private List<com.graphhopper.util.Instruction> instructionList = null;
@@ -22,12 +24,16 @@ public class NavResponse {
         this.encoded_polyline = encoded_polyline;
     }
 
-    public double getRouteWeight() {
+    public Double getRouteWeight() {
         return routeWeight;
     }
 
-    public void setRouteWeight(double routeWeight) {
-        this.routeWeight = routeWeight;
+    public void setRouteWeight(Double routeWeight) {
+            if (routeWeight.isNaN()) {
+                this.routeWeight = 0.0;
+            } else {
+                this.routeWeight = routeWeight;
+            }
     }
 
     public double getDistanceInMeters() {

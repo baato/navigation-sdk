@@ -15,7 +15,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        mapbox:mapbox_styleUrl="http://178.128.59.143:8080/api/v2/styles/a1e37ae99cdb4f29910cdf27a51a0282.json"/>
+        />
 
     <com.mapbox.services.android.navigation.ui.v5.instruction.InstructionView
         android:id="@+id/instructionView"
@@ -25,6 +25,35 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
+    <com.mapbox.services.android.navigation.ui.v5.summary.SummaryBottomSheet
+        android:id="@+id/summaryBottomSheet"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:visibility="invisible"/>
+
+<!--    <com.google.android.material.floatingactionbutton.FloatingActionButton-->
+<!--        android:id="@+id/feedbackFab"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginBottom="@dimen/fab_margin_bottom"-->
+<!--        android:layout_marginEnd="16dp"-->
+<!--        android:layout_marginLeft="8dp"-->
+<!--        android:layout_marginRight="16dp"-->
+<!--        android:layout_marginStart="8dp"-->
+<!--        android:visibility="gone"-->
+<!--        android:layout_marginTop="@dimen/fab_feedback_margin_top"-->
+<!--        android:tint="?attr/navigationViewSecondary"-->
+<!--        app:backgroundTint="?attr/navigationViewPrimary"-->
+<!--        app:borderWidth="0dp"-->
+<!--        app:fabSize="mini"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        app:srcCompat="@drawable/ic_message"/>-->
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/startNavigationFab"
         android:layout_width="wrap_content"
@@ -47,6 +76,7 @@
         android:src="@drawable/ic_close"
         android:visibility="invisible"
         app:backgroundTint="@color/white"
+        app:layout_constraintBottom_toTopOf="@+id/summaryBottomSheet"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 

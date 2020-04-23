@@ -188,7 +188,8 @@ public class NavigateResponseConverter {
         }
         ObjectNode routeObject =
         pathJson.put("weight_name", "routability");
-        double weight = ghResponse.getTimeInMs()/100;
+
+        double weight = ghResponse.getRouteWeight();
         pathJson.put("weight", Helper.round(weight, 1));
         pathJson.put("duration", convertToSeconds(ghResponse.getTimeInMs()));
         pathJson.put("distance", Helper.round(ghResponse.getDistanceInMeters(), 1));
