@@ -45,6 +45,8 @@ import com.mapbox.mapboxsdk.maps.MapView;
 import com.mapbox.mapboxsdk.maps.MapboxMap;
 import com.mapbox.mapboxsdk.maps.OnMapReadyCallback;
 
+import com.mapbox.mapboxsdk.plugins.locationlayer.LocationLayerPlugin;
+import com.mapbox.mapboxsdk.plugins.locationlayer.modes.RenderMode;
 import com.mapbox.services.android.navigation.ui.v5.FeedbackButton;
 import com.mapbox.services.android.navigation.ui.v5.camera.DynamicCamera;
 import com.mapbox.services.android.navigation.ui.v5.instruction.InstructionView;
@@ -53,10 +55,12 @@ import com.mapbox.services.android.navigation.ui.v5.summary.SummaryBottomSheet;
 import com.mapbox.services.android.navigation.ui.v5.voice.NavigationSpeechPlayer;
 import com.mapbox.services.android.navigation.ui.v5.voice.SpeechAnnouncement;
 import com.mapbox.services.android.navigation.ui.v5.voice.SpeechPlayerProvider;
+import com.mapbox.services.android.navigation.v5.location.replay.ReplayRouteLocationEngine;
 import com.mapbox.services.android.navigation.v5.milestone.Milestone;
 import com.mapbox.services.android.navigation.v5.milestone.MilestoneEventListener;
 import com.mapbox.services.android.navigation.v5.milestone.VoiceInstructionMilestone;
 import com.mapbox.services.android.navigation.v5.navigation.MapboxNavigation;
+import com.mapbox.services.android.navigation.v5.navigation.NavigationEventListener;
 import com.mapbox.services.android.navigation.v5.navigation.NavigationRoute;
 import com.mapbox.services.android.navigation.v5.offroute.OffRouteListener;
 import com.mapbox.services.android.navigation.v5.routeprogress.ProgressChangeListener;
@@ -113,6 +117,7 @@ public class ComponentNavigationActivity extends AppCompatActivity implements On
   FloatingActionButton cancelNavigationFab;
 
   private LocationEngine locationEngine;
+  private LocationLayerPlugin locationLayerPlugin;
   private MapboxNavigation navigation;
   private NavigationSpeechPlayer speechPlayer;
   private NavigationMapboxMap navigationMap;
@@ -120,6 +125,16 @@ public class ComponentNavigationActivity extends AppCompatActivity implements On
   private DirectionsRoute route;
   private Point destination;
   private MapState mapState;
+  private MapboxMap mapboxMap;
+
+//  @Override
+//  public void onRunning(boolean running) {
+//    if (running) {
+//      Timber.d("onRunning: Started");
+//    } else {
+//      Timber.d("onRunning: Stopped");
+//    }
+//  }
 
 
   private enum MapState {
@@ -143,26 +158,28 @@ public class ComponentNavigationActivity extends AppCompatActivity implements On
 
   @Override
   public void onMapReady(MapboxMap mapboxMap) {
-//    mapboxMap.setStyleUrl("http://178.128.59.143:8080/api/v2/styles/a1e37ae99cdb4f29910cdf27a51a0282.json", new MapboxMap.OnStyleLoadedListener() {
-//      @Override
-//      public void onStyleLoaded(@NonNull String style) {
-    mapboxMap.setStyleUrl("http://178.128.59.143:8080/api/v2/styles/a1e37ae99cdb4f29910cdf27a51a0282.json");
+    this.mapboxMap = mapboxMap;
+    mapboxMap.setStyleUrl("http://178.128.59.143:8080/api/v2/styles/a1e37ae99cdb4f29910cdf27a51a0282.json", new MapboxMap.OnStyleLoadedListener() {
+      @Override
+      public void onStyleLoaded(@NonNull String style) {
+//    mapboxMap.setStyleUrl("http://178.128.59.143:8080/api/v2/styles/a1e37ae99cdb4f29910cdf27a51a0282.json");
         mapboxMap.setCameraPosition(new CameraPosition.Builder()
                 .target(new LatLng(27.7172, 85.3240))
-        .zoom(12)
-        .build());
-//        }});
-    mapState = MapState.INFO;
-    navigationMap = new NavigationMapboxMap(mapView, mapboxMap);
+                .zoom(12)
+                .build());
+        mapState = MapState.INFO;
+        navigationMap = new NavigationMapboxMap(mapView, mapboxMap);
+        // For voice instructions
+        initializeSpeechPlayer();
 
-    // For voice instructions
-    initializeSpeechPlayer();
+        // For Location updates
+        initializeLocationEngine();
 
-    // For Location updates
-    initializeLocationEngine();
+        // For navigation logic / processing
+        initializeNavigation(mapboxMap);
+      }
+    });
 
-    // For navigation logic / processing
-    initializeNavigation(mapboxMap);
   }
 
   @Override
@@ -201,6 +218,17 @@ public class ComponentNavigationActivity extends AppCompatActivity implements On
 
     // Start navigation
     adjustMapPaddingForNavigation();
+
+    //Replay
+    // Attach all of our navigation listeners.
+//    locationEngine = new ReplayRouteLocationEngine();
+//    navigation.addNavigationEventListener(this);
+//    navigation.addProgressChangeListener(this);
+//    navigation.addMilestoneEventListener(this);
+//    navigation.addOffRouteListener(this);
+//    ((ReplayRouteLocationEngine) locationEngine).assign(route);
+//    navigation.setLocationEngine(locationEngine);
+//    locationLayerPlugin.setLocationLayerEnabled(true);
 //    mapView.findViewById(R.id.feedbackFab).setVisibility(View.GONE);
     navigation.startNavigation(route);
     // Location updates will be received from ProgressChangeListener
@@ -341,8 +369,8 @@ public class ComponentNavigationActivity extends AppCompatActivity implements On
 
   private void initializeSpeechPlayer() {
     String english = Locale.US.getLanguage();
-//    String accessToken = Mapbox.getAccessToken();
-      String accessToken = "pk.xxx";
+    String accessToken = Mapbox.getAccessToken();
+//      String accessToken = "pk.xxx";
     SpeechPlayerProvider speechPlayerProvider = new SpeechPlayerProvider(getApplication(), english, true, accessToken);
     speechPlayer = new NavigationSpeechPlayer(speechPlayerProvider);
   }
@@ -358,13 +386,17 @@ public class ComponentNavigationActivity extends AppCompatActivity implements On
   }
 
   private void initializeNavigation(MapboxMap mapboxMap) {
-    navigation = new MapboxNavigation(this, "pk.xFxx");
+    navigation = new MapboxNavigation(this, "pk.xxx");
     navigation.setLocationEngine(locationEngine);
     navigation.setCameraEngine(new DynamicCamera(mapboxMap));
     navigation.addProgressChangeListener(this);
     navigation.addMilestoneEventListener(this);
     navigation.addOffRouteListener(this);
     navigationMap.addProgressChangeListener(navigation);
+
+    //    locationLayerPlugin = new LocationLayerPlugin(mapView, mapboxMap);
+    locationLayerPlugin.setRenderMode(RenderMode.GPS);
+    locationLayerPlugin.setLocationLayerEnabled(false);
   }
 
   private void showSnackbar(String text, int duration) {

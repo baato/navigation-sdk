@@ -34,7 +34,7 @@ import com.graphhopper.util.Instruction;
 import com.graphhopper.util.PointList;
 import com.graphhopper.util.RoundaboutInstruction;
 import com.graphhopper.util.TranslationMap;
-import com.mapbox.api.directions.v5.models.StepIntersection;
+//import com.mapbox.api.directions.v5.models.StepIntersection;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -322,7 +322,7 @@ public class NavigateResponseConverter {
     }
     private static double returnIntersections(Instruction instruction){
         ObjectNode jsonObj = JsonNodeFactory.instance.objectNode();
-        List<StepIntersection> stepIntersections = new ArrayList<>();
+//        List<StepIntersection> stepIntersections = new ArrayList<>();
         ArrayNode intersection = jsonObj.putArray("intersections");
         ObjectNode intersections = intersection.addObject();
         MapObj mapObj = computeInterval(instruction);

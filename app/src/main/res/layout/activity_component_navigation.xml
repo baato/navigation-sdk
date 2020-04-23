@@ -21,10 +21,11 @@
         android:id="@+id/instructionView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingBottom="100dp"
         android:visibility="invisible"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/summaryBottomSheet"/>
     <com.mapbox.services.android.navigation.ui.v5.summary.SummaryBottomSheet
         android:id="@+id/summaryBottomSheet"
         android:layout_width="match_parent"
