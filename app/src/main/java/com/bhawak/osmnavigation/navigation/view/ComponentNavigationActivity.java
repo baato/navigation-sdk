@@ -378,7 +378,7 @@ public class ComponentNavigationActivity extends AppCompatActivity implements On
   private void initializeLocationEngine() {
     LocationEngineProvider locationEngineProvider = new LocationEngineProvider(this);
     locationEngine = locationEngineProvider.obtainBestLocationEngineAvailable();
-    locationEngine.setPriority(LocationEnginePriority.BALANCED_POWER_ACCURACY);
+    locationEngine.setPriority(LocationEnginePriority.LOW_POWER);
     locationEngine.addLocationEngineListener(this);
     locationEngine.setFastestInterval(ONE_SECOND_INTERVAL);
     locationEngine.activate();
