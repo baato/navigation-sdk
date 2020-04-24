@@ -50,8 +50,6 @@ If you are using MapBox as your map service, our library only supports the **ver
 
 ### Prerequisites
 
-#### If your targetVersion includes Android 9 and above, -- Yo Chaidaina
-
  Add the following permission to the Manifest file in your Android project
 ```
 <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
@@ -63,7 +61,7 @@ If you are using MapBox as your map service, our library only supports the **ver
 #### You have to add location permission and location change listner for the location update
 
 1. Implement the PermissionsListener, since navigation to work you need to give the runtime location permission
-
+```
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
                                            @NonNull int[] grantResults) {
@@ -81,16 +79,16 @@ If you are using MapBox as your map service, our library only supports the **ver
            //do something
         }
     }
-    
+```    
 2. Use permission manager to check if location permission is granted
-
+```
        permissionsManager = new PermissionsManager(context);
         if (!PermissionsManager.areLocationPermissionsGranted(context)) {
             permissionsManager.requestLocationPermissions(context);
         }
-        
+```        
 3. Implement the LocationEngineListener for location updates when map is ready
-
+```
      //Initialize the location engine
      LocationEngineProvider locationEngineProvider = new LocationEngineProvider(context);
     locationEngine = locationEngineProvider.obtainBestLocationEngineAvailable();
@@ -106,12 +104,13 @@ If you are using MapBox as your map service, our library only supports the **ver
     
     //activate
     locationEngine.activate();
-    
+```    
 4. Deactivate location engine on destroy method to prevent the memory leak
-    if (locationEngine != null) {
+```   
+   if (locationEngine != null) {
       locationEngine.removeLocationEngineListener(context);
     }
-
+```
 #### Request a route
 
 You can reuest a route using BaatoNavigationRoute. Follow the implementation details from [Baato-Java Client](https://github.com/baato/java-client). 
@@ -137,7 +136,7 @@ NavigationLauncherOptions options = NavigationLauncherOptions.builder()
 NavigationLauncher.startNavigation(YourActivity.this, options);
 ```
 
-//For customizing the navigation you can refeer the App; which have different use case scenarios
+For customizing the navigation you can refeer the App; which have different use case scenarios
 
 ## Built With
 
