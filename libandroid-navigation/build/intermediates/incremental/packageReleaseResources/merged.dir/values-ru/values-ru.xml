@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="numberOfDays">
+        <item quantity="one">день</item>
+        <item quantity="few">дня</item>
+        <item quantity="many">дней</item>
+        <item quantity="other">дней</item>
+    </plurals>
+    <string name="channel_name">Оповещения навигации</string>
+    <string name="end_navigation">Завершить</string>
+    <string name="eta_format">Ожидаемое прибытие %s</string>
+    <string name="feet">футов</string>
+    <string name="hr">ч.</string>
+    <string name="kilometers">км</string>
+    <string name="meters">м</string>
+    <string name="miles">миль</string>
+    <string name="min">мин.</string>
+    <string name="notification_arrival_time_format">Время прибытия %s</string>
+</resources>

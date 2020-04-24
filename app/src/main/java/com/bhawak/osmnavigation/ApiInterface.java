@@ -13,6 +13,9 @@ public interface ApiInterface {
     @GET("/api/v1/routes")
     Call<NavResponse> getRoutes(@Query("points") String[] points, @Query("mode") String mode, @Query("alternatives") Boolean alternatives);
 
+    @GET("/api/v2/directions")
+    Call<NavAPIResponse> getNavigationRoute(@Query("key") String key, @Query("points[]") String[] points, @Query("mode") String mode, @Query("alternatives") Boolean alternatives, @Query("instructions") Boolean instructions);
+
     @GET("/api/v1/ghroutes")
     Call<GHResponse> getGHRoutes(@Query("points") String[] points, @Query("mode") String mode, @Query("alternatives") Boolean alternatives);
 

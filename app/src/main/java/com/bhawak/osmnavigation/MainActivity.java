@@ -127,7 +127,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
         httpClient.connectTimeout(100, TimeUnit.SECONDS);
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.1.101:8080")
+                .baseUrl("http://178.128.59.143:8080")
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(httpClient.build())
                 .build();
@@ -144,7 +144,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             permissionsManager.requestLocationPermissions(this);
         }
         // Mapbox Access token
-        Mapbox.getInstance(getApplicationContext(), "pk.xxx");
+        Mapbox.getInstance(getApplicationContext(), "pk.eyJ1IjoiYmhhd2FrIiwiYSI6ImNqdXJ1d3dkNzBmODIzeW42OGxsYzM2ZmMifQ.pw4f4jlgom6wSzovGQIT7w");
 //        "pk.xxx"
 //        getString(R.string.mapbox_access_token);
 //        Mapbox.getInstance(getApplicationContext(),null);
@@ -285,7 +285,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         this.mapboxMap = mapboxMap;
         initLocationEngine();
         initLocationLayer();
-//        mapboxMap.setStyleUrl("http://178.128.59.143:8080/api/v2/styles/a1e37ae99cdb4f29910cdf27a51a0282.json"
 
         mapboxMap.setStyleUrl("http://178.128.59.143:8080/api/v2/styles/a1e37ae99cdb4f29910cdf27a51a0282.json", new MapboxMap.OnStyleLoadedListener() {
             @Override
@@ -429,23 +428,26 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         points[0] = origin.latitude() + "," + origin.longitude();
 //        points[0] = "27.713042695157757,85.2703857421875";
         points[1] = destination.latitude() + "," + destination.longitude();
-        Call<NavResponse> call = getApiInterface().getRoutes(points, "car", false);
-        call.enqueue(new Callback<NavResponse>() {
+        Call<NavAPIResponse> call = getApiInterface().getNavigationRoute("token.1NsVYoB2lSogxPMlthmHPM9jxtNccGbnkajFd7x5dgjI", points, "car", false, true);
+        call.enqueue(new Callback<NavAPIResponse>() {
             @Override
-            public void onResponse(Call<NavResponse> call, Response<NavResponse> response) {
-                Log.d("request::", String.valueOf(call.request()));
+            public void onResponse(Call<NavAPIResponse> call, Response<NavAPIResponse> response) {
+//                Log.d("request::", String.valueOf(call.request()));
+//                Log.d(TAG, "onResponse: " + String.valueOf(call.request()));
                 if (response.body() == null) {
                     Log.e(TAG, "No routes found, make sure you set the right user and access token.");
                     return;
-                } else if (response.body().getInstructionList() != null && response.body().getInstructionList().size() == 0) {
+                } else if (response.body().data.get(0).getInstructionList() != null && response.body().data.get(0).getInstructionList().size() == 0) {
                     Log.e(TAG, "No routes found");
                     return;
                 }
+                NavResponse navResponse = response.body().data.get(0);
+                encodedPolyline = navResponse.getEncoded_polyline();
 //                Timber.wtf("Anno: " + String.valueOf(response.body().getPath().getInstructions().get(0).getAnnotation()));
-                encodedPolyline = response.body().getEncoded_polyline();
+//                encodedPolyline = response.body().getEncoded_polyline();
                 initRouteCoordinates();
 
-                ObjectNode obj = NavigateResponseConverter.convertFromGHResponse(response.body(), Locale.ENGLISH, new DistanceConfig(DistanceUtils.Unit.METRIC, translationMap, navigateResponseConverterTranslationMap, Locale.ENGLISH));
+                ObjectNode obj = NavigateResponseConverter.convertFromGHResponse(navResponse, Locale.ENGLISH, new DistanceConfig(DistanceUtils.Unit.METRIC, translationMap, navigateResponseConverterTranslationMap, Locale.ENGLISH));
 //                Timber.d( "MapObj" + obj);
 //                Log.d(TAG, "onResponse: " + response.body().toString());
 //                Timber.d(response.body().toString());
@@ -467,7 +469,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             }
 
             @Override
-            public void onFailure(Call<NavResponse> call, Throwable t) {
+            public void onFailure(Call<NavAPIResponse> call, Throwable t) {
                 Log.d(TAG, "onFailure: " + t);
                 Log.d(TAG, "Request:" + call.request());
             }

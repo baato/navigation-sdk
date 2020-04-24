@@ -9,7 +9,7 @@ import com.graphhopper.util.Instruction;
 import java.util.List;
 
 public class NavResponse {
-        private String encoded_polyline;
+        private String encodedPolyline;
 //        private OSMPathWrapper path;
         private Double routeWeight = 0.0;
         private double distanceInMeters;
@@ -17,11 +17,11 @@ public class NavResponse {
         private List<com.graphhopper.util.Instruction> instructionList = null;
 
         public String getEncoded_polyline () {
-        return encoded_polyline;
+        return encodedPolyline;
     }
 
         public void setEncoded_polyline (String encoded_polyline){
-        this.encoded_polyline = encoded_polyline;
+        this.encodedPolyline = encoded_polyline;
     }
 
     public Double getRouteWeight() {
@@ -77,7 +77,7 @@ public class NavResponse {
 
     public NavResponse(String encoded_polyline, double distanceInMeters, long timeInMs, List<
         Instruction > instructionList){
-        this.encoded_polyline = encoded_polyline;
+        this.encodedPolyline = encoded_polyline;
         this.distanceInMeters = distanceInMeters;
         this.timeInMs = timeInMs;
         this.instructionList = instructionList;
@@ -99,7 +99,7 @@ public class NavResponse {
 
         @Override
         public String toString () {
-        return "NavigationResponse [encoded_polyline=" + encoded_polyline + ", distance=" + distanceInMeters + ", timeInMs="
+        return "NavigationResponse [encoded_polyline=" + encodedPolyline + ", distance=" + distanceInMeters + ", timeInMs="
                 + timeInMs + ", instructionList=" + instructionList + "]";
     }
     }
