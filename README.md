@@ -50,14 +50,67 @@ If you are using MapBox as your map service, our library only supports the **ver
 
 ### Prerequisites
 
-#### If your targetVersion includes Android 9 and above,
+#### If your targetVersion includes Android 9 and above, -- Yo Chaidaina
 
  Add the following permission to the Manifest file in your Android project
 ```
 <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
 ```
 
 ### Implementation
+
+#### You have to add location permission and location change listner for the location update
+
+1. Implement the PermissionsListener, since navigation to work you need to give the runtime location permission
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
+        permissionsManager.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
+    
+    @Override
+    public void onExplanationNeeded(List<String> permissionsToExplain) {
+               //do something so the user see the required permission
+    }
+    
+    @Override
+    public void onPermissionResult(boolean granted) {
+        if (!granted) {
+           //do something
+        }
+    }
+    
+2. Use permission manager to check if location permission is granted
+
+       permissionsManager = new PermissionsManager(context);
+        if (!PermissionsManager.areLocationPermissionsGranted(context)) {
+            permissionsManager.requestLocationPermissions(context);
+        }
+        
+3. Implement the LocationEngineListener for location updates when map is ready
+
+     //Initialize the location engine
+     LocationEngineProvider locationEngineProvider = new LocationEngineProvider(context);
+    locationEngine = locationEngineProvider.obtainBestLocationEngineAvailable();
+    
+    //Set locationEnginePriority
+    locationEngine.setPriority(LocationEnginePriority.LOW_POWER);
+    
+    //Add listner
+    locationEngine.addLocationEngineListener(context);
+    
+    //Location update interval
+    locationEngine.setFastestInterval(ONE_SECOND_INTERVAL);
+    
+    //activate
+    locationEngine.activate();
+    
+4. Deactivate location engine on destroy method to prevent the memory leak
+    if (locationEngine != null) {
+      locationEngine.removeLocationEngineListener(context);
+    }
 
 #### Request a route
 
@@ -69,6 +122,7 @@ Once you receive the route from the baato java-client, you are ready to use Navi
 You can launch the UI using Navigation launcher from within your activity using current route ( [Request a route](#request-a-route) )
 
 ```
+
 //Route fetched from BaatoNavigationRoute
 DirectionsRoute currentRoute = ...
 
@@ -82,6 +136,8 @@ NavigationLauncherOptions options = NavigationLauncherOptions.builder()
 //Call this method from within your activity passing the context
 NavigationLauncher.startNavigation(YourActivity.this, options);
 ```
+
+//For customizing the navigation you can refeer the App; which have different use case scenarios
 
 ## Built With
 
