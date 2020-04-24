@@ -52,11 +52,15 @@ If you are using MapBox as your map service, our library only supports the **ver
 
 #### If your targetVersion includes Android 9 and above,
 
-1. Add the following permission to the Manifest file in your Android project
+ Add the following permission to the Manifest file in your Android project
 ```
 <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 ```
 
+### Implementation
+
+#### Request a route
+You can create a route using BaatoNavigationRoute. Follow the implementation details from [Baato-Java Client](https://github.com/baato/java-client). 
 
 ## Built With
 
