@@ -57,7 +57,7 @@ public final class NavigationBato {
                     Log.e(TAG, "No routes found");
                     return;
                 }
-                ObjectNode obj = NavigateResponseConverter.convertFromGHResponse(response.body());
+                ObjectNode obj = NavigateResponseConverter.convertFromGHResponse(response.body(), "car");
                 DirectionsResponse directionsResponse = DirectionsResponse.fromJson(obj.toString());
 
             }

@@ -447,7 +447,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 //                encodedPolyline = response.body().getEncoded_polyline();
                 initRouteCoordinates();
 
-                ObjectNode obj = NavigateResponseConverter.convertFromGHResponse(navResponse);
+                ObjectNode obj = NavigateResponseConverter.convertFromGHResponse(navResponse, "car");
 //                Timber.d( "MapObj" + obj);
 //                Log.d(TAG, "onResponse: " + response.body().toString());
 //                Timber.d(response.body().toString());

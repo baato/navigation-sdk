@@ -530,7 +530,7 @@ public class ComponentNavigationActivity extends AppCompatActivity implements On
 //        initRouteCoordinates();
         TranslationMap translationMap = null;
         final TranslationMap navigateResponseConverterTranslationMap = new NavigateResponseConverterTranslationMap().doImport();
-        ObjectNode obj = NavigateResponseConverter.convertFromGHResponse(response.body());
+        ObjectNode obj = NavigateResponseConverter.convertFromGHResponse(response.body(), "car");
 //                Timber.d( "MapObj" + obj);
 //                Log.d(TAG, "onResponse: " + response.body().toString());
 //                Timber.d(response.body().toString());

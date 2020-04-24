@@ -98,6 +98,7 @@ public class NavigateResponseConverter {
     private static final TranslationMap trMap = new TranslationMap().doImport();
     private static  final  TranslationMap mtrMap = new NavigateResponseConverterTranslationMap().doImport();
     private static String uuid = UUID.randomUUID().toString().replaceAll("-", "");
+    private static String mode = "driving";
     private enum Profile {
         CAR,
         BIKE,
@@ -107,7 +108,7 @@ public class NavigateResponseConverter {
     /**
      * Converts a GHResponse into a json that follows the Mapbox API specification
      */
-    public static ObjectNode convertFromGHResponse(NavResponse ghResponsee) {
+    public static ObjectNode convertFromGHResponse(NavResponse ghResponsee, String type) {
         ObjectNode json = JsonNodeFactory.instance.objectNode();
         ghResponse = ghResponsee;
 
@@ -120,6 +121,18 @@ public class NavigateResponseConverter {
 
 
         final ArrayNode routesJson = json.putArray("routes");
+        switch (type){
+            case "car":
+                mode = "driving";
+            case "foot":
+                mode = "walking";
+            case "hike":
+                mode = "walking";
+            case "bike":
+                mode = "cycling";
+            default:
+                mode = "driving";
+        }
 
 //        List<PathWrapper> paths = ghResponse.getAll();
         List<List<Double>>  waypointsg = DecodeLine.decodePolyline(ghResponse.getEncoded_polyline(), false);
@@ -201,7 +214,7 @@ public class NavigateResponseConverter {
         ObjectNode json = JsonNodeFactory.instance.objectNode();
         json.put("baseUrl", "https://api.mapbox.com");
         json.put("user", "mapbox");
-        json.put("profile", "driving");
+        json.put("profile", mode);
         ArrayNode coordinates = json.putArray("coordinates");
         getCord(coordinates);
 //        json.put("coordinates",getCord(coordinates));
