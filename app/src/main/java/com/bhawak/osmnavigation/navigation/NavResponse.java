@@ -9,19 +9,27 @@ import com.graphhopper.util.Instruction;
 import java.util.List;
 
 public class NavResponse {
-        private String encodedPolyline;
+        private String encoded_polyline;
 //        private OSMPathWrapper path;
         private Double routeWeight = 0.0;
-        private double distanceInMeters;
+        private double distanceInMs;
         private long timeInMs;
         private List<com.graphhopper.util.Instruction> instructionList = null;
 
-        public String getEncoded_polyline () {
-        return encodedPolyline;
+    public String getEncoded_polyline() {
+        return encoded_polyline;
     }
 
-        public void setEncoded_polyline (String encoded_polyline){
-        this.encodedPolyline = encoded_polyline;
+    public void setEncoded_polyline(String encoded_polyline) {
+        this.encoded_polyline = encoded_polyline;
+    }
+
+    public double getDistanceInMs() {
+        return distanceInMs;
+    }
+
+    public void setDistanceInMs(double distanceInMs) {
+        this.distanceInMs = distanceInMs;
     }
 
     public Double getRouteWeight() {
@@ -36,13 +44,6 @@ public class NavResponse {
             }
     }
 
-    public double getDistanceInMeters() {
-        return distanceInMeters;
-    }
-
-    public void setDistanceInMeters(double distanceInMeters) {
-        this.distanceInMeters = distanceInMeters;
-    }
 //        public OSMPathWrapper getPath () {
 //        return path;
 //    }
@@ -77,8 +78,8 @@ public class NavResponse {
 
     public NavResponse(String encoded_polyline, double distanceInMeters, long timeInMs, List<
         Instruction > instructionList){
-        this.encodedPolyline = encoded_polyline;
-        this.distanceInMeters = distanceInMeters;
+        this.encoded_polyline = encoded_polyline;
+        this.distanceInMs = distanceInMeters;
         this.timeInMs = timeInMs;
         this.instructionList = instructionList;
     }
@@ -99,7 +100,7 @@ public class NavResponse {
 
         @Override
         public String toString () {
-        return "NavigationResponse [encoded_polyline=" + encodedPolyline + ", distance=" + distanceInMeters + ", timeInMs="
+        return "NavigationResponse [encoded_polyline=" + encoded_polyline + ", distance=" + distanceInMs + ", timeInMs="
                 + timeInMs + ", instructionList=" + instructionList + "]";
     }
     }

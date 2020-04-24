@@ -57,7 +57,7 @@ public final class NavigationBato {
                     Log.e(TAG, "No routes found");
                     return;
                 }
-                ObjectNode obj = NavigateResponseConverter.convertFromGHResponse(response.body(), Locale.ENGLISH, new DistanceConfig(DistanceUtils.Unit.METRIC, translationMap, navigateResponseConverterTranslationMap, Locale.ENGLISH));
+                ObjectNode obj = NavigateResponseConverter.convertFromGHResponse(response.body());
                 DirectionsResponse directionsResponse = DirectionsResponse.fromJson(obj.toString());
 
             }

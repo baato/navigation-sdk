@@ -127,7 +127,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
         httpClient.connectTimeout(100, TimeUnit.SECONDS);
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://178.128.59.143:8080")
+                .baseUrl("http://192.168.1.101:8080")
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(httpClient.build())
                 .build();
@@ -447,7 +447,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 //                encodedPolyline = response.body().getEncoded_polyline();
                 initRouteCoordinates();
 
-                ObjectNode obj = NavigateResponseConverter.convertFromGHResponse(navResponse, Locale.ENGLISH, new DistanceConfig(DistanceUtils.Unit.METRIC, translationMap, navigateResponseConverterTranslationMap, Locale.ENGLISH));
+                ObjectNode obj = NavigateResponseConverter.convertFromGHResponse(navResponse);
 //                Timber.d( "MapObj" + obj);
 //                Log.d(TAG, "onResponse: " + response.body().toString());
 //                Timber.d(response.body().toString());
