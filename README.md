@@ -62,11 +62,11 @@ If you are using MapBox as your map service, our library only supports the **ver
 #### Request a route
 
 You can reuest a route using BaatoNavigationRoute. Follow the implementation details from [Baato-Java Client](https://github.com/baato/java-client). 
-Once you request a route from the baato java-client, you are ready to use Navigation UI SDK.
+Once you receive the route from the baato java-client, you are ready to use Navigation UI SDK.
 
 #### Turn by Turn navigation
 
-You can launch the UI using Navigation launcher with current route received from [Baato-Java Client](https://github.com/baato/java-client) 
+You can launch the UI using Navigation launcher from within your activity using current route ( [Request a route](#request-a-route) )
 
 ```
 //Route fetched from BaatoNavigationRoute
