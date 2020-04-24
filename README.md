@@ -60,7 +60,7 @@ If you are using MapBox as your map service, our library only supports the **ver
 
 #### Managing the location permission and location update
 
-1. Implement the PermissionsListener, since navigation to work you need to give the runtime location permission
+1. Implement the PermissionsListener, for navigation to work with better experience you need to provide the runtime location permission
 ```
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
@@ -87,7 +87,7 @@ If you are using MapBox as your map service, our library only supports the **ver
             permissionsManager.requestLocationPermissions(context);
         }
 ```        
-3. Implement the LocationEngineListener for location updates when map is ready
+3. Implement the LocationEngineListener for location updates when the map is ready
 ```
      //Initialize the location engine
      LocationEngineProvider locationEngineProvider = new LocationEngineProvider(context);
@@ -105,7 +105,7 @@ If you are using MapBox as your map service, our library only supports the **ver
     //activate
     locationEngine.activate();
 ```    
-4. Deactivate location engine on destroy method to prevent the memory leak
+4. Deactivate location engine on destroy method to prevent any memory leak
 ```   
    if (locationEngine != null) {
       locationEngine.removeLocationEngineListener(context);
@@ -136,7 +136,7 @@ NavigationLauncherOptions options = NavigationLauncherOptions.builder()
 NavigationLauncher.startNavigation(YourActivity.this, options);
 ```
 
-For customizing the navigation you can refeer the App; which have different use case scenarios
+For customizing the navigation you can refer the app; which have different use case scenarios
 
 ## Built With
 
