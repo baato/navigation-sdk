@@ -58,7 +58,7 @@ If you are using MapBox as your map service, our library only supports the **ver
 
 ### Implementation
 
-#### You have to add location permission and location change listner for the location update
+#### Managing the location permission and location update
 
 1. Implement the PermissionsListener, since navigation to work you need to give the runtime location permission
 ```
