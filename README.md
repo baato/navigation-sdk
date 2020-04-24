@@ -10,7 +10,7 @@ To help easy integration of navigation into your Android application, two SDKs a
 
 ### Getting Started
 
- 1.Open up your project's build.gradle file. Add the following code:
+ 1. Open up your project's build.gradle file. Add the following code:
 
 ```
 allprojects{
@@ -20,7 +20,7 @@ allprojects{
 }
 ```
 
-2.Open up your application's build.gradle file. Add the following code:
+2. Open up your application's build.gradle file. Add the following code:
 ```
 android {
  compileOptions {
@@ -34,8 +34,8 @@ android {
 ```
 //baato-navigation dependency
 dependencies {
-  implementation 'com.github.baato.navigation-sdk:graphhopper-navigation-android:${latest-version}'
-  implementation 'com.github.baato.navigation-sdk:graphhopper-navigation-android-ui:${latest-version}'
+  implementation 'com.github.baato.navigation-sdk:baato-navigation-android:${latest-version}'
+  implementation 'com.github.baato.navigation-sdk:baato-navigation-android-ui:${latest-version}'
 }
 ```
 
