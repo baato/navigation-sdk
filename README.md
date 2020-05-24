@@ -168,11 +168,11 @@ Like tracking user location changes, the ProgressChangeListener is invoked every
 Besides receiving information about the route progress, the callback also provides you with the user's current location, which can provide their current speed, bearing, etc. If you have the snap-to-route enabled, the location object will be updated to give the snapped coordinates.
 
 ```
-\\ Implement ProgressChangeListener and add on navigation ready
+// Implement ProgressChangeListener and add on navigation ready
 
 navigation.addProgressChangeListener(this);
 
-\\ Update the instructions on progress changed
+// Update the instructions on progress changed
 
 @Override
   public void onProgressChange(Location location, RouteProgress routeProgress) {
