@@ -272,6 +272,72 @@ Add a custom style in style.xml and add it as a theme on create of navigation ac
 setTheme(R.style.CustomInstructionView);
 ```
 
+##### Testing with the mock location activity
+
+Implement NavigationEventListner and make a NavigationOptions as
+
+```
+
+MapboxNavigationOptions options = MapboxNavigationOptions.builder()
+                .build();
+        navigation = new MapboxNavigation(this, "pk.xxx", options);
+        navigation.addMilestone(new RouteMilestone.Builder()
+                .setIdentifier(BEGIN_ROUTE_MILESTONE)
+                .setInstruction(new BeginRouteInstruction())
+                .setTrigger(
+                        Trigger.all(
+                                Trigger.lt(TriggerProperty.STEP_INDEX, 3),
+                                Trigger.gt(TriggerProperty.STEP_DISTANCE_TOTAL_METERS, 200),
+                                Trigger.gte(TriggerProperty.STEP_DISTANCE_TRAVELED_METERS, 75)
+                        )
+                ).build());
+ ```
+ 
+ Add location layer render mode and replay engine
+ 
+ ``` 
+ locationLayerPlugin.setRenderMode(RenderMode.GPS);
+                locationLayerPlugin.setLocationLayerEnabled(false);
+                navigationMapRoute = new NavigationMapRoute(navigation, mapView, mapboxMap);
+                navigationMapRoute.addRoute(route);
+                locationEngine = new ReplayRouteLocationEngine();
+ ```
+ 
+ After navigation is ready
+ 
+ ```
+  // Attach all of our navigation listeners.
+            navigation.addNavigationEventListener(this);
+            navigation.addProgressChangeListener(this);
+            navigation.addMilestoneEventListener(this);
+            navigation.addOffRouteListener(this);
+            
+  // Attach the replay engine
+  ((ReplayRouteLocationEngine) locationEngine).assign(route);
+            navigation.setLocationEngine(locationEngine);
+            locationLayerPlugin.setLocationLayerEnabled(true);
+  
+  // Start navigation
+            navigation.startNavigation(route);
+  ```
+  
+  Force update the location and instructions on progress changed
+  
+  @Override
+    public void onProgressChange(Location location, RouteProgress routeProgress) {
+
+        // Cache "snapped" Locations for re-route Directions API requests
+
+            if (location == null) {
+                location = lastLocation;
+            }
+            locationLayerPlugin.forceLocationUpdate(location);
+            moveCameraTo(location);
+            // Update InstructionView data from RouteProgress
+            instructionView.update(routeProgress);
+            summaryBottomSheet.update(routeProgress);
+    }
+
 
 For customizing the navigation you can refer the app; which have different use case scenarios
 
