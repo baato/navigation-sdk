@@ -136,6 +136,143 @@ NavigationLauncherOptions options = NavigationLauncherOptions.builder()
 NavigationLauncher.startNavigation(YourActivity.this, options);
 ```
 
+##### Customizing navigation component
+
+Include the instructionview and summary view so, that they can be customized in the navigation layout.
+```
+
+<com.mapbox.services.android.navigation.ui.v5.instruction.InstructionView
+        android:id="@+id/instructionView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="80dp"
+        android:visibility="invisible"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/summaryBottomSheet"/>
+    <com.mapbox.services.android.navigation.ui.v5.summary.SummaryBottomSheet
+        android:id="@+id/summaryBottomSheet"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:visibility="invisible"/>
+        
+ ```
+
+###### Listening to progress change
+
+Like tracking user location changes, the ProgressChangeListener is invoked every time the user's location changes and provides an updated RouteProgress object. The Baato Navigation UI SDK uses this listener by default, but if you are not using the Baato Navigation UI SDK, it is strongly encouraged that you also use this listener. The ProgressChangeListener can typically be used to refresh most of your application's user interface when a change occurs. For example, if you are displaying the user's current progress until the user needs to do the next maneuver. Every time this listener's invoked, you can update your view with the new information from RouteProgress.
+
+Besides receiving information about the route progress, the callback also provides you with the user's current location, which can provide their current speed, bearing, etc. If you have the snap-to-route enabled, the location object will be updated to give the snapped coordinates.
+
+```
+\\ Implement ProgressChangeListener and add on navigation ready
+
+navigation.addProgressChangeListener(this);
+
+\\ Update the instructions on progress changed
+
+@Override
+  public void onProgressChange(Location location, RouteProgress routeProgress) {
+    // Cache "snapped" Locations for re-route Directions API requests
+    updateLocation(location);
+
+    // Update InstructionView data from RouteProgress
+    instructionView.update(routeProgress);
+    summaryBottomSheet.update(routeProgress);
+  }
+
+```
+
+Updating the camera to the new location on progress changed.
+```
+CameraPosition cameraPosition = buildCameraPositionFrom(location, location.getBearing());
+    navigationMap.retrieveMap().animateCamera(
+      CameraUpdateFactory.newCameraPosition(cameraPosition), TWO_SECONDS_IN_MILLISECONDS
+    );
+```
+
+Add offroutelistner for offroute detection and compute route
+```
+
+@Override
+  public void userOffRoute(Location location) {
+    calculateRouteWith(destination, true);
+    // request new route with the origin as a current position
+    // origin = Point.fromLngLat(lastLocation.getLongitude(), lastLocation.getLatitude()); where last location can be obtained from locationengine
+
+@Override
+  public void onConnected() {
+    locationEngine.requestLocationUpdates();
+  }
+  
+  // handle new route
+  private void handleRoute(DirectionsResponse response, boolean isOffRoute) {
+    List<DirectionsRoute> routes = response.routes();
+    if (!routes.isEmpty()) {
+      route = routes.get(FIRST);
+      navigationMap.drawRoute(route);
+      if (isOffRoute) {
+        navigation.startNavigation(route);
+      }
+    }
+  }
+  
+```
+
+###### Customizing instruction view
+
+Add a custom style in style.xml and add it as a theme on create of navigation activity
+
+```
+<style name="CustomNavigationMapRoute" parent="NavigationMapRoute">
+        <item name="upcomingManeuverArrowBorderColor"></item>
+    </style>
+
+    <style name="CustomNavigationView" parent="NavigationViewLight">
+        <item name="navigationViewRouteStyle">@color/colorAccent</item>
+    </style>
+
+    <style name="CustomInstructionView" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="navigationViewPrimary">@color/mapbox_navigation_view_color_primary</item>
+        <item name="navigationViewSecondary">@color/mapbox_navigation_view_color_secondary</item>
+        <item name="navigationViewAccent">@color/mapbox_navigation_view_color_accent</item>
+        <item name="navigationViewPrimaryText">@color/mapbox_navigation_view_color_secondary</item>
+        <item name="navigationViewSecondaryText">@color/mapbox_navigation_view_color_accent_text</item>
+        <item name="navigationViewDivider">@color/mapbox_navigation_view_color_divider</item>
+
+        <item name="navigationViewListBackground">@color/mapbox_navigation_view_color_list_background</item>
+
+        <item name="navigationViewBannerBackground">@color/mapbox_navigation_view_color_banner_background</item>
+        <item name="navigationViewBannerPrimaryText">@color/mapbox_navigation_view_color_banner_primary_text</item>
+        <item name="navigationViewBannerSecondaryText">@color/mapbox_navigation_view_color_banner_secondary_text</item>
+        <item name="navigationViewBannerManeuverPrimary">@color/mapbox_navigation_view_color_banner_maneuver_primary</item>
+        <item name="navigationViewBannerManeuverSecondary">@color/mapbox_navigation_view_color_banner_maneuver_secondary</item>
+
+        <item name="navigationViewProgress">@color/mapbox_navigation_view_color_progress</item>
+        <item name="navigationViewProgressBackground">@color/mapbox_navigation_view_color_progress_background</item>
+
+        <item name="navigationViewRouteStyle">@style/NavigationMapRoute</item>
+
+        <item name="navigationViewLocationLayerStyle">@style/mapbox_LocationLayer</item>
+
+        <item name="navigationViewDestinationMarker">@drawable/map_marker_light</item>
+
+        <item name="navigationViewRouteOverviewDrawable">@drawable/ic_route_preview</item>
+
+        <item name="navigationViewMapStyle">@string/navigation_guidance_day</item>
+    </style>
+   
+ ```
+ Add theme to activity on create method
+ 
+```
+setTheme(R.style.CustomInstructionView);
+```
+
+
 For customizing the navigation you can refer the app; which have different use case scenarios
 
 ## Built With
