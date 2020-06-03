@@ -112,9 +112,9 @@ If you are using MapBox as your map service, our library only supports the **ver
 ```
 3. Initilization of Location service to track the user with google api client; implemented methods LocationListener, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener
 ```
-\\ Note: This is for base map activity. If you are using multiple map instances only add to the base map activity. Once location is calibrated LocationEngineListner will receive updates.
+// Note: This is for base map activity. If you are using multiple map instances only add to the base map activity. Once location is calibrated LocationEngineListner will receive updates.
 
-\\ Initilize once when permissions are grannted
+// Initilize once when permissions are grannted
  if (PermissionsManager.areLocationPermissionsGranted(context))
             getMyLocation();
 
