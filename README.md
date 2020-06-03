@@ -39,6 +39,23 @@ dependencies {
 }
 ```
 
+4. Configuration of other app level gradle
+```
+    defaultConfig {
+        multiDexEnabled true
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    
+    dependencies {
+     // location service by google, use latest stable version
+     implementation 'androidx.localbroadcastmanager:localbroadcastmanager:1.0.0'
+     implementation 'com.google.android.gms:play-services-location:17.0.0'
+    }
+```
+
 If you are using MapBox as your map service, our library only supports the **version** as mentioned below:
 ```
    //mapbox sdk
@@ -52,8 +69,14 @@ If you are using MapBox as your map service, our library only supports the **ver
 
  Add the following permission to the Manifest file in your Android project
 ```
+// For Notification
 <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+// For Location
 <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+// Since app uses baato-services add network services
+
+<uses-permission android:name="android.permission.INTERNET" />
+<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 ```
 
 ### Implementation
@@ -86,8 +109,18 @@ If you are using MapBox as your map service, our library only supports the **ver
         if (!PermissionsManager.areLocationPermissionsGranted(context)) {
             permissionsManager.requestLocationPermissions(context);
         }
-```        
-3. Implement the LocationEngineListener for location updates when the map is ready
+```
+3. Initilization of Location service to track the user with google api client; implemented methods LocationListener, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener
+```
+\\ Note: This is for base map activity. If you are using multiple map instances only add to the base map activity. Once location is calibrated LocationEngineListner will receive updates.
+
+\\ Initilize once when permissions are grannted
+ if (PermissionsManager.areLocationPermissionsGranted(context))
+            getMyLocation();
+
+```
+
+4. Implement the LocationEngineListener for location updates when the map is ready
 ```
      //Initialize the location engine
      LocationEngineProvider locationEngineProvider = new LocationEngineProvider(context);
@@ -323,6 +356,7 @@ MapboxNavigationOptions options = MapboxNavigationOptions.builder()
   
   Force update the location and instructions on progress changed
   
+  ```
   @Override
     public void onProgressChange(Location location, RouteProgress routeProgress) {
 
@@ -337,7 +371,7 @@ MapboxNavigationOptions options = MapboxNavigationOptions.builder()
             instructionView.update(routeProgress);
             summaryBottomSheet.update(routeProgress);
     }
-
+ ```
 
 For customizing the navigation you can refer the app; which have different use case scenarios
 
