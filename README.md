@@ -108,15 +108,113 @@ If you are using MapBox as your map service, our library only supports the **ver
        permissionsManager = new PermissionsManager(context);
         if (!PermissionsManager.areLocationPermissionsGranted(context)) {
             permissionsManager.requestLocationPermissions(context);
+        } else {
+        // get location and set map component accordingly
+            getMyLocation();
         }
 ```
 3. Initilization of Location service to track the user with google api client; implemented methods LocationListener, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener
 ```
 // Note: This is for base map activity. If you are using multiple map instances only add to the base map activity. Once location is calibrated LocationEngineListner will receive updates.
 
-// Initilize once when permissions are grannted
- if (PermissionsManager.areLocationPermissionsGranted(context))
+// Initilize once when permissions are granted
+ @Override
+    public void onPermissionResult(boolean granted) {
+        if (granted)
             getMyLocation();
+    }
+ 
+ //on google api client connected
+ @Override
+    public void onConnected(@Nullable Bundle bundle) {
+        getMyLocation();
+    }
+ 
+ private void getMyLocation() {
+        if (googleApiClient != null) {
+            if (googleApiClient.isConnected()) {
+                int permissionLocation = 0;
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
+                    permissionLocation = checkSelfPermission(
+                            Manifest.permission.ACCESS_FINE_LOCATION);
+                }
+                if (permissionLocation == PackageManager.PERMISSION_GRANTED) {
+                
+                    //get GPS Location
+                    mylocation = LocationServices.FusedLocationApi.getLastLocation(googleApiClient);
+                    if (mylocation != null) {
+                          // update gps
+                        locationLayer.forceLocationUpdate(mylocation);
+                    }
+                    
+                    // Initilaizing google location engine
+                    LocationRequest locationRequest = new LocationRequest();
+                    locationRequest.setInterval(3000);
+                    locationRequest.setFastestInterval(3000);
+                    locationRequest.setPriority(LocationRequest.PRIORITY_LOW_POWER);
+                    LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder()
+                            .addLocationRequest(locationRequest);
+                    builder.setAlwaysShow(true);
+                    LocationServices.FusedLocationApi
+                            .requestLocationUpdates(googleApiClient, locationRequest, (LocationListener) this);
+                    PendingResult result =
+                            LocationServices.SettingsApi
+                                    .checkLocationSettings(googleApiClient, builder.build());
+                    result.setResultCallback(result1 -> {
+                        final Status status = result1.getStatus();
+                        switch (status.getStatusCode()) {
+                            case LocationSettingsStatusCodes.RESOLUTION_REQUIRED:
+                                // Location settings are not satisfied.
+                                // But could be fixed by showing the user a dialog.
+                                try {
+                                    // Show the dialog by calling startResolutionForResult(),
+                                    status.startResolutionForResult(this,
+                                            Constants.GPS_REQUEST);
+                                } catch (IntentSender.SendIntentException e) {
+                                    // Ignore the error.
+                                }
+                                break;
+                            case LocationSettingsStatusCodes.SUCCESS:
+                                // All location settings are satisfied.
+                                // You can initialize location requests here.
+                                int permissionLocation1 = 0;
+                                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
+                                    permissionLocation1 = checkSelfPermission(
+                                            Manifest.permission.ACCESS_FINE_LOCATION);
+                                }
+                                if (permissionLocation1 == PackageManager.PERMISSION_GRANTED) {
+                                    mylocation = LocationServices.FusedLocationApi
+                                            .getLastLocation(googleApiClient);
+                                    originPoint = Point.fromLngLat(mylocation.getLongitude(),
+                                            mylocation.getLatitude());
+                                   locationLayer.forceLocationUpdate(mylocation);
+//                                    locationEngine.activate();
+                                }
+                                break;
+                            case LocationSettingsStatusCodes.SETTINGS_CHANGE_UNAVAILABLE:
+                                // Location settings are not satisfied. However, we have no way to fix the
+                                // settings so we won't show the dialog.
+                                //finish();
+                                break;
+                        }
+                    });
+                }
+            } else googleApiClient.connect();
+        } else setUpGClient();
+    }
+    
+    //setup google api client
+    
+    private synchronized void setUpGClient() {
+        googleApiClient = new GoogleApiClient.Builder(this)
+                .enableAutoManage(this, 0, this)
+                .addConnectionCallbacks(this)
+                .addOnConnectionFailedListener(this)
+                .addApi(LocationServices.API)
+                .build();
+        googleApiClient.connect();
+    }
+ 
 
 ```
 
