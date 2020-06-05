@@ -39,7 +39,7 @@ dependencies {
 }
 ```
 
-4. Configuration of other app level gradle
+4. Add other configuration in app level gradle
 ```
     defaultConfig {
         multiDexEnabled true
