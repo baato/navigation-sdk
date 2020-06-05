@@ -4,7 +4,7 @@ import android.util.Log;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-import com.graphhopper.PathWrapper;
+
 import com.graphhopper.Trip;
 import com.graphhopper.Trip.Leg;
 import com.graphhopper.util.Instruction;

@@ -93,7 +93,7 @@ public class NavigateResponseConverter {
     }
 
     private static final int VOICE_INSTRUCTION_MERGE_TRESHHOLD = 100;
-    private static NavResponse ghResponse = new NavResponse();
+    private static com.kathmandulivinglabs.baatolibrary.models.NavResponse ghResponse = new com.kathmandulivinglabs.baatolibrary.models.NavResponse();
     private static List<List<Double>> allCord = new ArrayList<>();
     private static final TranslationMap trMap = new TranslationMap().doImport();
     private static  final  TranslationMap mtrMap = new NavigateResponseConverterTranslationMap().doImport();
@@ -108,7 +108,7 @@ public class NavigateResponseConverter {
     /**
      * Converts a GHResponse into a json that follows the Mapbox API specification
      */
-    public static ObjectNode convertFromGHResponse(NavResponse ghResponsee, String type) {
+    public static ObjectNode convertFromGHResponse(com.kathmandulivinglabs.baatolibrary.models.NavResponse ghResponsee, String type) {
         ObjectNode json = JsonNodeFactory.instance.objectNode();
         ghResponse = ghResponsee;
 
@@ -206,7 +206,7 @@ public class NavigateResponseConverter {
         double weight = ghResponse.getRouteWeight();
         pathJson.put("weight", Helper.round(weight, 1));
         pathJson.put("duration", convertToSeconds(ghResponse.getTimeInMs()));
-        pathJson.put("distance", Helper.round(ghResponse.getDistanceInMs(), 1));
+        pathJson.put("distance", Helper.round(ghResponse.getDistanceInMeters(), 1));
         pathJson.put("routeOptions",getRouteOptions("pk.xxx"));
         pathJson.put("voiceLocale", "en-US");
     }

@@ -1,7 +1,7 @@
 package com.bhawak.osmnavigation;
 import com.bhawak.osmnavigation.navigation.OSMPath;
 import com.bhawak.osmnavigation.navigation.OSMPathWrapper;
-import com.graphhopper.PathWrapper;
+
 import com.graphhopper.util.Instruction;
 
 

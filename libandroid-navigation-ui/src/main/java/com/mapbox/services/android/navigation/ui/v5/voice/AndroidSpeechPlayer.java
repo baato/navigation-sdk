@@ -3,6 +3,7 @@ package com.mapbox.services.android.navigation.ui.v5.voice;
 import android.content.Context;
 import android.os.Build;
 import android.speech.tts.TextToSpeech;
+import android.speech.tts.Voice;
 import android.text.TextUtils;
 
 import java.util.HashMap;
