@@ -29,6 +29,7 @@ import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.graphhopper.GHResponse;
+import com.graphhopper.ResponsePath;
 import com.graphhopper.util.Helper;
 import com.graphhopper.util.Instruction;
 import com.graphhopper.util.PointList;
@@ -124,12 +125,16 @@ public class NavigateResponseConverter {
         switch (type){
             case "car":
                 mode = "driving";
+                break;
             case "foot":
                 mode = "walking";
+                break;
             case "hike":
                 mode = "walking";
+                break;
             case "bike":
                 mode = "cycling";
+                break;
             default:
                 mode = "driving";
         }
@@ -137,6 +142,7 @@ public class NavigateResponseConverter {
 //        List<PathWrapper> paths = ghResponse.getAll();
         List<List<Double>>  waypointsg = DecodeLine.decodePolyline(ghResponse.getEncoded_polyline(), false);
         Log.d("waypoints:", String.valueOf(waypointsg));
+//        ResponsePath responsePath = ghResponsee;
         allCord = waypointsg;
         ObjectNode pathJson = routesJson.addObject();
         for (int i = 0; i < waypointsg.size(); i++) {routePoints.add(waypointsg.get(i).get(0), waypointsg.get(i).get(1));}
@@ -212,7 +218,7 @@ public class NavigateResponseConverter {
     }
     private static ObjectNode getRouteOptions(String accessKey){
         ObjectNode json = JsonNodeFactory.instance.objectNode();
-        json.put("baseUrl", "https://api.mapbox.com");
+        json.put("baseUrl", "https://api.baato.io");
         json.put("user", "mapbox");
         json.put("profile", mode);
         ArrayNode coordinates = json.putArray("coordinates");
@@ -466,7 +472,7 @@ public class NavigateResponseConverter {
 //            return calculateBearing(allCord.get(index).get(0), allCord.get(index).get(1), allCord.get(index+1).get(0), allCord.get(index+1).get(1));
         }
     }
-    @RequiresApi(api = Build.VERSION_CODES.N)
+//    @RequiresApi(api = Build.VERSION_CODES.N)
     private static double getBearingAfter(Instruction instruction) {
 //        int index = getInstructionIndex(instruction);
         MapObj mapObj = computeInterval(instruction);
@@ -521,6 +527,7 @@ public class NavigateResponseConverter {
             if (nextInstruction.getSign() == 4){
                 turnDesc = voiceValue.turnDescription.replace("unknown instruction sign '4'", "you will arrive your destination.");
             }
+            Log.wtf("turn desc", turnDesc);
             putSingleVoiceInstruction(voiceValue.spokenDistance, turnDesc, voiceInstructions);
         }
 
@@ -538,6 +545,9 @@ public class NavigateResponseConverter {
             description = "You have arrived at your destination";
         }
         String value = getTranslatedDistance((int) distanceAlongGeometry);
+        Log.wtf("turn desc then", description);
+        description = description.replaceAll("unknown instruction sign '6'", "Continue on " + instructions.get(index).getName());
+        description = description.replaceAll("then unknown instruction sign 4", " ");
         putSingleVoiceInstruction(distanceAlongGeometry, description, voiceInstructions);
     }
     public static String getTranslatedDistance(int distance){
@@ -635,7 +645,7 @@ public class NavigateResponseConverter {
         }
         String bannerInstruction = bannerInstructionName;
         if (getTurnType(instruction, false).equals("arrive")) {
-            bannerInstruction = "you will arrive";
+            bannerInstruction = "Destination";
         } else {
             singleBannerInstruction.put("text", bannerInstruction);
         }
@@ -706,7 +716,7 @@ public class NavigateResponseConverter {
         } else {
             switch (instruction.getSign()) {
                 case Instruction.FINISH:
-                    return "arrive";
+//                    return "arrive";
                 case Instruction.REACHED_VIA:
                     return "arrive";
                 case Instruction.USE_ROUNDABOUT:
@@ -746,7 +756,7 @@ public class NavigateResponseConverter {
                 return "sharp right";
             case Instruction.USE_ROUNDABOUT:
                 // TODO: This might be an issue in left-handed traffic, because there it schould be left
-                return "right";
+                return "left";
             default:
                 return null;
         }

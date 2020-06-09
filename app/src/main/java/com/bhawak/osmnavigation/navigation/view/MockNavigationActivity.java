@@ -47,8 +47,10 @@ import com.mapbox.mapboxsdk.maps.OnMapReadyCallback;
 import com.mapbox.mapboxsdk.plugins.locationlayer.LocationLayerPlugin;
 import com.mapbox.mapboxsdk.plugins.locationlayer.modes.RenderMode;
 
+import com.mapbox.services.android.navigation.ui.v5.NavigationButton;
 import com.mapbox.services.android.navigation.ui.v5.NavigationView;
 import com.mapbox.services.android.navigation.ui.v5.NavigationViewModel;
+import com.mapbox.services.android.navigation.ui.v5.SoundButton;
 import com.mapbox.services.android.navigation.ui.v5.instruction.InstructionView;
 import com.mapbox.services.android.navigation.ui.v5.listeners.SpeechAnnouncementListener;
 import com.mapbox.services.android.navigation.ui.v5.map.NavigationMapboxMap;
@@ -132,6 +134,8 @@ public class MockNavigationActivity extends AppCompatActivity implements OnMapRe
   private Point origin;
   DirectionsResponse directionsResponse;
   private NavigationMapRoute navigationMapRoute;
+  private SoundButton soundButton;
+  private boolean isMuted = false;
 
   @Override
   public void onRunning(boolean running) {
@@ -192,12 +196,7 @@ public class MockNavigationActivity extends AppCompatActivity implements OnMapRe
             .defaultMilestonesEnabled(true)
             .build();
     navigation = new MapboxNavigation(this, "pk.xxx", options);
-//    instructionView.retrieveSoundButton().addOnClickListener(new View.OnClickListener() {
-//      @Override
-//      public void onClick(View v) {
-//        Log.d("clicked", "clicked");
-//      }
-//    });
+
     navigation.addMilestone(new RouteMilestone.Builder()
             .setIdentifier(BEGIN_ROUTE_MILESTONE)
             .setInstruction(new BeginRouteInstruction())
@@ -222,7 +221,9 @@ public class MockNavigationActivity extends AppCompatActivity implements OnMapRe
   @Override
   public void onMapReady(MapboxMap mapboxMap) {
     this.mapboxMap = mapboxMap;
-
+    //remove mapbox attribute
+    mapboxMap.getUiSettings().setAttributionEnabled(false);
+    mapboxMap.getUiSettings().setLogoEnabled(false);
     mapboxMap.setStyleUrl("http://baato.io/api/v1/styles/retro?key=" + Constants.token, new MapboxMap.OnStyleLoadedListener() {
       //        mapboxMap.setStyle(Style.MAPBOX_STREETS, new MapboxMap.OnStyleLoadedListener() {
       @Override
@@ -267,6 +268,13 @@ public class MockNavigationActivity extends AppCompatActivity implements OnMapRe
       navigation.setLocationEngine(locationEngine);
       locationLayerPlugin.setLocationLayerEnabled(true);
       navigation.startNavigation(route);
+      soundButton = instructionView.findViewById(R.id.soundLayout);
+      soundButton.addOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+          isMuted = soundButton.toggleMute();
+        }
+      });
     }
   }
 
@@ -382,12 +390,14 @@ public class MockNavigationActivity extends AppCompatActivity implements OnMapRe
   }
 
   private void playAnnouncement(Milestone milestone) {
-      Log.d("Announcement", milestone.toString());
-    if (milestone instanceof VoiceInstructionMilestone) {
-      SpeechAnnouncement announcement = SpeechAnnouncement.builder()
-              .voiceInstructionMilestone((VoiceInstructionMilestone) milestone)
-              .build();
-      speechPlayer.play(announcement);
+//      Log.d("Announcement", milestone.toString());
+    if (!isMuted) {
+      if (milestone instanceof VoiceInstructionMilestone) {
+        SpeechAnnouncement announcement = SpeechAnnouncement.builder()
+                .voiceInstructionMilestone((VoiceInstructionMilestone) milestone)
+                .build();
+        speechPlayer.play(announcement);
+      }
     }
   }
 

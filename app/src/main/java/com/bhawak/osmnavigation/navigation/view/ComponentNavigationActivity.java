@@ -1,7 +1,9 @@
 package com.bhawak.osmnavigation.navigation.view;
 
 import android.annotation.SuppressLint;
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.location.Location;
 import android.os.Build;
@@ -25,6 +27,7 @@ import com.bhawak.osmnavigation.navigation.DistanceUtils;
 import com.bhawak.osmnavigation.navigation.NavResponse;
 import com.bhawak.osmnavigation.navigation.NavigateResponseConverter;
 import com.bhawak.osmnavigation.navigation.NavigateResponseConverterTranslationMap;
+import com.bhawak.osmnavigation.navigation.view.notification.CustomNavigationNotification;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
@@ -52,25 +55,33 @@ import com.mapbox.mapboxsdk.maps.OnMapReadyCallback;
 import com.mapbox.mapboxsdk.plugins.locationlayer.LocationLayerPlugin;
 import com.mapbox.mapboxsdk.plugins.locationlayer.modes.RenderMode;
 import com.mapbox.services.android.navigation.ui.v5.FeedbackButton;
+import com.mapbox.services.android.navigation.ui.v5.SoundButton;
 import com.mapbox.services.android.navigation.ui.v5.camera.DynamicCamera;
 import com.mapbox.services.android.navigation.ui.v5.instruction.InstructionView;
+import com.mapbox.services.android.navigation.ui.v5.listeners.SpeechAnnouncementListener;
 import com.mapbox.services.android.navigation.ui.v5.map.NavigationMapboxMap;
 import com.mapbox.services.android.navigation.ui.v5.summary.SummaryBottomSheet;
 import com.mapbox.services.android.navigation.ui.v5.voice.NavigationSpeechPlayer;
 import com.mapbox.services.android.navigation.ui.v5.voice.SpeechAnnouncement;
 import com.mapbox.services.android.navigation.ui.v5.voice.SpeechPlayerProvider;
+import com.mapbox.services.android.navigation.v5.instruction.Instruction;
 import com.mapbox.services.android.navigation.v5.location.replay.ReplayRouteLocationEngine;
 import com.mapbox.services.android.navigation.v5.milestone.BannerInstructionMilestone;
 import com.mapbox.services.android.navigation.v5.milestone.Milestone;
 import com.mapbox.services.android.navigation.v5.milestone.MilestoneEventListener;
+import com.mapbox.services.android.navigation.v5.milestone.RouteMilestone;
+import com.mapbox.services.android.navigation.v5.milestone.Trigger;
+import com.mapbox.services.android.navigation.v5.milestone.TriggerProperty;
 import com.mapbox.services.android.navigation.v5.milestone.VoiceInstructionMilestone;
 import com.mapbox.services.android.navigation.v5.navigation.MapboxNavigation;
+import com.mapbox.services.android.navigation.v5.navigation.MapboxNavigationOptions;
 import com.mapbox.services.android.navigation.v5.navigation.NavigationEventListener;
 import com.mapbox.services.android.navigation.v5.navigation.NavigationRoute;
 import com.mapbox.services.android.navigation.v5.offroute.OffRouteListener;
 import com.mapbox.services.android.navigation.v5.routeprogress.ProgressChangeListener;
 import com.mapbox.services.android.navigation.v5.routeprogress.RouteProgress;
 
+import java.lang.ref.WeakReference;
 import java.util.List;
 import java.util.Locale;
 
@@ -109,9 +120,6 @@ public class ComponentNavigationActivity extends AppCompatActivity implements On
   @BindView(R.id.instructionView)
   InstructionView instructionView;
 
-//  @BindView(R.id.feedbackFab)
-//  FloatingActionButton feedbackFab;
-
   @BindView(R.id.startNavigationFab)
   FloatingActionButton startNavigationFab;
 
@@ -122,7 +130,7 @@ public class ComponentNavigationActivity extends AppCompatActivity implements On
   FloatingActionButton cancelNavigationFab;
 
   private LocationEngine locationEngine;
-  private LocationLayerPlugin locationLayerPlugin;
+//  private LocationLayerPlugin locationLayerPlugin;
   private MapboxNavigation navigation;
   private NavigationSpeechPlayer speechPlayer;
   private NavigationMapboxMap navigationMap;
@@ -133,21 +141,29 @@ public class ComponentNavigationActivity extends AppCompatActivity implements On
   private MapboxMap mapboxMap;
   private Point origin;
   DirectionsResponse directionsResponse;
+  private SoundButton soundButton;
+  private boolean isMuted = false;
+  private static final int BEGIN_ROUTE_MILESTONE = 1001;
 
-//  @Override
-//  public void onRunning(boolean running) {
-//    if (running) {
-//      Timber.d("onRunning: Started");
-//    } else {
-//      Timber.d("onRunning: Stopped");
-//    }
-//  }
 
 
   private enum MapState {
     INFO,
     NAVIGATION
   }
+//  private static class MyBroadcastReceiver extends BroadcastReceiver {
+//    private final WeakReference<MapboxNavigation> weakNavigation;
+//
+//    MyBroadcastReceiver(MapboxNavigation navigation) {
+//      this.weakNavigation = new WeakReference<>(navigation);
+//    }
+//
+//    @Override
+//    public void onReceive(Context context, Intent intent) {
+//      MapboxNavigation navigation = weakNavigation.get();
+//      navigation.stopNavigation();
+//    }
+//  }
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -158,7 +174,10 @@ public class ComponentNavigationActivity extends AppCompatActivity implements On
     Mapbox.getInstance(getApplicationContext(), "pk.xxx");
     ButterKnife.bind(this);
       Bundle extras = getIntent().getExtras();
+    mapView.onCreate(savedInstanceState);
 
+    // Will call onMapReady
+    mapView.getMapAsync(this);
       if (extras != null) {
           directionsResponse = (DirectionsResponse) extras.get("Route");
           route = directionsResponse.routes().get(0);
@@ -166,15 +185,37 @@ public class ComponentNavigationActivity extends AppCompatActivity implements On
           lastLocation = (Location) extras.get("lastLocation");
           // and get whatever type user account id is
       }
-    mapView.onCreate(savedInstanceState);
-
-    // Will call onMapReady
-    mapView.getMapAsync(this);
+//    CustomNavigationNotification customNotification = new CustomNavigationNotification(getApplicationContext());
+    MapboxNavigationOptions options = MapboxNavigationOptions.builder()
+            .defaultMilestonesEnabled(true)
+            .build();
+    navigation = new MapboxNavigation(this, "pk.xxx", options);
+//    navigation.addMilestone(new RouteMilestone.Builder()
+//            .setIdentifier(BEGIN_ROUTE_MILESTONE)
+//            .setTrigger(
+//                    Trigger.all(
+//                            Trigger.lt(TriggerProperty.STEP_INDEX, 3),
+//                            Trigger.gt(TriggerProperty.STEP_DISTANCE_TOTAL_METERS, 200),
+//                            Trigger.gte(TriggerProperty.STEP_DISTANCE_TRAVELED_METERS, 75)
+//                    )
+//            ).build());
   }
+//  private static class BeginRouteInstruction extends Instruction {
+//
+//    @Override
+//    public String buildInstruction(RouteProgress routeProgress) {
+//      return "Have a safe trip!";
+//    }
+//  }
 
   @Override
   public void onMapReady(MapboxMap mapboxMap) {
     this.mapboxMap = mapboxMap;
+    //remove mapbox attribute
+    mapboxMap.getUiSettings().setAttributionEnabled(false);
+    mapboxMap.getUiSettings().setLogoEnabled(false);
+    navigationMap = new NavigationMapboxMap(mapView, mapboxMap);
+
       mapboxMap.setStyleUrl("http://baato.io/api/v1/styles/retro?key=" + Constants.token, new MapboxMap.OnStyleLoadedListener() {
       @Override
       public void onStyleLoaded(@NonNull String style) {
@@ -190,7 +231,7 @@ public class ComponentNavigationActivity extends AppCompatActivity implements On
 //
 //            }
 //        });
-        navigationMap = new NavigationMapboxMap(mapView, mapboxMap);
+
         // For voice instructions
         initializeSpeechPlayer();
 
@@ -236,23 +277,23 @@ public class ComponentNavigationActivity extends AppCompatActivity implements On
     TransitionManager.beginDelayedTransition(navigationLayout);
     instructionView.setVisibility(View.VISIBLE);
     summaryBottomSheet.setVisibility(View.VISIBLE);
-//    feedbackFab.setVisibility(View.GONE);
 
     // Start navigation
     adjustMapPaddingForNavigation();
-
-    //Replay
-    // Attach all of our navigation listeners.
-//    locationEngine = new ReplayRouteLocationEngine();
-//    navigation.addNavigationEventListener(this);
+// Attach all of our navigation listeners.
 //    navigation.addProgressChangeListener(this);
-//    navigation.addMilestoneEventListener(this);
 //    navigation.addOffRouteListener(this);
-//    ((ReplayRouteLocationEngine) locationEngine).assign(route);
-//    navigation.setLocationEngine(locationEngine);
-//    locationLayerPlugin.setLocationLayerEnabled(true);
-//    mapView.findViewById(R.id.feedbackFab).setVisibility(View.GONE);
+//    navigation.addMilestoneEventListener(this);
+
     navigation.startNavigation(route);
+//    navigation.addMilestoneEventListener(this);
+    soundButton = instructionView.findViewById(R.id.soundLayout);
+    soundButton.addOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        isMuted = soundButton.toggleMute();
+      }
+    });
     // Location updates will be received from ProgressChangeListener
     removeLocationEngineListener();
   }
@@ -391,8 +432,8 @@ public class ComponentNavigationActivity extends AppCompatActivity implements On
 
   private void initializeSpeechPlayer() {
     String english = Locale.US.getLanguage();
-    String accessToken = Mapbox.getAccessToken();
-//      String accessToken = "pk.xxx";
+//    String accessToken = Mapbox.getAccessToken();
+      String accessToken = "pk.xxx";
     SpeechPlayerProvider speechPlayerProvider = new SpeechPlayerProvider(getApplication(), english, true, accessToken);
     speechPlayer = new NavigationSpeechPlayer(speechPlayerProvider);
   }
@@ -408,7 +449,6 @@ public class ComponentNavigationActivity extends AppCompatActivity implements On
   }
 
   private void initializeNavigation(MapboxMap mapboxMap) {
-    navigation = new MapboxNavigation(this, "pk.xxx");
     navigation.setLocationEngine(locationEngine);
     navigation.setCameraEngine(new DynamicCamera(mapboxMap));
     navigation.addProgressChangeListener(this);
@@ -416,9 +456,10 @@ public class ComponentNavigationActivity extends AppCompatActivity implements On
     navigation.addOffRouteListener(this);
     navigationMap.addProgressChangeListener(navigation);
 
+
     //    locationLayerPlugin = new LocationLayerPlugin(mapView, mapboxMap);
-    locationLayerPlugin.setRenderMode(RenderMode.GPS);
-    locationLayerPlugin.setLocationLayerEnabled(false);
+//    locationLayerPlugin.setRenderMode(RenderMode.GPS);
+//    locationLayerPlugin.setLocationLayerEnabled(false);
   }
 
   private void showSnackbar(String text, int duration) {
@@ -426,12 +467,15 @@ public class ComponentNavigationActivity extends AppCompatActivity implements On
   }
 
   private void playAnnouncement(Milestone milestone) {
-    if (milestone instanceof VoiceInstructionMilestone) {
-      SpeechAnnouncement announcement = SpeechAnnouncement.builder()
-        .voiceInstructionMilestone((VoiceInstructionMilestone) milestone)
-        .build();
-      Log.d("Announcement", announcement.toString());
-      speechPlayer.play(announcement);
+    Log.wtf("Milestone", String.valueOf(milestone));
+    if (!isMuted) {
+      if (milestone instanceof VoiceInstructionMilestone) {
+        SpeechAnnouncement announcement = SpeechAnnouncement.builder()
+                .voiceInstructionMilestone((VoiceInstructionMilestone) milestone)
+                .build();
+        Log.d("Announcement", announcement.toString());
+        speechPlayer.play(announcement);
+      }
     }
   }
 
@@ -520,45 +564,7 @@ public class ComponentNavigationActivity extends AppCompatActivity implements On
     points[0] = origin.latitude() + "," + origin.longitude();
 //        points[0] = "27.713042695157757,85.2703857421875";
     points[1] = destination.latitude() + "," + destination.longitude();
-//    Call<NavResponse> call = MainActivity.getApiInterface().getRoutes(points, "car", false);
-//    call.enqueue(new Callback<NavResponse>() {
-//      @Override
-//      public void onResponse(Call<NavResponse> call, Response<NavResponse> response) {
-//
-//        if (response.body() == null) {
-////          Log.e(TAG, "No routes found, make sure you set the right user and access token.");
-//          return;
-//        } else if (response.body().getInstructionList() != null && response.body().getInstructionList().size() == 0 ) {
-////          Log.e(TAG, "No routes found");
-//          return;
-//        }
-////        Timber.wtf("Anno: " + String.valueOf(response.body().getPath().getInstructions().get(0).getAnnotation()));
-////        encodedPolyline = response.body().getEncoded_polyline();
-////        initRouteCoordinates();
-//        TranslationMap translationMap = null;
-//        final TranslationMap navigateResponseConverterTranslationMap = new NavigateResponseConverterTranslationMap().doImport();
-//        ObjectNode obj = NavigateResponseConverter.convertFromGHResponse(response.body(), "car");
-////                Timber.d( "MapObj" + obj);
-////                Log.d(TAG, "onResponse: " + response.body().toString());
-////                Timber.d(response.body().toString());
-//        DirectionsResponse directionsResponse = DirectionsResponse.fromJson(obj.toString());
-//
-//        route = directionsResponse.routes().get(0);
-////                try {
-////                    currentRoute = DirectionsResponse.fromJson(returnFromRaw()).routes().get(0);
-////                } catch (IOException e) {
-////                    e.printStackTrace();
-////                }
-//          handleRoute(directionsResponse, isOffRoute);
-////        navMapRoute(currentRoute);
-//
-//      }
-//
-//      @Override
-//      public void onFailure(Call<NavResponse> call, Throwable t) {
-//
-//      }
-//    });
+
     new BaatoRouting(this)
             .setPoints(points)
             .setAccessToken(Constants.token)

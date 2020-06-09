@@ -224,10 +224,11 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 //            Toast.makeText(this, "You didn't grant location permissions.",
 //                    Toast.LENGTH_LONG).show();
 //        } else {
-        if (granted)
+        if (granted) {
             Toast.makeText(this, "Please wait ...",
                     Toast.LENGTH_LONG).show();
             getMyLocation();
+        }
 //        }//        initLocationLayer();
     }
 
@@ -328,6 +329,9 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     @Override
     public void onMapReady(MapboxMap mapboxMap) {
         this.mapboxMap = mapboxMap;
+        //remove mapbox attribute
+        mapboxMap.getUiSettings().setAttributionEnabled(false);
+        mapboxMap.getUiSettings().setLogoEnabled(false);
 
         initLocationEngine();
         initLocationLayer();
@@ -485,9 +489,11 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                                 if (permissionLocation1 == PackageManager.PERMISSION_GRANTED) {
                                     mylocation = LocationServices.FusedLocationApi
                                             .getLastLocation(googleApiClient);
-                                    originPoint = Point.fromLngLat(mylocation.getLongitude(),
-                                            mylocation.getLatitude());
-                                   locationLayer.forceLocationUpdate(mylocation);
+                                    if (mylocation != null) {
+                                        originPoint = Point.fromLngLat(mylocation.getLongitude(),
+                                                mylocation.getLatitude());
+                                        locationLayer.forceLocationUpdate(mylocation);
+                                    }
 //                                    locationEngine.activate();
                                 }
 
@@ -590,6 +596,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 .withListener(new BaatoRouting.BaatoRoutingRequestListener() {
                     @Override
                     public void onSuccess(DirectionsAPIResponse directionResponse) {
+//                        Log.wtf("Graph:", String.valueOf(directionResponse));
                         com.kathmandulivinglabs.baatolibrary.models.NavResponse navResponse = directionResponse.getData().get(0);
                         double distanceInKm = navResponse.getDistanceInMeters() / 1000;
                         long time = navResponse.getTimeInMs() / 1000;
@@ -597,7 +604,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                         encodedPolyline = navResponse.getEncoded_polyline();
                         initRouteCoordinates();
                         directionsResponse = DirectionsResponse.fromJson(String.valueOf(parsedNavigationResponse));
-                        Log.wtf("ghResponse:",String.valueOf(parsedNavigationResponse));
+//                        Log.wtf("ghResponse:",String.valueOf(parsedNavigationResponse));
                         currentRoute = directionsResponse.routes().get(0);
                     }
 
