@@ -36,6 +36,7 @@ allprojects {
         google()
         mavenCentral()
         jcenter()
+        maven { url 'https://jitpack.io' }
         maven { url 'https://mapbox.bintray.com/mapbox' }
         maven { url 'https://plugins.gradle.org/m2' }
         maven { url "https://oss.sonatype.org/content/repositories/snapshots" }

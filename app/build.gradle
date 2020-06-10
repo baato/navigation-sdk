@@ -36,7 +36,7 @@ dependencies {
     implementation project(':libandroid-navigation-ui')
     implementation 'androidx.appcompat:appcompat:1.2.0-alpha02'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
-
+    implementation 'com.github.baato:java-client:1.0.6'
 
     implementation 'com.google.android.material:material:1.1.0'
     testImplementation 'junit:junit:4.12'
@@ -51,7 +51,7 @@ dependencies {
     implementation 'androidx.localbroadcastmanager:localbroadcastmanager:1.0.0'
 //    implementation 'com.mapbox.mapboxsdk:mapbox-android-plugin-locationlayer:0.11.0'
 
-    implementation(group: 'com.graphhopper', name: 'graphhopper-core', version: '1.0-SNAPSHOT') {
+    implementation(group: 'com.graphhopper', name: 'graphhopper-core', version: '2.0-SNAPSHOT') {
         exclude group: 'com.google.protobuf', module: 'protobuf-java'
         exclude group: 'org.openstreetmap.osmosis', module: 'osmosis-osm-binary'
         exclude group: 'org.apache.xmlgraphics', module: 'xmlgraphics-commons'
@@ -61,6 +61,10 @@ dependencies {
     implementation 'com.jakewharton:butterknife:10.2.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.1'
     implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.0.1'
+
+    //for location
+    implementation 'com.google.android.gms:play-services-location:17.0.0'
+
 
     // AutoValues
     annotationProcessor dependenciesList.autoValue

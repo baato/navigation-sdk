@@ -30,6 +30,8 @@ public interface NavigationNotification {
    */
   int getNotificationId();
 
+  String getNotificationChannelId();
+
   /**
    * If enabled, this method will be called every time a
    * new {@link RouteProgress} is generated.

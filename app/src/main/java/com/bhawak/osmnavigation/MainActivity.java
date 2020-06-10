@@ -1,12 +1,18 @@
 package com.bhawak.osmnavigation;
 
+import android.Manifest;
+import android.content.Intent;
+import android.content.IntentSender;
+import android.content.pm.PackageManager;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.location.Location;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -18,8 +24,24 @@ import com.bhawak.osmnavigation.navigation.DistanceUtils;
 import com.bhawak.osmnavigation.navigation.NavResponse;
 import com.bhawak.osmnavigation.navigation.NavigateResponseConverter;
 import com.bhawak.osmnavigation.navigation.NavigateResponseConverterTranslationMap;
+import com.bhawak.osmnavigation.navigation.view.ComponentNavigationActivity;
+import com.bhawak.osmnavigation.navigation.view.Constants;
+import com.bhawak.osmnavigation.navigation.view.MockNavigationActivity;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.PendingResult;
+import com.google.android.gms.common.api.Status;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationListener;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.location.LocationSettingsRequest;
+import com.google.android.gms.location.LocationSettingsStatusCodes;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.graphhopper.util.TranslationMap;
+import com.kathmandulivinglabs.baatolibrary.models.DirectionsAPIResponse;
+import com.kathmandulivinglabs.baatolibrary.services.BaatoRouting;
 import com.mapbox.android.core.location.LocationEngine;
 import com.mapbox.android.core.location.LocationEngineListener;
 import com.mapbox.android.core.location.LocationEngineProvider;
@@ -57,6 +79,7 @@ import com.mapbox.services.android.navigation.ui.v5.NavigationLauncherOptions;
 import com.mapbox.services.android.navigation.ui.v5.OnNavigationReadyCallback;
 import com.mapbox.services.android.navigation.ui.v5.route.NavigationMapRoute;
 import com.mapbox.services.android.navigation.ui.v5.route.OnRouteSelectionChangeListener;
+import com.mapbox.services.android.navigation.v5.navigation.NavigationRoute;
 import com.mapbox.services.android.navigation.v5.utils.LocaleUtils;
 
 import java.io.BufferedReader;
@@ -82,6 +105,7 @@ import timber.log.Timber;
 
 import static com.mapbox.android.core.location.LocationEnginePriority.BALANCED_POWER_ACCURACY;
 
+import static com.mapbox.android.core.location.LocationEnginePriority.HIGH_ACCURACY;
 import static com.mapbox.mapboxsdk.style.layers.PropertyFactory.iconAllowOverlap;
 import static com.mapbox.mapboxsdk.style.layers.PropertyFactory.iconIgnorePlacement;
 import static com.mapbox.mapboxsdk.style.layers.PropertyFactory.iconImage;
@@ -90,13 +114,14 @@ import static com.mapbox.mapboxsdk.style.layers.PropertyFactory.lineWidth;
 import static com.mapbox.mapboxsdk.style.layers.PropertyFactory.visibility;
 
 public class MainActivity extends AppCompatActivity implements OnMapReadyCallback,
-        MapboxMap.OnMapClickListener, LocationEngineListener, OnRouteSelectionChangeListener, PermissionsListener, OnNavigationReadyCallback {
+        MapboxMap.OnMapClickListener, LocationListener, PermissionsListener, GoogleApiClient.ConnectionCallbacks,
+        GoogleApiClient.OnConnectionFailedListener {
     private static final int CAMERA_ANIMATION_DURATION = 1000;
     private static final int DEFAULT_CAMERA_ZOOM = 16;
     private static final int CHANGE_SETTING_REQUEST_CODE = 1;
 
     private LocationLayerPlugin locationLayer;
-    private LocationEngine locationEngine;
+//    private LocationEngine locationEngine;
     private MapboxMap mapboxMap;
     private NavigateResponseConverter navigateResponseConverter;
     private MapView mapView;
@@ -118,16 +143,20 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     private boolean locationFound;
     private static final String TAG = "DirectionsActivity";
     private NavigationMapRoute navigationMapRoute;
-
+    private Point originPoint = null;
+    private DirectionsResponse directionsResponse = null;
+    private GoogleApiClient googleApiClient;
+    private FusedLocationProviderClient fusedLocationClient;
     public NavigateResponseConverter getNavigateResponseConverter() {
         return navigateResponseConverter;
     }
+    private Location mylocation;
 
     public static ApiInterface getApiInterface() {
         OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
         httpClient.connectTimeout(100, TimeUnit.SECONDS);
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://178.128.59.143:8080")
+                .baseUrl("http://192.168.1.101:8080")
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(httpClient.build())
                 .build();
@@ -139,10 +168,11 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // Check for location permission
-        permissionsManager = new PermissionsManager(this);
-        if (!PermissionsManager.areLocationPermissionsGranted(this)) {
-            permissionsManager.requestLocationPermissions(this);
-        }
+//        permissionsManager = new PermissionsManager(this);
+//        if (!PermissionsManager.areLocationPermissionsGranted(this)) {
+//            permissionsManager.requestLocationPermissions(this);
+//        }
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         // Mapbox Access token
         Mapbox.getInstance(getApplicationContext(), "pk.eyJ1IjoiYmhhd2FrIiwiYSI6ImNqdXJ1d3dkNzBmODIzeW42OGxsYzM2ZmMifQ.pw4f4jlgom6wSzovGQIT7w");
 //        "pk.xxx"
@@ -167,25 +197,39 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 Toast.LENGTH_LONG).show();
     }
     private void initLocationEngine() {
-        locationEngine = new LocationEngineProvider(this).obtainBestLocationEngineAvailable();
-        locationEngine.setPriority(BALANCED_POWER_ACCURACY);
-        locationEngine.setInterval(0);
-        locationEngine.setFastestInterval(1000);
-        locationEngine.addLocationEngineListener(this);
-        locationEngine.activate();
-
-        if (locationEngine.getLastLocation() != null) {
-            Location lastLocation = locationEngine.getLastLocation();
-            onLocationChanged(lastLocation);
-            currentLocation = Point.fromLngLat(lastLocation.getLongitude(), lastLocation.getLatitude());
+        if (PermissionsManager.areLocationPermissionsGranted(this)) {
+            getMyLocation();
+//            locationEngine = new LocationEngineProvider(this).obtainLocationEngineBy(LocationEngine.Type.ANDROID);
+//            locationEngine.setPriority(HIGH_ACCURACY);
+//            locationEngine.setInterval(0);
+//            locationEngine.setFastestInterval(1000);
+//            locationEngine.addLocationEngineListener((LocationEngineListener) this);
+//            locationEngine.activate();
+//
+//            if (locationEngine.getLastLocation() != null) {
+//                Location lastLocation = locationEngine.getLastLocation();
+//                onLocationChanged(lastLocation);
+//                currentLocation = Point.fromLngLat(lastLocation.getLongitude(), lastLocation.getLatitude());
+//            } else getMyLocation();
+        } else {
+            permissionsManager = new PermissionsManager(this);
+            permissionsManager.requestLocationPermissions(this);
         }
+
     }
     @Override
     public void onPermissionResult(boolean granted) {
-        if (!granted) {
-            Toast.makeText(this, "You didn't grant location permissions.",
+        Log.d("granted", String.valueOf(granted));
+//        if (!granted) {
+//            Toast.makeText(this, "You didn't grant location permissions.",
+//                    Toast.LENGTH_LONG).show();
+//        } else {
+        if (granted) {
+            Toast.makeText(this, "Please wait ...",
                     Toast.LENGTH_LONG).show();
+            getMyLocation();
         }
+//        }//        initLocationLayer();
     }
 
     private void _launchNavigationWithRoute() {
@@ -276,17 +320,22 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         mapView.onSaveInstanceState(outState);
     }
     private void initLocationLayer() {
-        locationLayer = new LocationLayerPlugin(mapView, mapboxMap, locationEngine);
+//        locationLayer = new LocationLayerPlugin(mapView, mapboxMap, locationEngine);
+
+        locationLayer = new LocationLayerPlugin(mapView, mapboxMap);
         locationLayer.setRenderMode(RenderMode.COMPASS);
     }
 
     @Override
     public void onMapReady(MapboxMap mapboxMap) {
         this.mapboxMap = mapboxMap;
+        //remove mapbox attribute
+        mapboxMap.getUiSettings().setAttributionEnabled(false);
+        mapboxMap.getUiSettings().setLogoEnabled(false);
+
         initLocationEngine();
         initLocationLayer();
-
-        mapboxMap.setStyleUrl("http://178.128.59.143:8080/api/v2/styles/a1e37ae99cdb4f29910cdf27a51a0282.json", new MapboxMap.OnStyleLoadedListener() {
+        mapboxMap.setStyleUrl("http://baato.io/api/v1/styles/retro?key=" + Constants.token, new MapboxMap.OnStyleLoadedListener() {
             @Override
             public void onStyleLoaded(@NonNull String style) {
                 mapboxMap.addOnMapClickListener(MainActivity.this);
@@ -301,12 +350,18 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                     public void onClick(View v) {
                         boolean simulateRoute = true;
 
-                        Log.d("current route:", String.valueOf(currentRoute));
-                        NavigationLauncherOptions options = NavigationLauncherOptions.builder()
-                                .directionsRoute(currentRoute)
-                                .shouldSimulateRoute(simulateRoute)
-                                .build();
-                        NavigationLauncher.startNavigation(MainActivity.this, options);
+//                        Log.d("current route:", String.valueOf(currentRoute));
+//                        NavigationLauncherOptions options = NavigationLauncherOptions.builder()
+//                                .directionsRoute(currentRoute)
+//                                .shouldSimulateRoute(simulateRoute)
+//                                .build();
+//                        NavigationLauncher.startNavigation(MainActivity.this, options);
+                        Intent intent = new Intent(MainActivity.this, MockNavigationActivity.class);
+//                        Intent intent = new Intent(MainActivity.this, ComponentNavigationActivity.class);
+                        intent.putExtra("Route",directionsResponse);
+                        intent.putExtra("origin", originPoint);
+                        intent.putExtra("lastLocation", mylocation);
+                        startActivity(intent);
                     }
                 });
             }
@@ -367,28 +422,119 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         return jsonString;
     }
 
-    @Override
-    public void onConnected() {
-        findViewById(R.id.back_to_camera_tracking_mode).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (!isInTrackingMode) {
-                    isInTrackingMode = true;
-                    locationLayer.setCameraMode(CameraMode.TRACKING);
-                    locationLayer.zoomWhileTracking(16f);
-                    Toast.makeText(MainActivity.this, "tracking enabled",
-                            Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(MainActivity.this, "tracking already enabled",
-                            Toast.LENGTH_SHORT).show();
+//    @Override
+//    public void onConnected() {
+//        locationEngine.requestLocationUpdates();
+////        locationLayer.setCameraMode(CameraMode.TRACKING_GPS);
+////        locationLayer.zoomWhileTracking(16f);
+//        findViewById(R.id.back_to_camera_tracking_mode).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                    isInTrackingMode = true;
+//                    locationLayer.setCameraMode(CameraMode.TRACKING_GPS);
+//                    locationLayer.zoomWhileTracking(16f);
+//
+//            }
+//        });
+//    }
+    private void getMyLocation() {
+        if (googleApiClient != null) {
+            if (googleApiClient.isConnected()) {
+                int permissionLocation = 0;
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
+                    permissionLocation = checkSelfPermission(
+                            Manifest.permission.ACCESS_FINE_LOCATION);
                 }
-            }
-        });
+                if (permissionLocation == PackageManager.PERMISSION_GRANTED) {
+                    mylocation = LocationServices.FusedLocationApi.getLastLocation(googleApiClient);
+                    if (mylocation != null) {
+                        originPoint = Point.fromLngLat(mylocation.getLongitude(),
+                                mylocation.getLatitude());
+                        locationLayer.forceLocationUpdate(mylocation);
+                    }
+                    LocationRequest locationRequest = new LocationRequest();
+                    locationRequest.setInterval(3000);
+                    locationRequest.setFastestInterval(3000);
+                    locationRequest.setPriority(LocationRequest.PRIORITY_LOW_POWER);
+                    LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder()
+                            .addLocationRequest(locationRequest);
+                    builder.setAlwaysShow(true);
+                    LocationServices.FusedLocationApi
+                            .requestLocationUpdates(googleApiClient, locationRequest, (LocationListener) this);
+                    PendingResult result =
+                            LocationServices.SettingsApi
+                                    .checkLocationSettings(googleApiClient, builder.build());
+                    result.setResultCallback(result1 -> {
+                        final Status status = result1.getStatus();
+                        switch (status.getStatusCode()) {
+                            case LocationSettingsStatusCodes.RESOLUTION_REQUIRED:
+                                // Location settings are not satisfied.
+                                // But could be fixed by showing the user a dialog.
+                                try {
+                                    // Show the dialog by calling startResolutionForResult(),
+                                    status.startResolutionForResult(this,
+                                            Constants.GPS_REQUEST);
+                                } catch (IntentSender.SendIntentException e) {
+                                    // Ignore the error.
+                                }
+                                break;
+                            case LocationSettingsStatusCodes.SUCCESS:
+                                // All location settings are satisfied.
+                                // You can initialize location requests here.
+                                int permissionLocation1 = 0;
+                                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
+                                    permissionLocation1 = checkSelfPermission(
+                                            Manifest.permission.ACCESS_FINE_LOCATION);
+                                }
+                                if (permissionLocation1 == PackageManager.PERMISSION_GRANTED) {
+                                    mylocation = LocationServices.FusedLocationApi
+                                            .getLastLocation(googleApiClient);
+                                    if (mylocation != null) {
+                                        originPoint = Point.fromLngLat(mylocation.getLongitude(),
+                                                mylocation.getLatitude());
+                                        locationLayer.forceLocationUpdate(mylocation);
+                                    }
+//                                    locationEngine.activate();
+                                }
+
+                                if (getIntent().getExtras() != null && getIntent().hasExtra("lat") && getIntent().hasExtra("long")) {
+                                    new Handler().postDelayed(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            originPoint = Point.fromLngLat(mylocation.getLongitude(),
+                                                    mylocation.getLatitude());
+//                                            onMapClick(new LatLng(getIntent().getDoubleExtra("lat", 0.00), getIntent().getDoubleExtra("long", 0.00)));
+                                        }
+                                    }, 2000);
+                                }
+                                break;
+                            case LocationSettingsStatusCodes.SETTINGS_CHANGE_UNAVAILABLE:
+                                // Location settings are not satisfied. However, we have no way to fix the
+                                // settings so we won't show the dialog.
+                                //finish();
+                                break;
+                        }
+                    });
+                }
+            } else googleApiClient.connect();
+        } else setUpGClient();
     }
+    private synchronized void setUpGClient() {
+        googleApiClient = new GoogleApiClient.Builder(this)
+                .enableAutoManage(this, 0, this)
+                .addConnectionCallbacks(this)
+                .addOnConnectionFailedListener(this)
+                .addApi(LocationServices.API)
+                .build();
+        googleApiClient.connect();
+    }
+
+
 
     @Override
     public void onLocationChanged(Location location) {
-
+        mylocation =location;
+        originPoint = Point.fromLngLat(location.getLongitude(), location.getLatitude());
     }
 
     @Override
@@ -401,13 +547,26 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         }
         button.setEnabled(true);
         button.setBackgroundResource(R.color.mapbox_blue);
-        Point originPoint = Point.fromLngLat(85.3407169, 27.7244709);
-        getRoute(originPoint, destinationPoint);
+//        Point originPoint = Point.fromLngLat(85.3407169, 27.7244709);
+//        getRoute(originPoint, destinationPoint);
 //        if (locationEngine.getLastLocation() != null) {
-//          Point originPoint = Point.fromLngLat(locationEngine.getLastLocation().getLongitude(),
+//          originPoint = Point.fromLngLat(locationEngine.getLastLocation().getLongitude(),
 //                    locationEngine.getLastLocation().getLatitude());
-//            getRoute(originPoint, destinationPoint);
+//          getRoute(originPoint, destinationPoint);
 //        }
+        fusedLocationClient.getLastLocation()
+                .addOnSuccessListener(this, new OnSuccessListener<Location>() {
+                    @Override
+                    public void onSuccess(Location location) {
+                        // Got last known location. In some rare situations this can be null.
+                        if (location != null) {
+                            originPoint = Point.fromLngLat(location.getLongitude(),
+                    location.getLatitude());
+                            getRoute(originPoint, destinationPoint);
+                            // Logic to handle location object
+                        }
+                    }
+                });
     }
 
     private void initRouteCoordinates() {
@@ -428,52 +587,35 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         points[0] = origin.latitude() + "," + origin.longitude();
 //        points[0] = "27.713042695157757,85.2703857421875";
         points[1] = destination.latitude() + "," + destination.longitude();
-        Call<NavAPIResponse> call = getApiInterface().getNavigationRoute("token.1NsVYoB2lSogxPMlthmHPM9jxtNccGbnkajFd7x5dgjI", points, "car", false, true);
-        call.enqueue(new Callback<NavAPIResponse>() {
-            @Override
-            public void onResponse(Call<NavAPIResponse> call, Response<NavAPIResponse> response) {
-//                Log.d("request::", String.valueOf(call.request()));
-//                Log.d(TAG, "onResponse: " + String.valueOf(call.request()));
-                if (response.body() == null) {
-                    Log.e(TAG, "No routes found, make sure you set the right user and access token.");
-                    return;
-                } else if (response.body().data.get(0).getInstructionList() != null && response.body().data.get(0).getInstructionList().size() == 0) {
-                    Log.e(TAG, "No routes found");
-                    return;
-                }
-                NavResponse navResponse = response.body().data.get(0);
-                encodedPolyline = navResponse.getEncoded_polyline();
-//                Timber.wtf("Anno: " + String.valueOf(response.body().getPath().getInstructions().get(0).getAnnotation()));
-//                encodedPolyline = response.body().getEncoded_polyline();
-                initRouteCoordinates();
+        new BaatoRouting(this)
+                .setPoints(points)
+                .setAccessToken(Constants.token)
+                .setMode("car") //eg bike, car, foot
+                .setAlternatives(false) //optional parameter
+                .setInstructions(true) //optional parameter
+                .withListener(new BaatoRouting.BaatoRoutingRequestListener() {
+                    @Override
+                    public void onSuccess(DirectionsAPIResponse directionResponse) {
+//                        Log.wtf("Graph:", String.valueOf(directionResponse));
+                        com.kathmandulivinglabs.baatolibrary.models.NavResponse navResponse = directionResponse.getData().get(0);
+                        double distanceInKm = navResponse.getDistanceInMeters() / 1000;
+                        long time = navResponse.getTimeInMs() / 1000;
+                        ObjectNode parsedNavigationResponse = NavigateResponseConverter.convertFromGHResponse(directionResponse.getData().get(0), "car");
+                        encodedPolyline = navResponse.getEncoded_polyline();
+                        initRouteCoordinates();
+                        directionsResponse = DirectionsResponse.fromJson(String.valueOf(parsedNavigationResponse));
+//                        Log.wtf("ghResponse:",String.valueOf(parsedNavigationResponse));
+                        currentRoute = directionsResponse.routes().get(0);
+                    }
 
-                ObjectNode obj = NavigateResponseConverter.convertFromGHResponse(navResponse, Locale.ENGLISH, new DistanceConfig(DistanceUtils.Unit.METRIC, translationMap, navigateResponseConverterTranslationMap, Locale.ENGLISH));
-//                Timber.d( "MapObj" + obj);
-//                Log.d(TAG, "onResponse: " + response.body().toString());
-//                Timber.d(response.body().toString());
-                DirectionsResponse directionsResponse = DirectionsResponse.fromJson(obj.toString());
+                    @Override
+                    public void onFailed(Throwable t) {
+                        if (t.getMessage() != null && t.getMessage().contains("Failed to connect"))
+                            Toast.makeText(getApplicationContext(), "Please connect to internet to get the routes!", Toast.LENGTH_SHORT).show();
 
-                currentRoute = directionsResponse.routes().get(0);
-//                try {
-//                    currentRoute = DirectionsResponse.fromJson(returnFromRaw()).routes().get(0);
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
-                Timber.d("On direction:" + obj);
-                navMapRoute(currentRoute);
-//                boundCameraToRoute();
-//                Log.wtf("My route",String.valueOf(directionsRoute));
-
-//                Timber.d(String.valueOf(obj));
-//                addLine("simplifiedLine", Feature.fromGeometry(LineString.fromLngLats(PolylineUtils.simplify(points, 0.001))), "#3bb2d0");
-            }
-
-            @Override
-            public void onFailure(Call<NavAPIResponse> call, Throwable t) {
-                Log.d(TAG, "onFailure: " + t);
-                Log.d(TAG, "Request:" + call.request());
-            }
-        });
+                    }
+                })
+                .doRequest();
 //                NavigationRoute.builder(this)
 //                .accessToken(Mapbox.getAccessToken())
 //                .origin(origin)
@@ -492,9 +634,9 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 //                            Log.e(TAG, "No routes found");
 //                            return;
 //                        }
-//                        directionsRoute = response.body().routes().get(0);
-//                        Timber.tag("Mapbox route 0").wtf(directionsRoute.routeOptions().toJson());
-//                        navMapRoute(directionsRoute);
+////                        directionsRoute = response.body().routes().get(0);
+////                        Timber.tag("Mapbox route 0").wtf(directionsRoute.routeOptions().toJson());
+////                        navMapRoute(directionsRoute);
 //                    }
 //
 //                    @Override
@@ -504,18 +646,33 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 //                });
     }
 
+//    @Override
+//    public void onNewPrimaryRouteSelected(DirectionsRoute directionsRoute) {
+//
+//    }
+//
+//    @Override
+//    public void onNavigationReady(boolean isRunning) {
+//        mapboxMap.setStyleUrl("http://baato.io/api/v1/styles/retro?key=bpk.gzol0CR64kZIci7xHHUujpXdivhz7L2OPRW5rTYMTXHh", new MapboxMap.OnStyleLoadedListener() {
+//            @Override
+//            public void onStyleLoaded(@NonNull String style) {
+//            }
+//        });
+//    }
+
     @Override
-    public void onNewPrimaryRouteSelected(DirectionsRoute directionsRoute) {
+    public void onConnected(@Nullable Bundle bundle) {
+        getMyLocation();
+    }
+
+    @Override
+    public void onConnectionSuspended(int i) {
 
     }
 
     @Override
-    public void onNavigationReady(boolean isRunning) {
-        mapboxMap.setStyleUrl("http://178.128.59.143:8080/api/v2/styles/a1e37ae99cdb4f29910cdf27a51a0282.json", new MapboxMap.OnStyleLoadedListener() {
-            @Override
-            public void onStyleLoaded(@NonNull String style) {
-            }
-        });
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+
     }
 }
 

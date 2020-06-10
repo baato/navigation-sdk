@@ -71,6 +71,11 @@ class MapboxNavigationNotification implements NavigationNotification {
   }
 
   @Override
+  public String getNotificationChannelId() {
+    return String.valueOf(NAVIGATION_NOTIFICATION_ID);
+  }
+
+  @Override
   public void updateNotification(RouteProgress routeProgress) {
     updateNotificationViews(routeProgress);
   }
