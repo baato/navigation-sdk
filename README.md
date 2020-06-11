@@ -269,6 +269,8 @@ NavigationLauncher.startNavigation(YourActivity.this, options);
 
 ##### Customizing navigation component
 
+###### Adding Instruction and summary layout 
+
 Include the instructionview and summary view so, that they can be customized in the navigation layout.
 ```
 
@@ -291,15 +293,162 @@ Include the instructionview and summary view so, that they can be customized in 
         android:visibility="invisible"/>
         
  ```
+ 
+ ###### Implement the event listner and override methods
+ 
+The customizable navigation activity class must implement ProgressChangeListener, MilestoneEventListener and OffRouteListener for tracking and updating navigation component. You also need some the components which are:
 
-###### Listening to progress change
+1. **MapboxNavigation** class instances is used to setup, customize, start, and end a navigation session.
+2. **NavigationMapboxMap** class instances initializes various map-related components and plugins that are
+   useful for providing a navigation-driven map experience.
+ * These APIs include drawing a route line, camera animations, and more.*
+3. **NavigationSpeechPlayer** provide voice API.
 
-Like tracking user location changes, the ProgressChangeListener is invoked every time the user's location changes and provides an updated RouteProgress object. The Baato Navigation UI SDK uses this listener by default, but if you are not using the Baato Navigation UI SDK, it is strongly encouraged that you also use this listener. The ProgressChangeListener can typically be used to refresh most of your application's user interface when a change occurs. For example, if you are displaying the user's current progress until the user needs to do the next maneuver. Every time this listener's invoked, you can update your view with the new information from RouteProgress.
+Setting up navigation activity
+
+ ```
+  public class CustomNavigationActivity extends AppCompatActivity implements OnMapReadyCallback, LocationEngineListener,       ProgressChangeListener, MilestoneEventListener, OffRouteListener {
+        // override the methods where necessary
+        
+         private MapboxNavigation navigation;
+         private NavigationSpeechPlayer speechPlayer;
+         private NavigationMapboxMap navigationMap;
+         
+         @Override
+  protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    // For styling the InstructionView
+    setTheme(R.style.CustomInstructionView);
+    setContentView(R.layout.custom_navigation);
+    
+    //Initializing mapbox, if already initialized you can use "pk.xxx" since we are using baato service. 
+    Mapbox.getInstance(getApplicationContext(), mappbox_token);
+    
+     mapView.onCreate(savedInstanceState);
+
+    // Will call onMapReady
+    mapView.getMapAsync(this);
+
+   // prepare navigation option for MapboxNavigation. 
+    MapboxNavigationOptions options = MapboxNavigationOptions.builder()
+            .defaultMilestonesEnabled(true)
+            .build();
+    navigation = new MapboxNavigation(this, "pk.xxx", options);
+  }
+  
+  @Override
+  public void onMapReady(MapboxMap mapboxMap) {
+    this.mapboxMap = mapboxMap;
+    //remove mapbox attribute
+    mapboxMap.getUiSettings().setAttributionEnabled(false);
+    mapboxMap.getUiSettings().setLogoEnabled(false);
+    
+    mapboxMap.setStyleUrl("http://baato.io/api/v1/styles/retro?key=" + baato_token, new   MapboxMap.OnStyleLoadedListener()     {
+      @Override
+      public void onStyleLoaded(@NonNull String style) {
+      
+      //moving map center to gps location with zoom level 14
+        mapboxMap.setCameraPosition(new CameraPosition.Builder()
+                .target(new LatLng(origin.latitude(), origin.longitude()))
+                .zoom(14)
+                .build());
+       
+        navigationMap = new NavigationMapboxMap(mapView, mapboxMap);
+        // For voice instructions
+        initializeSpeechPlayer();
+
+        // For Location updates
+        initializeLocationEngine();
+
+        // For navigation logic / processing
+        initializeNavigation(mapboxMap);
+        
+        //handle mapevent and compute route accordingly
+      }
+    });
+    
+    // For voice instructions
+     private void initializeSpeechPlayer() {
+      String english = Locale.US.getLanguage();
+      String accessToken = "pk.xxx";
+      SpeechPlayerProvider speechPlayerProvider = new SpeechPlayerProvider(getApplication(), english, true, accessToken);
+      speechPlayer = new NavigationSpeechPlayer(speechPlayerProvider);
+    }
+    
+   // For Location updates
+   private void initializeLocationEngine() {
+    LocationEngineProvider locationEngineProvider = new LocationEngineProvider(this);
+    locationEngine = locationEngineProvider.obtainLocationEngineBy(LocationEngine.Type.ANDROID);
+    locationEngine.setPriority(LocationEnginePriority.HIGH_ACCURACY);
+    locationEngine.addLocationEngineListener(this);
+    locationEngine.setFastestInterval(ONE_SECOND_INTERVAL);
+    locationEngine.activate();
+  }
+  
+  // For navigation logic / processing
+  private void initializeNavigation(MapboxMap mapboxMap) {
+    navigation.setLocationEngine(locationEngine);
+    navigation.setCameraEngine(new DynamicCamera(mapboxMap));
+    navigation.addProgressChangeListener(this);
+    navigation.addMilestoneEventListener(this);
+    navigation.addOffRouteListener(this);
+    navigationMap.addProgressChangeListener(navigation);
+  }
+  
+  //After computing route start navigation like this method
+  public void onStartNavigation() {
+    
+    // Show the InstructionView
+    TransitionManager.beginDelayedTransition(navigationLayout);
+    instructionView.setVisibility(View.VISIBLE);
+    summaryBottomSheet.setVisibility(View.VISIBLE);
+
+    // Start navigation
+    adjustMapPaddingForNavigation();
+    navigation.startNavigation(route);
+    
+    //  attach soundButton to handle its event  
+    soundButton = instructionView.findViewById(R.id.soundLayout);
+    soundButton.addOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        isMuted = soundButton.toggleMute();
+      }
+    });
+    // Location updates will be received from ProgressChangeListener
+    removeLocationEngineListener();
+  }
+  
+  // Adjustig map padding for navigation
+  private void adjustMapPaddingForNavigation() {
+    int mapViewHeight = mapView.getHeight();
+    int bottomSheetHeight = summaryBottomSheet.getHeight();
+    int topPadding = mapViewHeight - (bottomSheetHeight * BOTTOMSHEET_PADDING_MULTIPLIER);
+    navigationMap.retrieveMap().setPadding(ZERO_PADDING, topPadding, ZERO_PADDING, ZERO_PADDING);
+  }
+
+  // Reset navigation view
+  public void onCancelNavigation() {
+   // Reset view
+    TransitionManager.beginDelayedTransition(navigationLayout);
+    instructionView.setVisibility(View.INVISIBLE);
+    summaryBottomSheet.setVisibility(View.INVISIBLE);
+
+    // Reset map camera and pitch
+    resetMapAfterNavigation();
+
+    // Add back regular location listener
+    addLocationEngineListener();
+  }
+```
+####### Listening to progress change
+
+Like tracking user location changes, the ProgressChangeListener is invoked every time the user's location changes and provides an updated RouteProgress object. The ProgressChangeListener can typically be used to refresh most of your application's user interface when a change occurs. For example, if you are displaying the user's current progress until the user needs to do the next maneuver. Every time this listener's invoked, you can update your view with the new information from RouteProgress.
 
 Besides receiving information about the route progress, the callback also provides you with the user's current location, which can provide their current speed, bearing, etc. If you have the snap-to-route enabled, the location object will be updated to give the snapped coordinates.
 
 ```
-// Implement ProgressChangeListener and add on navigation ready
+// Implement ProgressChangeListener and add on navigation ready which is also shown in initializeNavigation method
 
 navigation.addProgressChangeListener(this);
 
@@ -308,7 +457,7 @@ navigation.addProgressChangeListener(this);
 @Override
   public void onProgressChange(Location location, RouteProgress routeProgress) {
     // Cache "snapped" Locations for re-route Directions API requests
-    updateLocation(location);
+    navigationMap.updateLocation(location);
 
     // Update InstructionView data from RouteProgress
     instructionView.update(routeProgress);
@@ -323,6 +472,16 @@ CameraPosition cameraPosition = buildCameraPositionFrom(location, location.getBe
     navigationMap.retrieveMap().animateCamera(
       CameraUpdateFactory.newCameraPosition(cameraPosition), TWO_SECONDS_IN_MILLISECONDS
     );
+    
+ // building camera position
+  private CameraPosition buildCameraPositionFrom(Location location, double bearing) {
+    return new CameraPosition.Builder()
+      .zoom(DEFAULT_ZOOM)
+      .target(new LatLng(location.getLatitude(), location.getLongitude()))
+      .bearing(bearing)
+      .tilt(DEFAULT_TILT)
+      .build();
+  }
 ```
 
 Add offroutelistner for offroute detection and compute route
@@ -330,10 +489,14 @@ Add offroutelistner for offroute detection and compute route
 
 @Override
   public void userOffRoute(Location location) {
-    calculateRouteWith(destination, true);
     // request new route with the origin as a current position
-    // origin = Point.fromLngLat(lastLocation.getLongitude(), lastLocation.getLatitude()); where last location can be obtained from locationengine
-
+     origin = Point.fromLngLat(lastLocation.getLongitude(), lastLocation.getLatitude()); where last location can be      obtained from locationengine 
+    // getRoute method is explained in the baato-java client doc
+    DirectionsAPIResponse directionResponse = getRoute(origin, destination);
+     handleRoute(directionsResponse, isOffRoute);
+    }
+    
+    
 @Override
   public void onConnected() {
     locationEngine.requestLocationUpdates();
@@ -352,7 +515,88 @@ Add offroutelistner for offroute detection and compute route
   }
   
 ```
+Adding Voice intruction on milestone event
+```
+  @Override
+  public void onMilestoneEvent(RouteProgress routeProgress, String instruction, Milestone milestone) {
+    playAnnouncement(milestone);
+  }
+  
+  private void playAnnouncement(Milestone milestone) {
+  //check weather mute button is active or not
+    if(!isMuted) {
+      if (milestone instanceof VoiceInstructionMilestone) {
+        SpeechAnnouncement announcement = SpeechAnnouncement.builder()
+                .voiceInstructionMilestone((VoiceInstructionMilestone) milestone)
+                .build();
+        Log.d("Announcement", announcement.toString());
+        speechPlayer.play(announcement);
+      }
+    }
+  }
+```
+Handling activity lifecycle method
+```
+  @Override
+  public void onResume() {
+    super.onResume();
+    mapView.onResume();
+  }
 
+  @Override
+  public void onPause() {
+    super.onPause();
+    mapView.onPause();
+  }
+
+  @Override
+  protected void onStart() {
+    super.onStart();
+    mapView.onStart();
+    if (navigationMap != null) {
+      navigationMap.onStart();
+    }
+  }
+
+  @Override
+  protected void onSaveInstanceState(Bundle outState) {
+    super.onSaveInstanceState(outState);
+    mapView.onSaveInstanceState(outState);
+  }
+
+  @Override
+  protected void onStop() {
+    super.onStop();
+    mapView.onStop();
+    if (navigationMap != null) {
+      navigationMap.onStop();
+    }
+  }
+
+  @Override
+  public void onLowMemory() {
+    super.onLowMemory();
+    mapView.onLowMemory();
+  }
+
+  @Override
+  protected void onDestroy() {
+    super.onDestroy();
+    mapView.onDestroy();
+
+    // Ensure proper shutdown of the SpeechPlayer
+    if (speechPlayer != null) {
+      speechPlayer.onDestroy();
+    }
+
+    // Prevent leaks
+    removeLocationEngineListener();
+
+    ((DynamicCamera) navigation.getCameraEngine()).clearMap();
+    // MapboxNavigation will shutdown the LocationEngine
+    navigation.onDestroy();
+  }
+```
 ###### Customizing instruction view
 
 Add a custom style in style.xml and add it as a theme on create of navigation activity
@@ -412,6 +656,8 @@ Implement NavigationEventListner and make a NavigationOptions as
 MapboxNavigationOptions options = MapboxNavigationOptions.builder()
                 .build();
         navigation = new MapboxNavigation(this, "pk.xxx", options);
+        
+        // you can also add custom milestone
         navigation.addMilestone(new RouteMilestone.Builder()
                 .setIdentifier(BEGIN_ROUTE_MILESTONE)
                 .setInstruction(new BeginRouteInstruction())
@@ -428,10 +674,10 @@ MapboxNavigationOptions options = MapboxNavigationOptions.builder()
  
  ``` 
  locationLayerPlugin.setRenderMode(RenderMode.GPS);
-                locationLayerPlugin.setLocationLayerEnabled(false);
-                navigationMapRoute = new NavigationMapRoute(navigation, mapView, mapboxMap);
-                navigationMapRoute.addRoute(route);
-                locationEngine = new ReplayRouteLocationEngine();
+ locationLayerPlugin.setLocationLayerEnabled(false);
+ navigationMapRoute = new NavigationMapRoute(navigation, mapView, mapboxMap);
+ navigationMapRoute.addRoute(route);
+ locationEngine = new ReplayRouteLocationEngine();
  ```
  
  After navigation is ready
