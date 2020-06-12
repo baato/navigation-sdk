@@ -141,7 +141,7 @@ public class NavigateResponseConverter {
 
 //        List<PathWrapper> paths = ghResponse.getAll();
         List<List<Double>>  waypointsg = DecodeLine.decodePolyline(ghResponse.getEncoded_polyline(), false);
-        Log.d("waypoints:", String.valueOf(waypointsg));
+//        Log.d("waypoints:", String.valueOf(waypointsg));
 //        ResponsePath responsePath = ghResponsee;
         allCord = waypointsg;
         ObjectNode pathJson = routesJson.addObject();
@@ -389,7 +389,6 @@ public class NavigateResponseConverter {
         putLocation(mapObj.pointList.getLatitude(instruction.getPoints().getSize()-1),mapObj.pointList.getLongitude(instruction.getPoints().getSize()-1),intersection);
     }
 
-
     @Nullable
     private static Instruction getPreviousInstruction(Instruction instruction) {
         int index = getInstructionIndex(instruction);
@@ -527,7 +526,7 @@ public class NavigateResponseConverter {
             if (nextInstruction.getSign() == 4){
                 turnDesc = voiceValue.turnDescription.replace("unknown instruction sign '4'", "you will arrive your destination.");
             }
-            Log.wtf("turn desc", turnDesc);
+//            Log.wtf("turn desc", turnDesc);
             putSingleVoiceInstruction(voiceValue.spokenDistance, turnDesc, voiceInstructions);
         }
 
@@ -545,7 +544,7 @@ public class NavigateResponseConverter {
             description = "You have arrived at your destination";
         }
         String value = getTranslatedDistance((int) distanceAlongGeometry);
-        Log.wtf("turn desc then", description);
+//        Log.wtf("turn desc then", description);
         description = description.replaceAll("unknown instruction sign '6'", "Continue on " + instructions.get(index).getName());
         description = description.replaceAll("then unknown instruction sign 4", " ");
         putSingleVoiceInstruction(distanceAlongGeometry, description, voiceInstructions);
@@ -564,7 +563,7 @@ public class NavigateResponseConverter {
     }
 
     private static void putSingleVoiceInstruction(double distanceAlongGeometry, String turnDescription, ArrayNode voiceInstructions) {
-        Log.wtf("::", turnDescription);
+//        Log.wtf("::", turnDescription);
         ObjectNode voiceInstruction = voiceInstructions.addObject();
         voiceInstruction.put("distanceAlongGeometry", distanceAlongGeometry);
         //TODO: ideally, we would even generate instructions including the instructions after the next like turn left **then** turn right

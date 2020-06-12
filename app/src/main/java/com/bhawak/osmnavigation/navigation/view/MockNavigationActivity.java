@@ -139,7 +139,7 @@ public class MockNavigationActivity extends AppCompatActivity implements OnMapRe
 
   @Override
   public void onRunning(boolean running) {
-
+  Log.wtf("Status: ", String.valueOf(running));
   }
 
   @Override
