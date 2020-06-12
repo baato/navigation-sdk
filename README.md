@@ -301,7 +301,7 @@ The customizable navigation activity class must implement ProgressChangeListener
 1. **MapboxNavigation** class instances is used to setup, customize, start, and end a navigation session.
 2. **NavigationMapboxMap** class instances initializes various map-related components and plugins that are
    useful for providing a navigation-driven map experience.
- * These APIs include drawing a route line, camera animations, and more.*
+ *These APIs include drawing a route line, camera animations, and more.*
 3. **NavigationSpeechPlayer** provide voice API.
 
 Setting up navigation activity
@@ -649,10 +649,18 @@ setTheme(R.style.CustomInstructionView);
 
 ##### Testing with the mock location activity
 
-Implement NavigationEventListner and make a NavigationOptions as
+Mock Location Activity uses ReplayRouteLocationEngine which helps to mock the user location along the route. This helps for calibrating the test use-case for developers. You can also use the Custom Navigation as above with some gps mocking third-party application like Lockito. 
+
+This activity needs to implement OnMapReadyCallback, ProgressChangeListener, MilestoneEventListener, OffRouteListener, NavigationEventListener, SpeechAnnouncementListener so as to recive all the updates. Implementation are same as above.
+
+Implement NavigationEventListner and make a NavigationOptions as below.   
 
 ```
-
+@Override
+  public void onRunning(boolean running) {
+  // do something
+  }
+  
 MapboxNavigationOptions options = MapboxNavigationOptions.builder()
                 .build();
         navigation = new MapboxNavigation(this, "pk.xxx", options);
