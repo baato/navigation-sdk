@@ -441,7 +441,7 @@ Setting up navigation activity
     addLocationEngineListener();
   }
 ```
-####### Listening to progress change
+###### Listening to progress change
 
 Like tracking user location changes, the ProgressChangeListener is invoked every time the user's location changes and provides an updated RouteProgress object. The ProgressChangeListener can typically be used to refresh most of your application's user interface when a change occurs. For example, if you are displaying the user's current progress until the user needs to do the next maneuver. Every time this listener's invoked, you can update your view with the new information from RouteProgress.
 
