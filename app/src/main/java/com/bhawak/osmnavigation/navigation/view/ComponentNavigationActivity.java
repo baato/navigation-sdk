@@ -173,9 +173,11 @@ public class ComponentNavigationActivity extends AppCompatActivity implements On
     // For styling the InstructionView
     setTheme(R.style.CustomInstructionView);
     setContentView(R.layout.activity_component_navigation);
-    Mapbox.getInstance(getApplicationContext(), "pk.xxx");
+    Mapbox.getInstance(getApplicationContext(), null);
     ButterKnife.bind(this);
       Bundle extras = getIntent().getExtras();
+    mapView.setStyleUrl("http://api.baato.io/api/v1/styles/retro?key=" + Constants.token);
+
     mapView.onCreate(savedInstanceState);
 
     // Will call onMapReady
@@ -191,7 +193,7 @@ public class ComponentNavigationActivity extends AppCompatActivity implements On
     MapboxNavigationOptions options = MapboxNavigationOptions.builder()
             .defaultMilestonesEnabled(true)
             .build();
-    navigation = new MapboxNavigation(this, "pk.xxx", options);
+    navigation = new MapboxNavigation(this, Constants.token, options);
 //    navigation.addMilestone(new RouteMilestone.Builder()
 //            .setIdentifier(BEGIN_ROUTE_MILESTONE)
 //            .setTrigger(
@@ -297,7 +299,7 @@ public class ComponentNavigationActivity extends AppCompatActivity implements On
       }
     });
     // Location updates will be received from ProgressChangeListener
-    removeLocationEngineListener();
+//    removeLocationEngineListener();
   }
 
   @OnClick(R.id.cancelNavigationFab)

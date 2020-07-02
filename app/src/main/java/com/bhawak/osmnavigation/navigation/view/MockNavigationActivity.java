@@ -380,8 +380,8 @@ public class MockNavigationActivity extends AppCompatActivity implements OnMapRe
   private void initializeSpeechPlayer() {
     String english = Locale.US.getLanguage();
 //    String accessToken = Mapbox.getAccessToken();
-      String accessToken = "pk.xxx";
-    SpeechPlayerProvider speechPlayerProvider = new SpeechPlayerProvider(getApplication(), english, true, accessToken);
+//      String accessToken = "pk.xxx";
+    SpeechPlayerProvider speechPlayerProvider = new SpeechPlayerProvider(getApplication(), english, true, Constants.token);
     speechPlayer = new NavigationSpeechPlayer(speechPlayerProvider);
 //      speechPlayer.speak(text, TextToSpeech.QUEUE_ADD, null);
   }
