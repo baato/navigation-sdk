@@ -21,6 +21,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.transition.TransitionManager;
 
+import com.baato.baatolibrary.models.DirectionsAPIResponse;
+import com.baato.baatolibrary.models.NavResponse;
+import com.baato.baatolibrary.services.BaatoRouting;
 import com.bhawak.osmnavigation.R;
 import com.bhawak.osmnavigation.navigation.NavigateResponseConverter;
 import com.bhawak.osmnavigation.navigation.view.notification.CustomNavigationNotification;
@@ -29,8 +32,6 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 
-import com.kathmandulivinglabs.baatolibrary.models.DirectionsAPIResponse;
-import com.kathmandulivinglabs.baatolibrary.services.BaatoRouting;
 import com.mapbox.android.core.location.LocationEngine;
 import com.mapbox.api.directions.v5.models.DirectionsResponse;
 import com.mapbox.api.directions.v5.models.DirectionsRoute;
@@ -139,7 +140,7 @@ public class MockNavigationActivity extends AppCompatActivity implements OnMapRe
 
   @Override
   public void onRunning(boolean running) {
-
+  Log.wtf("Status: ", String.valueOf(running));
   }
 
   @Override
@@ -173,7 +174,7 @@ public class MockNavigationActivity extends AppCompatActivity implements OnMapRe
     // For styling the InstructionView
     setTheme(R.style.CustomInstructionView);
     setContentView(R.layout.activity_component_navigation);
-    Mapbox.getInstance(getApplicationContext(), "pk.xxx");
+    Mapbox.getInstance(getApplicationContext(), null);
     ButterKnife.bind(this);
     Bundle extras = getIntent().getExtras();
 
@@ -184,7 +185,7 @@ public class MockNavigationActivity extends AppCompatActivity implements OnMapRe
       lastLocation = (Location) extras.get("lastLocation");
       // and get whatever type user account id is
     }
-
+    mapView.setStyleUrl("http://api.baato.io/api/v1/styles/retro?key=" + Constants.token);
     mapView.onCreate(savedInstanceState);
 
     // Will call onMapReady
@@ -195,7 +196,7 @@ public class MockNavigationActivity extends AppCompatActivity implements OnMapRe
             .navigationNotification(customNotification)
             .defaultMilestonesEnabled(true)
             .build();
-    navigation = new MapboxNavigation(this, "pk.xxx", options);
+    navigation = new MapboxNavigation(this, Constants.token, options);
 
     navigation.addMilestone(new RouteMilestone.Builder()
             .setIdentifier(BEGIN_ROUTE_MILESTONE)
@@ -224,7 +225,7 @@ public class MockNavigationActivity extends AppCompatActivity implements OnMapRe
     //remove mapbox attribute
     mapboxMap.getUiSettings().setAttributionEnabled(false);
     mapboxMap.getUiSettings().setLogoEnabled(false);
-    mapboxMap.setStyleUrl("http://baato.io/api/v1/styles/retro?key=" + Constants.token, new MapboxMap.OnStyleLoadedListener() {
+    mapboxMap.setStyleUrl("http://api.baato.io/api/v1/styles/retro?key=" + Constants.token, new MapboxMap.OnStyleLoadedListener() {
       //        mapboxMap.setStyle(Style.MAPBOX_STREETS, new MapboxMap.OnStyleLoadedListener() {
       @Override
       public void onStyleLoaded(@NonNull String style) {
@@ -481,7 +482,7 @@ public class MockNavigationActivity extends AppCompatActivity implements OnMapRe
             .withListener(new BaatoRouting.BaatoRoutingRequestListener() {
               @Override
               public void onSuccess(DirectionsAPIResponse directionResponse) {
-                com.kathmandulivinglabs.baatolibrary.models.NavResponse navResponse = directionResponse.getData().get(0);
+                NavResponse navResponse = directionResponse.getData().get(0);
                 double distanceInKm = navResponse.getDistanceInMeters() / 1000;
                 long time = navResponse.getTimeInMs() / 1000;
 

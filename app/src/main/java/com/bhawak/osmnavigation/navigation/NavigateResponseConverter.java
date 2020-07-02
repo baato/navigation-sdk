@@ -35,6 +35,7 @@ import com.graphhopper.util.Instruction;
 import com.graphhopper.util.PointList;
 import com.graphhopper.util.RoundaboutInstruction;
 import com.graphhopper.util.TranslationMap;
+import com.baato.baatolibrary.models.NavResponse;
 //import com.mapbox.api.directions.v5.models.StepIntersection;
 
 import java.util.ArrayList;
@@ -44,6 +45,7 @@ import java.util.UUID;
 
 import static java.lang.Math.toDegrees;
 import static java.lang.Math.toRadians;
+
 
 
 public class NavigateResponseConverter {
@@ -94,7 +96,7 @@ public class NavigateResponseConverter {
     }
 
     private static final int VOICE_INSTRUCTION_MERGE_TRESHHOLD = 100;
-    private static com.kathmandulivinglabs.baatolibrary.models.NavResponse ghResponse = new com.kathmandulivinglabs.baatolibrary.models.NavResponse();
+    private static NavResponse ghResponse = new NavResponse();
     private static List<List<Double>> allCord = new ArrayList<>();
     private static final TranslationMap trMap = new TranslationMap().doImport();
     private static  final  TranslationMap mtrMap = new NavigateResponseConverterTranslationMap().doImport();
@@ -109,7 +111,7 @@ public class NavigateResponseConverter {
     /**
      * Converts a GHResponse into a json that follows the Mapbox API specification
      */
-    public static ObjectNode convertFromGHResponse(com.kathmandulivinglabs.baatolibrary.models.NavResponse ghResponsee, String type) {
+    public static ObjectNode convertFromGHResponse(NavResponse ghResponsee, String type) {
         ObjectNode json = JsonNodeFactory.instance.objectNode();
         ghResponse = ghResponsee;
 
@@ -141,7 +143,7 @@ public class NavigateResponseConverter {
 
 //        List<PathWrapper> paths = ghResponse.getAll();
         List<List<Double>>  waypointsg = DecodeLine.decodePolyline(ghResponse.getEncoded_polyline(), false);
-        Log.d("waypoints:", String.valueOf(waypointsg));
+//        Log.d("waypoints:", String.valueOf(waypointsg));
 //        ResponsePath responsePath = ghResponsee;
         allCord = waypointsg;
         ObjectNode pathJson = routesJson.addObject();
@@ -389,7 +391,6 @@ public class NavigateResponseConverter {
         putLocation(mapObj.pointList.getLatitude(instruction.getPoints().getSize()-1),mapObj.pointList.getLongitude(instruction.getPoints().getSize()-1),intersection);
     }
 
-
     @Nullable
     private static Instruction getPreviousInstruction(Instruction instruction) {
         int index = getInstructionIndex(instruction);
@@ -527,7 +528,7 @@ public class NavigateResponseConverter {
             if (nextInstruction.getSign() == 4){
                 turnDesc = voiceValue.turnDescription.replace("unknown instruction sign '4'", "you will arrive your destination.");
             }
-            Log.wtf("turn desc", turnDesc);
+//            Log.wtf("turn desc", turnDesc);
             putSingleVoiceInstruction(voiceValue.spokenDistance, turnDesc, voiceInstructions);
         }
 
@@ -545,7 +546,7 @@ public class NavigateResponseConverter {
             description = "You have arrived at your destination";
         }
         String value = getTranslatedDistance((int) distanceAlongGeometry);
-        Log.wtf("turn desc then", description);
+//        Log.wtf("turn desc then", description);
         description = description.replaceAll("unknown instruction sign '6'", "Continue on " + instructions.get(index).getName());
         description = description.replaceAll("then unknown instruction sign 4", " ");
         putSingleVoiceInstruction(distanceAlongGeometry, description, voiceInstructions);
@@ -564,7 +565,7 @@ public class NavigateResponseConverter {
     }
 
     private static void putSingleVoiceInstruction(double distanceAlongGeometry, String turnDescription, ArrayNode voiceInstructions) {
-        Log.wtf("::", turnDescription);
+//        Log.wtf("::", turnDescription);
         ObjectNode voiceInstruction = voiceInstructions.addObject();
         voiceInstruction.put("distanceAlongGeometry", distanceAlongGeometry);
         //TODO: ideally, we would even generate instructions including the instructions after the next like turn left **then** turn right

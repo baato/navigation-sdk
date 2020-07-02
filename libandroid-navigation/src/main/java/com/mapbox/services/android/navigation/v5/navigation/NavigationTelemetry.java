@@ -39,7 +39,7 @@ class NavigationTelemetry implements LocationEngineListener, NavigationMetricLis
   private static NavigationTelemetry instance;
   private boolean isInitialized = false;
 
-  private static final String MAPBOX_NAVIGATION_SDK_IDENTIFIER = "mapbox-navigation-android";
+  private static final String MAPBOX_NAVIGATION_SDK_IDENTIFIER = "mapbox-navigatioNavigationTelemetryn-android";
   private static final String MAPBOX_NAVIGATION_UI_SDK_IDENTIFIER = "mapbox-navigation-ui-android";
   private static final String MOCK_PROVIDER = "com.mapbox.services.android.navigation.v5.location.replay"
     + ".ReplayRouteLocationEngine";
@@ -301,8 +301,8 @@ class NavigationTelemetry implements LocationEngineListener, NavigationMetricLis
   }
 
   private void validateAccessToken(String accessToken) {
-    if (TextUtils.isEmpty(accessToken) || (!accessToken.toLowerCase(Locale.US).startsWith("pk.")
-      && !accessToken.toLowerCase(Locale.US).startsWith("sk."))) {
+    if (TextUtils.isEmpty(accessToken) && (!accessToken.toLowerCase(Locale.US).startsWith("pk.") && (!accessToken.toLowerCase(Locale.US).startsWith("bpk."))
+            && !accessToken.toLowerCase(Locale.US).startsWith("sk."))) {
       throw new NavigationException("A valid access token must be passed in when first initializing"
         + " MapboxNavigation");
     }
