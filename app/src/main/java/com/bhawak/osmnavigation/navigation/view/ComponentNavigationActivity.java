@@ -20,11 +20,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.transition.TransitionManager;
 
+import com.baato.baatolibrary.models.DirectionsAPIResponse;
+import com.baato.baatolibrary.models.NavResponse;
+import com.baato.baatolibrary.services.BaatoRouting;
 import com.bhawak.osmnavigation.MainActivity;
 import com.bhawak.osmnavigation.R;
 import com.bhawak.osmnavigation.navigation.DistanceConfig;
 import com.bhawak.osmnavigation.navigation.DistanceUtils;
-import com.bhawak.osmnavigation.navigation.NavResponse;
 import com.bhawak.osmnavigation.navigation.NavigateResponseConverter;
 import com.bhawak.osmnavigation.navigation.NavigateResponseConverterTranslationMap;
 import com.bhawak.osmnavigation.navigation.view.notification.CustomNavigationNotification;
@@ -33,8 +35,8 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 import com.graphhopper.util.TranslationMap;
-import com.kathmandulivinglabs.baatolibrary.models.DirectionsAPIResponse;
-import com.kathmandulivinglabs.baatolibrary.services.BaatoRouting;
+//import com.kathmandulivinglabs.baatolibrary.models.DirectionsAPIResponse;
+//import com.kathmandulivinglabs.baatolibrary.services.BaatoRouting;
 import com.mapbox.android.core.location.LocationEngine;
 import com.mapbox.android.core.location.LocationEngineListener;
 import com.mapbox.android.core.location.LocationEnginePriority;
@@ -216,7 +218,7 @@ public class ComponentNavigationActivity extends AppCompatActivity implements On
     mapboxMap.getUiSettings().setLogoEnabled(false);
     navigationMap = new NavigationMapboxMap(mapView, mapboxMap);
 
-      mapboxMap.setStyleUrl("http://baato.io/api/v1/styles/retro?key=" + Constants.token, new MapboxMap.OnStyleLoadedListener() {
+      mapboxMap.setStyleUrl("http://api.baato.io/api/v1/styles/retro?key=" + Constants.token, new MapboxMap.OnStyleLoadedListener() {
       @Override
       public void onStyleLoaded(@NonNull String style) {
 //    mapboxMap.setStyleUrl("http://178.128.59.143:8080/api/v2/styles/a1e37ae99cdb4f29910cdf27a51a0282.json");
@@ -574,7 +576,7 @@ public class ComponentNavigationActivity extends AppCompatActivity implements On
             .withListener(new BaatoRouting.BaatoRoutingRequestListener() {
               @Override
               public void onSuccess(DirectionsAPIResponse directionResponse) {
-                com.kathmandulivinglabs.baatolibrary.models.NavResponse navResponse = directionResponse.getData().get(0);
+                NavResponse navResponse = directionResponse.getData().get(0);
                 double distanceInKm = navResponse.getDistanceInMeters() / 1000;
                 long time = navResponse.getTimeInMs() / 1000;
                 ObjectNode parsedNavigationResponse = NavigateResponseConverter.convertFromGHResponse(directionResponse.getData().get(0), "car");

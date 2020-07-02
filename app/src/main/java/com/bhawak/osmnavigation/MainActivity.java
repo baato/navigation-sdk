@@ -18,10 +18,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.baato.baatolibrary.models.DirectionsAPIResponse;
+import com.baato.baatolibrary.models.NavResponse;
+import com.baato.baatolibrary.services.BaatoRouting;
 import com.bhawak.osmnavigation.navigation.DistanceConfig;
 import com.bhawak.osmnavigation.navigation.DistanceUtils;
 
-import com.bhawak.osmnavigation.navigation.NavResponse;
 import com.bhawak.osmnavigation.navigation.NavigateResponseConverter;
 import com.bhawak.osmnavigation.navigation.NavigateResponseConverterTranslationMap;
 import com.bhawak.osmnavigation.navigation.view.ComponentNavigationActivity;
@@ -40,8 +42,6 @@ import com.google.android.gms.location.LocationSettingsRequest;
 import com.google.android.gms.location.LocationSettingsStatusCodes;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.graphhopper.util.TranslationMap;
-import com.kathmandulivinglabs.baatolibrary.models.DirectionsAPIResponse;
-import com.kathmandulivinglabs.baatolibrary.services.BaatoRouting;
 import com.mapbox.android.core.location.LocationEngine;
 import com.mapbox.android.core.location.LocationEngineListener;
 import com.mapbox.android.core.location.LocationEngineProvider;
@@ -174,13 +174,14 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 //        }
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         // Mapbox Access token
-        Mapbox.getInstance(getApplicationContext(), "pk.eyJ1IjoiYmhhd2FrIiwiYSI6ImNqdXJ1d3dkNzBmODIzeW42OGxsYzM2ZmMifQ.pw4f4jlgom6wSzovGQIT7w");
+//        Mapbox.getInstance(this.getBaseContext(), "pk.eyJ1IjoiYmhhd2FrIiwiYSI6ImNqdXJ1d3dkNzBmODIzeW42OGxsYzM2ZmMifQ.pw4f4jlgom6wSzovGQIT7w");
 //        "pk.xxx"
 //        getString(R.string.mapbox_access_token);
-//        Mapbox.getInstance(getApplicationContext(),null);
+        Mapbox.getInstance(getApplicationContext(),null);
         setContentView(R.layout.activity_main);
         mapView = (MapView) findViewById(R.id.mapView);
         button = findViewById(R.id.startButton);
+        mapView.setStyleUrl("http://api.baato.io/api/v1/styles/retro?key=" + Constants.token);
         mapView.onCreate(savedInstanceState);
         mapView.getMapAsync(this);
     }
@@ -335,7 +336,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         initLocationEngine();
         initLocationLayer();
-        mapboxMap.setStyleUrl("http://baato.io/api/v1/styles/retro?key=" + Constants.token, new MapboxMap.OnStyleLoadedListener() {
+        mapboxMap.setStyleUrl("http://api.baato.io/api/v1/styles/retro?key=" + Constants.token, new MapboxMap.OnStyleLoadedListener() {
             @Override
             public void onStyleLoaded(@NonNull String style) {
                 mapboxMap.addOnMapClickListener(MainActivity.this);
@@ -597,7 +598,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                     @Override
                     public void onSuccess(DirectionsAPIResponse directionResponse) {
 //                        Log.wtf("Graph:", String.valueOf(directionResponse));
-                        com.kathmandulivinglabs.baatolibrary.models.NavResponse navResponse = directionResponse.getData().get(0);
+                       NavResponse navResponse = directionResponse.getData().get(0);
                         double distanceInKm = navResponse.getDistanceInMeters() / 1000;
                         long time = navResponse.getTimeInMs() / 1000;
                         ObjectNode parsedNavigationResponse = NavigateResponseConverter.convertFromGHResponse(directionResponse.getData().get(0), "car");

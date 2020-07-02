@@ -35,6 +35,7 @@ import com.graphhopper.util.Instruction;
 import com.graphhopper.util.PointList;
 import com.graphhopper.util.RoundaboutInstruction;
 import com.graphhopper.util.TranslationMap;
+import com.baato.baatolibrary.models.NavResponse;
 //import com.mapbox.api.directions.v5.models.StepIntersection;
 
 import java.util.ArrayList;
@@ -44,6 +45,7 @@ import java.util.UUID;
 
 import static java.lang.Math.toDegrees;
 import static java.lang.Math.toRadians;
+
 
 
 public class NavigateResponseConverter {
@@ -94,7 +96,7 @@ public class NavigateResponseConverter {
     }
 
     private static final int VOICE_INSTRUCTION_MERGE_TRESHHOLD = 100;
-    private static com.kathmandulivinglabs.baatolibrary.models.NavResponse ghResponse = new com.kathmandulivinglabs.baatolibrary.models.NavResponse();
+    private static NavResponse ghResponse = new NavResponse();
     private static List<List<Double>> allCord = new ArrayList<>();
     private static final TranslationMap trMap = new TranslationMap().doImport();
     private static  final  TranslationMap mtrMap = new NavigateResponseConverterTranslationMap().doImport();
@@ -109,7 +111,7 @@ public class NavigateResponseConverter {
     /**
      * Converts a GHResponse into a json that follows the Mapbox API specification
      */
-    public static ObjectNode convertFromGHResponse(com.kathmandulivinglabs.baatolibrary.models.NavResponse ghResponsee, String type) {
+    public static ObjectNode convertFromGHResponse(NavResponse ghResponsee, String type) {
         ObjectNode json = JsonNodeFactory.instance.objectNode();
         ghResponse = ghResponsee;
 
