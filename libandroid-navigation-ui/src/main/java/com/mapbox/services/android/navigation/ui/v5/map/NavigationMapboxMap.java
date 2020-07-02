@@ -516,7 +516,7 @@ public class NavigationMapboxMap {
   }
 
   private void initializeStreetsSource(MapboxMap mapboxMap) {
-    VectorSource streetSource = new VectorSource(STREETS_SOURCE_ID, MAPBOX_STREETS_V7);
+    VectorSource streetSource = new VectorSource(STREETS_SOURCE_ID, "http://api.baato.io/api/v1/styles/vector");
     mapboxMap.addSource(streetSource);
     LineLayer streetsLayer = new LineLayer(STREETS_LAYER_ID, STREETS_SOURCE_ID)
       .withProperties(

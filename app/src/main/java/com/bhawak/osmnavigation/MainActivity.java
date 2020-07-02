@@ -357,8 +357,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 //                                .shouldSimulateRoute(simulateRoute)
 //                                .build();
 //                        NavigationLauncher.startNavigation(MainActivity.this, options);
-                        Intent intent = new Intent(MainActivity.this, MockNavigationActivity.class);
-//                        Intent intent = new Intent(MainActivity.this, ComponentNavigationActivity.class);
+//                        Intent intent = new Intent(MainActivity.this, MockNavigationActivity.class);
+                        Intent intent = new Intent(MainActivity.this, ComponentNavigationActivity.class);
                         intent.putExtra("Route",directionsResponse);
                         intent.putExtra("origin", originPoint);
                         intent.putExtra("lastLocation", mylocation);
