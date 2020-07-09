@@ -18,12 +18,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.baato.baatolibrary.models.DirectionsAPIResponse;
-import com.baato.baatolibrary.models.NavResponse;
-import com.baato.baatolibrary.services.BaatoRouting;
-import com.bhawak.osmnavigation.navigation.DistanceConfig;
-import com.bhawak.osmnavigation.navigation.DistanceUtils;
-
+import com.bhawak.osmnavigation.navigation.DirectionAPIResponse;
+import com.bhawak.osmnavigation.navigation.NavResponse;
 import com.bhawak.osmnavigation.navigation.NavigateResponseConverter;
 import com.bhawak.osmnavigation.navigation.NavigateResponseConverterTranslationMap;
 import com.bhawak.osmnavigation.navigation.view.ComponentNavigationActivity;
@@ -156,7 +152,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
         httpClient.connectTimeout(100, TimeUnit.SECONDS);
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.1.101:8080")
+                .baseUrl("https://api-staging.baato.io/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(httpClient.build())
                 .build();
@@ -357,8 +353,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 //                                .shouldSimulateRoute(simulateRoute)
 //                                .build();
 //                        NavigationLauncher.startNavigation(MainActivity.this, options);
-//                        Intent intent = new Intent(MainActivity.this, MockNavigationActivity.class);
-                        Intent intent = new Intent(MainActivity.this, ComponentNavigationActivity.class);
+                        Intent intent = new Intent(MainActivity.this, MockNavigationActivity.class);
+//                        Intent intent = new Intent(MainActivity.this, ComponentNavigationActivity.class);
                         intent.putExtra("Route",directionsResponse);
                         intent.putExtra("origin", originPoint);
                         intent.putExtra("lastLocation", mylocation);
@@ -588,35 +584,38 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         points[0] = origin.latitude() + "," + origin.longitude();
 //        points[0] = "27.713042695157757,85.2703857421875";
         points[1] = destination.latitude() + "," + destination.longitude();
-        new BaatoRouting(this)
-                .setPoints(points)
-                .setAccessToken(Constants.token)
-                .setMode("car") //eg bike, car, foot
-                .setAlternatives(false) //optional parameter
-                .setInstructions(true) //optional parameter
-                .withListener(new BaatoRouting.BaatoRoutingRequestListener() {
-                    @Override
-                    public void onSuccess(DirectionsAPIResponse directionResponse) {
+//        new BaatoRouting(this)
+//                .setPoints(points)
+//                .setAccessToken(Constants.token)
+//                .setMode("car") //eg bike, car, foot
+//                .setAlternatives(false) //optional parameter
+//                .setInstructions(true) //optional parameter
+//                .withListener(new BaatoRouting.BaatoRoutingRequestListener() {
+//                    @Override
+//                    public void onSuccess(DirectionsAPIResponse directionResponse) {
 //                        Log.wtf("Graph:", String.valueOf(directionResponse));
-                       NavResponse navResponse = directionResponse.getData().get(0);
-                        double distanceInKm = navResponse.getDistanceInMeters() / 1000;
-                        long time = navResponse.getTimeInMs() / 1000;
-                        ObjectNode parsedNavigationResponse = NavigateResponseConverter.convertFromGHResponse(directionResponse.getData().get(0), "car");
-                        encodedPolyline = navResponse.getEncoded_polyline();
-                        initRouteCoordinates();
-                        directionsResponse = DirectionsResponse.fromJson(String.valueOf(parsedNavigationResponse));
-//                        Log.wtf("ghResponse:",String.valueOf(parsedNavigationResponse));
-                        currentRoute = directionsResponse.routes().get(0);
-                    }
+//                       NavResponse navResponse = directionResponse.getData().get(0);
+//                        double distanceInKm = navResponse.getDistanceInMeters() / 1000;
+//                        long time = navResponse.getTimeInMs() / 1000;
+//                        ObjectNode parsedNavigationResponse = NavigateResponseConverter.convertFromGHResponse(directionResponse.getData().get(0), "car");
+//                        encodedPolyline = navResponse.getEncoded_polyline();
+//                        initRouteCoordinates();
+//                        directionsResponse = DirectionsResponse.fromJson(String.valueOf(parsedNavigationResponse));
+//                        Timber.wtf("Direction Res:%s", String.valueOf(parsedNavigationResponse));
+////                        Log.wtf("ghResponse:",String.valueOf(parsedNavigationResponse));
+//                        currentRoute = directionsResponse.routes().get(0);
+//                    }
+//
+//                    @Override
+//                    public void onFailed(Throwable t) {
+//                        if (t.getMessage() != null && t.getMessage().contains("Failed to connect"))
+//                            Toast.makeText(getApplicationContext(), "Please connect to internet to get the routes!", Toast.LENGTH_SHORT).show();
+//
+//                    }
+//                })
+//                .doRequest();
 
-                    @Override
-                    public void onFailed(Throwable t) {
-                        if (t.getMessage() != null && t.getMessage().contains("Failed to connect"))
-                            Toast.makeText(getApplicationContext(), "Please connect to internet to get the routes!", Toast.LENGTH_SHORT).show();
-
-                    }
-                })
-                .doRequest();
+        // Mark: MapBox
 //                NavigationRoute.builder(this)
 //                .accessToken(Mapbox.getAccessToken())
 //                .origin(origin)
@@ -645,6 +644,46 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 //                        Log.e(TAG, "Error: " + throwable.getMessage());
 //                    }
 //                });
+
+        Call<DirectionAPIResponse> call = getApiInterface().getRoutes(Constants.token, points, "car", false, true);
+        call.enqueue(new Callback<DirectionAPIResponse>() {
+            @Override
+            public void onResponse(Call<DirectionAPIResponse> call, Response<DirectionAPIResponse> response) {
+                if (response.body() != null && response.body().getMessage().equals("Success")) {
+                    NavResponse navResponse = response.body().getData().get(0);
+                    encodedPolyline = navResponse.getEncoded_polyline();
+                    initRouteCoordinates();
+
+                    ObjectNode obj = NavigateResponseConverter.convertFromGHResponse(navResponse, "car");
+//                ObjectMapper mapper = new ObjectMapper();
+//                mapper.getFactory().configure(JsonGenerator.Feature.ESCAPE_NON_ASCII, true);
+//                ObjectNode node = mapper.getNodeFactory().objectNode();
+//                encodedPolyline = response.body().getEncoded_polyline();
+//                currentRoute = response.body().getEncoded_polyline();
+//                else if (response.body().getAll().size() < 1) {
+//                    Log.e(TAG, "No routes found");
+//                    return;
+//                }
+
+                    Log.wtf("On direction:", response.raw().toString());
+                    directionsResponse = DirectionsResponse.fromJson(obj.toString());
+//                currentRoute = directionsResponse.routes().get(0);
+                    currentRoute = directionsResponse.routes().get(0);
+                    navMapRoute(currentRoute);
+                    boundCameraToRoute();
+//                Log.wtf("My route",String.valueOf(directionsRoute));
+
+//                Timber.d(String.valueOf(obj));
+//                addLine("simplifiedLine", Feature.fromGeometry(LineString.fromLngLats(PolylineUtils.simplify(points, 0.001))), "#3bb2d0");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<DirectionAPIResponse> call, Throwable t) {
+                Log.d(TAG, "onFailure: " + t);
+                Log.d(TAG, "Request:" + call.request());
+            }
+        });
     }
 
 //    @Override

@@ -201,13 +201,18 @@ public class MockNavigationActivity extends AppCompatActivity implements OnMapRe
     navigation.addMilestone(new RouteMilestone.Builder()
             .setIdentifier(BEGIN_ROUTE_MILESTONE)
             .setInstruction(new BeginRouteInstruction())
-            .setTrigger(
-                    Trigger.all(
-                            Trigger.lt(TriggerProperty.STEP_INDEX, 3),
-                            Trigger.gt(TriggerProperty.STEP_DISTANCE_TOTAL_METERS, 200),
-                            Trigger.gte(TriggerProperty.STEP_DISTANCE_TRAVELED_METERS, 75)
-                    )
-            ).build());
+            .setTrigger(Trigger.all())
+            .build());
+//    navigation.addMilestone(new RouteMilestone.Builder()
+//            .setIdentifier(BEGIN_ROUTE_MILESTONE)
+//            .setInstruction(new BeginRouteInstruction())
+//            .setTrigger(
+//                    Trigger.all(
+//                            Trigger.lt(TriggerProperty.STEP_INDEX, 3),
+//                            Trigger.gt(TriggerProperty.STEP_DISTANCE_TOTAL_METERS, 200),
+//                            Trigger.gte(TriggerProperty.STEP_DISTANCE_TRAVELED_METERS, 5)
+//                    )
+//            ).build());
         customNotification.register(new MyBroadcastReceiver(navigation), getApplicationContext());
   }
 
@@ -266,6 +271,7 @@ public class MockNavigationActivity extends AppCompatActivity implements OnMapRe
 //        }
 //      });
       ((ReplayRouteLocationEngine) locationEngine).assign(route);
+//      ((ReplayRouteLocationEngine) locationEngine).updateSpeed(100);
       navigation.setLocationEngine(locationEngine);
       locationLayerPlugin.setLocationLayerEnabled(true);
       navigation.startNavigation(route);
@@ -298,6 +304,8 @@ public class MockNavigationActivity extends AppCompatActivity implements OnMapRe
     // Update InstructionView data from RouteProgress
     instructionView.update(routeProgress);
     summaryBottomSheet.update(routeProgress);
+    Log.d("Progress", String.valueOf(routeProgress.currentStepPoints()));
+    Log.d("Location", String.valueOf(location));
   }
 
   @Override
@@ -473,33 +481,33 @@ public class MockNavigationActivity extends AppCompatActivity implements OnMapRe
     String[] points = new String[2];
     points[0] = origin.latitude() + "," + origin.longitude();
     points[1] = destination.latitude() + "," + destination.longitude();
-    new BaatoRouting(this)
-            .setPoints(points)
-            .setAccessToken(Constants.token)
-            .setMode(navigationMode) //eg bike, car, foot
-            .setAlternatives(false) //optional parameter
-            .setInstructions(true) //optional parameter
-            .withListener(new BaatoRouting.BaatoRoutingRequestListener() {
-              @Override
-              public void onSuccess(DirectionsAPIResponse directionResponse) {
-                NavResponse navResponse = directionResponse.getData().get(0);
-                double distanceInKm = navResponse.getDistanceInMeters() / 1000;
-                long time = navResponse.getTimeInMs() / 1000;
-
-                ObjectNode parsedNavigationResponse = NavigateResponseConverter.convertFromGHResponse(directionResponse.getData().get(0), navigationMode);
-                DirectionsResponse directionsResponse = DirectionsResponse.fromJson(String.valueOf(parsedNavigationResponse));
-                route = directionsResponse.routes().get(0);
-                handleRoute(directionsResponse, isOffRoute);
-              }
-
-              @Override
-              public void onFailed(Throwable t) {
-                if (t.getMessage() != null && t.getMessage().contains("Failed to connect"))
-                  Toast.makeText(getApplicationContext(), "Please connect to internet to get the routes!", Toast.LENGTH_SHORT).show();
-
-              }
-            })
-            .doRequest();
+//    new BaatoRouting(this)
+//            .setPoints(points)
+//            .setAccessToken(Constants.token)
+//            .setMode(navigationMode) //eg bike, car, foot
+//            .setAlternatives(false) //optional parameter
+//            .setInstructions(true) //optional parameter
+//            .withListener(new BaatoRouting.BaatoRoutingRequestListener() {
+//              @Override
+//              public void onSuccess(DirectionsAPIResponse directionResponse) {
+//                NavResponse navResponse = directionResponse.getData().get(0);
+//                double distanceInKm = navResponse.getDistanceInMeters() / 1000;
+//                long time = navResponse.getTimeInMs() / 1000;
+//
+//                ObjectNode parsedNavigationResponse = NavigateResponseConverter.convertFromGHResponse(directionResponse.getData().get(0), navigationMode);
+//                DirectionsResponse directionsResponse = DirectionsResponse.fromJson(String.valueOf(parsedNavigationResponse));
+//                route = directionsResponse.routes().get(0);
+//                handleRoute(directionsResponse, isOffRoute);
+//              }
+//
+//              @Override
+//              public void onFailed(Throwable t) {
+//                if (t.getMessage() != null && t.getMessage().contains("Failed to connect"))
+//                  Toast.makeText(getApplicationContext(), "Please connect to internet to get the routes!", Toast.LENGTH_SHORT).show();
+//
+//              }
+//            })
+//            .doRequest();
   }
 
   private void handleRoute(DirectionsResponse response, boolean isOffRoute) {
