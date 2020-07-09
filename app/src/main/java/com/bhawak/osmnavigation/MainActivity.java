@@ -645,6 +645,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 //                    }
 //                });
 
+        //Debug version
+/*
         Call<DirectionAPIResponse> call = getApiInterface().getRoutes(Constants.token, points, "car", false, true);
         call.enqueue(new Callback<DirectionAPIResponse>() {
             @Override
@@ -684,6 +686,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 Log.d(TAG, "Request:" + call.request());
             }
         });
+ */
     }
 
 //    @Override
