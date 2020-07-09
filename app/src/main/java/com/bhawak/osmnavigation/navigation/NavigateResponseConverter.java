@@ -35,7 +35,7 @@ import com.graphhopper.util.Instruction;
 import com.graphhopper.util.PointList;
 import com.graphhopper.util.RoundaboutInstruction;
 import com.graphhopper.util.TranslationMap;
-import com.baato.baatolibrary.models.NavResponse;
+//import com.baato.baatolibrary.models.NavResponse;
 //import com.mapbox.api.directions.v5.models.StepIntersection;
 
 import java.util.ArrayList;
@@ -118,7 +118,6 @@ public class NavigateResponseConverter {
 //        if (ghResponse.hasErrors())
 //            throw new IllegalStateException("If the response has errors, you should use the method NavigateResponseConverter#convertFromGHResponseError");
 
-//        Timber.d(ghResponse.getPath().toString());
 //        PointList waypoints = ghResponse.getPath().getWaypoints();
         PointList routePoints = new PointList(10,false);
 
@@ -143,7 +142,7 @@ public class NavigateResponseConverter {
 
 //        List<PathWrapper> paths = ghResponse.getAll();
         List<List<Double>>  waypointsg = DecodeLine.decodePolyline(ghResponse.getEncoded_polyline(), false);
-//        Log.d("waypoints:", String.valueOf(waypointsg));
+        Log.d("waypoints:", String.valueOf(waypointsg));
 //        ResponsePath responsePath = ghResponsee;
         allCord = waypointsg;
         ObjectNode pathJson = routesJson.addObject();
@@ -534,7 +533,7 @@ public class NavigateResponseConverter {
 
         // Speak 80m instructions 80 before the turn
         // Note: distanceAlongGeometry: "how far from the upcoming maneuver the voice instruction should begin"
-        double distanceAlongGeometry = Helper.round(Math.min(distance, 80), 1);
+        double distanceAlongGeometry = Helper.round(Math.min(distance, 25), 1);
         thenVoiceInstruction = thenVoiceInstruction.replace("unknown instruction sign '4'","you will arrive your destination.");
         if (nextInstruction.getSign() == 4) {
             thenVoiceInstruction = "you will arrive";
@@ -542,7 +541,7 @@ public class NavigateResponseConverter {
         String description = turnDescription + thenVoiceInstruction;
         // Special case for the arrive instruction
         if (index + 2 == instructions.size()) {
-            distanceAlongGeometry = Helper.round(Math.min(distance, 25), 1);
+            distanceAlongGeometry = Helper.round(Math.min(distance, 5), 1);
             description = "You have arrived at your destination";
         }
         String value = getTranslatedDistance((int) distanceAlongGeometry);

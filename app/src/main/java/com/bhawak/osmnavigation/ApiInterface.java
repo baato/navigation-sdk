@@ -1,5 +1,6 @@
 package com.bhawak.osmnavigation;
 
+import com.bhawak.osmnavigation.navigation.DirectionAPIResponse;
 import com.bhawak.osmnavigation.navigation.NavResponse;
 import com.google.gson.JsonElement;
 import com.graphhopper.GHResponse;
@@ -10,8 +11,10 @@ import retrofit2.http.Header;
 import retrofit2.http.Query;
 
 public interface ApiInterface {
-    @GET("/api/v1/routes")
-    Call<NavResponse> getRoutes(@Query("points") String[] points, @Query("mode") String mode, @Query("alternatives") Boolean alternatives);
+    @GET("/api/v1/directions")
+    Call<DirectionAPIResponse> getRoutes(@Query("key") String key, @Query("points[]") String[] points, @Query("mode") String mode, @Query("alternatives") Boolean alternatives, @Query("instructions") Boolean instructions);
+
+//    Call<NavResponse> getRoutes(@Query("points") String[] points, @Query("mode") String mode, @Query("alternatives") Boolean alternatives);
 
     @GET("/api/v2/directions")
     Call<NavAPIResponse> getNavigationRoute(@Query("key") String key, @Query("points[]") String[] points, @Query("mode") String mode, @Query("alternatives") Boolean alternatives, @Query("instructions") Boolean instructions);

@@ -22,7 +22,8 @@ public class ReplayRouteLocationEngine extends LocationEngine implements Runnabl
   private static final int MOCKED_POINTS_LEFT_THRESHOLD = 5;
   private static final int ONE_SECOND_IN_MILLISECONDS = 1000;
   private static final int FORTY_FIVE_KM_PER_HOUR = 45;
-  private static final int DEFAULT_SPEED = FORTY_FIVE_KM_PER_HOUR;
+//  private static final int DEFAULT_SPEED = FORTY_FIVE_KM_PER_HOUR;
+  private static final int DEFAULT_SPEED = 60;
   private static final int ONE_SECOND = 1;
   private static final int DEFAULT_DELAY = ONE_SECOND;
   private static final int DO_NOT_DELAY = 0;
