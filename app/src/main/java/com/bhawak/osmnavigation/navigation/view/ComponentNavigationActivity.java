@@ -20,12 +20,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.transition.TransitionManager;
 
+import com.baato.baatolibrary.models.DirectionsAPIResponse;
+import com.baato.baatolibrary.models.NavResponse;
+import com.baato.baatolibrary.services.BaatoRouting;
 import com.bhawak.osmnavigation.MainActivity;
 import com.bhawak.osmnavigation.R;
 import com.bhawak.osmnavigation.navigation.DirectionAPIResponse;
 import com.bhawak.osmnavigation.navigation.DistanceConfig;
 import com.bhawak.osmnavigation.navigation.DistanceUtils;
-import com.bhawak.osmnavigation.navigation.NavResponse;
 import com.bhawak.osmnavigation.navigation.NavigateResponseConverter;
 import com.bhawak.osmnavigation.navigation.NavigateResponseConverterTranslationMap;
 import com.bhawak.osmnavigation.navigation.view.notification.CustomNavigationNotification;
@@ -573,33 +575,37 @@ public class ComponentNavigationActivity extends AppCompatActivity implements On
 //        points[0] = "27.713042695157757,85.2703857421875";
     points[1] = destination.latitude() + "," + destination.longitude();
 
-//    new BaatoRouting(this)
-//            .setPoints(points)
-//            .setAccessToken(Constants.token)
-//            .setMode("car") //eg bike, car, foot
-//            .setAlternatives(false) //optional parameter
-//            .setInstructions(true) //optional parameter
-//            .withListener(new BaatoRouting.BaatoRoutingRequestListener() {
-//              @Override
-//              public void onSuccess(DirectionsAPIResponse directionResponse) {
-//                NavResponse navResponse = directionResponse.getData().get(0);
-//                double distanceInKm = navResponse.getDistanceInMeters() / 1000;
-//                long time = navResponse.getTimeInMs() / 1000;
-//                ObjectNode parsedNavigationResponse = NavigateResponseConverter.convertFromGHResponse(directionResponse.getData().get(0), "car");
-//
-//                DirectionsResponse directionsResponse = DirectionsResponse.fromJson(String.valueOf(parsedNavigationResponse));
-//                route = directionsResponse.routes().get(0);
-//                handleRoute(directionsResponse, isOffRoute);
-//              }
-//
-//              @Override
-//              public void onFailed(Throwable t) {
-//                if (t.getMessage() != null && t.getMessage().contains("Failed to connect"))
-//                  Toast.makeText(getApplicationContext(), "Please connect to internet to get the routes!", Toast.LENGTH_SHORT).show();
-//
-//              }
-//            })
-//            .doRequest();
+    new BaatoRouting(this)
+            .setPoints(points)
+            .setAccessToken(Constants.token)
+            .setMode("car") //eg bike, car, foot
+            .setAlternatives(false) //optional parameter
+            .setInstructions(true)
+            .setAPIBaseURL("http://api-staging.baato.io/api/")//optional parameter
+            .setAPIVersion("1")
+            .withListener(new BaatoRouting.BaatoRoutingRequestListener() {
+              @Override
+              public void onSuccess(DirectionsAPIResponse directionResponse) {
+                Log.d("debug:", String.valueOf(directionResponse.getData().size()));
+                NavResponse navResponse = directionResponse.getData().get(0);
+                double distanceInKm = navResponse.getDistanceInMeters() / 1000;
+                long time = navResponse.getTimeInMs() / 1000;
+                ObjectNode parsedNavigationResponse = NavigateResponseConverter.convertFromGHResponse(directionResponse.getData().get(0), "car");
+
+                DirectionsResponse directionsResponse = DirectionsResponse.fromJson(String.valueOf(parsedNavigationResponse));
+                route = directionsResponse.routes().get(0);
+                handleRoute(directionsResponse, isOffRoute);
+              }
+
+              @Override
+              public void onFailed(Throwable t) {
+                if (t.getMessage() != null && t.getMessage().contains("Failed to connect"))
+                  Toast.makeText(getApplicationContext(), "Please connect to internet to get the routes!", Toast.LENGTH_SHORT).show();
+
+              }
+            })
+            .doRequest();
+    /*
     Call<DirectionAPIResponse> call = MainActivity.getApiInterface().getRoutes(Constants.token, points, "car", false, true);
     call.enqueue(new Callback<DirectionAPIResponse>() {
       @Override
@@ -626,6 +632,7 @@ public class ComponentNavigationActivity extends AppCompatActivity implements On
         Timber.d("Request:%s", call.request());
       }
     });
+     */
   }
 
   private void handleRoute(DirectionsResponse response, boolean isOffRoute) {
