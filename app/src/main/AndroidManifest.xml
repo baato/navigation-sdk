@@ -32,7 +32,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".navigation.view.MockNavigationActivity" />
-        <!--        <activity android:name=".navigation.view.ComponentNavigationActivity" />-->
+<!--                <activity android:name=".navigation.view.ComponentNavigationActivity" />-->
     </application>
 
 </manifest>

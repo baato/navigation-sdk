@@ -1,0 +1,149 @@
+{
+  "timestamp": "Tue Jul 14 02:14:38 UTC 2020",
+  "status": 200,
+  "message": "Success",
+  "data": [
+    {
+      "encodedPolyline": "o~ehDic{gOj@X^p@V`DFDBBANvAz@rB|@~Av@zAj@xAP`A@PXKfABLAnFIp@aAbDt@f@nBjAtKdFvAt@mCzMSE",
+      "distanceInMeters": 1454.635,
+      "timeInMs": 209031,
+      "instructionList": [
+        {
+          "points": {
+            "size": 3,
+            "intervalString": "[0, 3[",
+            "immutable": true,
+            "3D": false,
+            "dimension": 2,
+            "empty": false
+          },
+          "annotation": {
+            "empty": true,
+            "importance": 0,
+            "message": ""
+          },
+          "sign": 0,
+          "name": "Baraha Marga",
+          "distance": 138.672,
+          "time": 19953,
+          "extraInfoJSON": {
+            "heading": 208.06
+          },
+          "length": 3
+        },
+        {
+          "points": {
+            "size": 10,
+            "intervalString": "[3, 13[",
+            "immutable": true,
+            "3D": false,
+            "dimension": 2,
+            "empty": false
+          },
+          "annotation": {
+            "empty": true,
+            "importance": 0,
+            "message": ""
+          },
+          "sign": 6,
+          "name": "Dhumbharai Marga",
+          "distance": 364.722,
+          "time": 52602,
+          "exitNumber": 1,
+          "exited": true,
+          "turnAngle": 2.277882397875667,
+          "extraInfoJSON": {
+            "exit_number": 1,
+            "exited": true,
+            "turn_angle": 2.28
+          },
+          "length": 10
+        },
+        {
+          "points": {
+            "size": 5,
+            "intervalString": "[13, 18[",
+            "immutable": true,
+            "3D": false,
+            "dimension": 2,
+            "empty": false
+          },
+          "annotation": {
+            "empty": true,
+            "importance": 0,
+            "message": ""
+          },
+          "sign": 2,
+          "name": "Pragati Marga 1",
+          "distance": 275.609,
+          "time": 39193,
+          "extraInfoJSON": {},
+          "length": 5
+        },
+        {
+          "points": {
+            "size": 4,
+            "intervalString": "[18, 22[",
+            "immutable": true,
+            "3D": false,
+            "dimension": 2,
+            "empty": false
+          },
+          "annotation": {
+            "empty": true,
+            "importance": 0,
+            "message": ""
+          },
+          "sign": -2,
+          "name": "Bishalnagar Marga",
+          "distance": 417.128,
+          "time": 60072,
+          "extraInfoJSON": {},
+          "length": 4
+        },
+        {
+          "points": {
+            "size": 1,
+            "intervalString": "[22, 23[",
+            "immutable": true,
+            "3D": false,
+            "dimension": 2,
+            "empty": false
+          },
+          "annotation": {
+            "empty": true,
+            "importance": 0,
+            "message": ""
+          },
+          "sign": 2,
+          "name": "Thirbam Sadak",
+          "distance": 247.031,
+          "time": 27788,
+          "extraInfoJSON": {},
+          "length": 1
+        },
+        {
+          "points": {
+            "size": 1,
+            "intervalString": "[23, 24[",
+            "immutable": true,
+            "3D": false,
+            "dimension": 2,
+            "empty": false
+          },
+          "annotation": {
+            "empty": true,
+            "importance": 0,
+            "message": ""
+          },
+          "sign": 4,
+          "name": "Thirbam Sadak",
+          "distance": 11.473,
+          "time": 1147,
+          "length": 1,
+          "extraInfoJSON": {}
+        }
+      ]
+    }
+  ]
+}

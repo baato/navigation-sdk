@@ -185,7 +185,7 @@ public class MockNavigationActivity extends AppCompatActivity implements OnMapRe
       lastLocation = (Location) extras.get("lastLocation");
       // and get whatever type user account id is
     }
-    mapView.setStyleUrl("http://api.baato.io/api/v1/styles/retro?key=" + Constants.token);
+    mapView.setStyleUrl("http://api-staging.baato.io/api/v1/styles/retro?key=" + Constants.token);
     mapView.onCreate(savedInstanceState);
 
     // Will call onMapReady
@@ -230,7 +230,7 @@ public class MockNavigationActivity extends AppCompatActivity implements OnMapRe
     //remove mapbox attribute
     mapboxMap.getUiSettings().setAttributionEnabled(false);
     mapboxMap.getUiSettings().setLogoEnabled(false);
-    mapboxMap.setStyleUrl("http://api.baato.io/api/v1/styles/retro?key=" + Constants.token, new MapboxMap.OnStyleLoadedListener() {
+    mapboxMap.setStyleUrl("http://api-staging.baato.io/api/v1/styles/retro?key=" + Constants.token, new MapboxMap.OnStyleLoadedListener() {
       //        mapboxMap.setStyle(Style.MAPBOX_STREETS, new MapboxMap.OnStyleLoadedListener() {
       @Override
       public void onStyleLoaded(@NonNull String style) {

@@ -35,8 +35,7 @@ import com.graphhopper.util.Instruction;
 import com.graphhopper.util.PointList;
 import com.graphhopper.util.RoundaboutInstruction;
 import com.graphhopper.util.TranslationMap;
-import com.baato.baatolibrary.models.NavResponse;
-//import com.mapbox.api.directions.v5.models.StepIntersection;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -98,6 +97,7 @@ public class NavigateResponseConverter {
     private static final int VOICE_INSTRUCTION_MERGE_TRESHHOLD = 100;
     private static NavResponse ghResponse = new NavResponse();
     private static List<List<Double>> allCord = new ArrayList<>();
+    private static boolean pointadded = false;
     private static final TranslationMap trMap = new TranslationMap().doImport();
     private static  final  TranslationMap mtrMap = new NavigateResponseConverterTranslationMap().doImport();
     private static String uuid = UUID.randomUUID().toString().replaceAll("-", "");
@@ -142,7 +142,6 @@ public class NavigateResponseConverter {
 
 //        List<PathWrapper> paths = ghResponse.getAll();
         List<List<Double>>  waypointsg = DecodeLine.decodePolyline(ghResponse.getEncoded_polyline(), false);
-        Log.d("waypoints:", String.valueOf(waypointsg));
 //        ResponsePath responsePath = ghResponsee;
         allCord = waypointsg;
         ObjectNode pathJson = routesJson.addObject();
@@ -193,6 +192,7 @@ public class NavigateResponseConverter {
             Instruction instruction = instructions.get(i);
             time += instruction.getTime();
             distance += instruction.getDistance();
+//            Log.wtf("ins", String.valueOf(instruction.getPoints()));
             isFirstInstructionOfLeg = false;
             if (instruction.getSign() == Instruction.REACHED_VIA || instruction.getSign() == Instruction.FINISH) {
                 putLegInformation(legJson, routeNr, time, distance);
@@ -263,7 +263,7 @@ public class NavigateResponseConverter {
 //        if (!path.getDescription().isEmpty())
 //            summary = TextUtils.join(",", path.getDescription());
 //        else
-        summary = "GraphHopper Route " + i;
+        summary = "Baato Route " + i;
         legJson.put("summary", summary);
 
         // TODO there is no weight per instruction, let's use time
@@ -287,6 +287,16 @@ public class NavigateResponseConverter {
         //Make pointList mutable
         PointList pointList = mapObj.getPointList().clone(false);
 
+        if (index + 2 < instructions.size()) {
+            // Add the first point of the next instruction
+            MapObj mapObj1 = computeInterval(instructions.get(index+1));
+            pointList.add(mapObj1.pointList.getLat(0), mapObj1.pointList.getLon(0));
+        } else if (pointList.size() == 1) {
+            // Duplicate the last point in the arrive instruction, if the size is 1
+            pointList.add(pointList.getLat(0), pointList.getLon(0), pointList.getEle(0));
+        }
+
+
         instructionJson.put("driving_side", "left");
 
         // Does not include elevation
@@ -294,7 +304,7 @@ public class NavigateResponseConverter {
 //        instructionJson.put("geometry", pointList);
 
         // TODO: how about other modes?
-        instructionJson.put("mode", "walking");
+        instructionJson.put("mode", mode);
 
         putManeuver(instruction, instructionJson, locale, isFirstInstructionOfLeg);
 
@@ -387,7 +397,10 @@ public class NavigateResponseConverter {
         ArrayNode bearings = intersection.putArray("bearings");
         bearings.add((int)Math.round(bearing));
         MapObj mapObj = computeInterval(instruction);
-        putLocation(mapObj.pointList.getLatitude(instruction.getPoints().getSize()-1),mapObj.pointList.getLongitude(instruction.getPoints().getSize()-1),intersection);
+//        if (isLastInstruction(instruction))
+//            putLocation(mapObj.pointList.getLatitude(instruction.getPoints().getSize()),mapObj.pointList.getLongitude(instruction.getPoints().getSize()),intersection);
+//        else
+            putLocation(mapObj.pointList.getLatitude(instruction.getPoints().getSize()-1),mapObj.pointList.getLongitude(instruction.getPoints().getSize()-1),intersection);
     }
 
     @Nullable
@@ -414,8 +427,17 @@ public class NavigateResponseConverter {
         }
         int end = start + size;
         PointList routePoints = new PointList(10,false);
-
+//        if (end-start == 0) {
+//            routePoints.add(allCord.get(0).get(0), allCord.get(0).get(1));
+//           if (!pointadded) {
+//               allCord.add(allCord.get(0));
+//               pointadded = true;
+//           }
+//        }
         for(int i = 0; i<end-start;i++) {
+//            if (allCord.size() == start+i){
+//                start = start - 1;
+//            }
             double ltr = allCord.get(start+i).get(0);
             double rtr = allCord.get(start+i).get(1);
             routePoints.add(ltr,rtr);
@@ -546,8 +568,8 @@ public class NavigateResponseConverter {
         }
         String value = getTranslatedDistance((int) distanceAlongGeometry);
 //        Log.wtf("turn desc then", description);
-        description = description.replaceAll("unknown instruction sign '6'", "Continue on " + instructions.get(index).getName());
-        description = description.replaceAll("then unknown instruction sign 4", " ");
+        description = description.replace("unknown instruction sign '6'", "Continue on " + instructions.get(index).getName());
+//        description = description.replace("then unknown instruction sign '4'", "you will arrive your destination.");
         putSingleVoiceInstruction(distanceAlongGeometry, description, voiceInstructions);
     }
     public static String getTranslatedDistance(int distance){
@@ -567,6 +589,7 @@ public class NavigateResponseConverter {
 //        Log.wtf("::", turnDescription);
         ObjectNode voiceInstruction = voiceInstructions.addObject();
         voiceInstruction.put("distanceAlongGeometry", distanceAlongGeometry);
+        turnDescription = turnDescription.replace("then unknown instruction sign '4'", " ");
         //TODO: ideally, we would even generate instructions including the instructions after the next like turn left **then** turn right
         voiceInstruction.put("announcement", turnDescription);
         voiceInstruction.put("ssmlAnnouncement", "<speak><amazon:effect name=\"drc\"><prosody rate=\"1.08\">" + turnDescription + "</prosody></amazon:effect></speak>");
