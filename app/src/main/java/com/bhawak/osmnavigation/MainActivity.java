@@ -22,6 +22,7 @@ import com.bhawak.osmnavigation.navigation.DirectionAPIResponse;
 import com.bhawak.osmnavigation.navigation.NavResponse;
 import com.bhawak.osmnavigation.navigation.NavigateResponseConverter;
 import com.bhawak.osmnavigation.navigation.NavigateResponseConverterTranslationMap;
+import com.bhawak.osmnavigation.navigation.SimpleConverter;
 import com.bhawak.osmnavigation.navigation.view.ComponentNavigationActivity;
 import com.bhawak.osmnavigation.navigation.view.Constants;
 import com.bhawak.osmnavigation.navigation.view.MockNavigationActivity;
@@ -37,6 +38,7 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.LocationSettingsRequest;
 import com.google.android.gms.location.LocationSettingsStatusCodes;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.gson.Gson;
 import com.graphhopper.util.TranslationMap;
 import com.mapbox.android.core.location.LocationEngine;
 import com.mapbox.android.core.location.LocationEngineListener;
@@ -77,6 +79,9 @@ import com.mapbox.services.android.navigation.ui.v5.route.NavigationMapRoute;
 import com.mapbox.services.android.navigation.ui.v5.route.OnRouteSelectionChangeListener;
 import com.mapbox.services.android.navigation.v5.navigation.NavigationRoute;
 import com.mapbox.services.android.navigation.v5.utils.LocaleUtils;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -177,7 +182,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         setContentView(R.layout.activity_main);
         mapView = (MapView) findViewById(R.id.mapView);
         button = findViewById(R.id.startButton);
-        mapView.setStyleUrl("http://api.baato.io/api/v1/styles/retro?key=" + Constants.token);
+        mapView.setStyleUrl("http://api-staging.baato.io/api/v1/styles/retro?key=" + Constants.token);
         mapView.onCreate(savedInstanceState);
         mapView.getMapAsync(this);
     }
@@ -332,7 +337,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         initLocationEngine();
         initLocationLayer();
-        mapboxMap.setStyleUrl("http://api.baato.io/api/v1/styles/retro?key=" + Constants.token, new MapboxMap.OnStyleLoadedListener() {
+        mapboxMap.setStyleUrl("http://api-staging.baato.io/api/v1/styles/retro?key=" + Constants.token, new MapboxMap.OnStyleLoadedListener() {
             @Override
             public void onStyleLoaded(@NonNull String style) {
                 mapboxMap.addOnMapClickListener(MainActivity.this);
@@ -397,7 +402,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         navigationMapRoute.addRoute(myRoute);
     }
         private String returnFromRaw() throws IOException {
-        InputStream is = getResources().openRawResource(R.raw.mapboxtest);
+        InputStream is = getResources().openRawResource(R.raw.baatomodified);
         Writer writer = new StringWriter();
         char[] buffer = new char[1024];
         try {
@@ -417,6 +422,21 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         String jsonString = writer.toString();
         Log.wtf("jsonString", jsonString);
         return jsonString;
+    }
+    public String loadJSONFromAsset() {
+        String json = null;
+        try {
+            InputStream is = getResources().openRawResource(R.raw.directions);
+            int size = is.available();
+            byte[] buffer = new byte[size];
+            is.read(buffer);
+            is.close();
+            json = new String(buffer, "UTF-8");
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            return null;
+        }
+        return json;
     }
 
 //    @Override
@@ -646,17 +666,42 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 //                });
 
         //Debug version
-/*
+
+//        try {
+////            DirectionsResponse response = new Gson().fromJson(returnFromRaw(), DirectionsResponse.class);
+//            directionsResponse = DirectionsResponse.fromJson(returnFromRaw());
+//            encodedPolyline = directionsResponse.routes().get(0).geometry();
+//            initRouteCoordinates();
+//            currentRoute = directionsResponse.routes().get(0);
+//            navMapRoute(currentRoute);
+//            /*
+//            NavResponse navResponse = response.getData().get(0);
+//            encodedPolyline = navResponse.getEncoded_polyline();
+//            initRouteCoordinates();
+//            ObjectNode obj = NavigateResponseConverter.convertFromGHResponse(navResponse, "car");
+//            directionsResponse = DirectionsResponse.fromJson(obj.toString());
+//            currentRoute = directionsResponse.routes().get(0);
+//            navMapRoute(currentRoute);
+//             */
+//
+//            boundCameraToRoute();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+
+
         Call<DirectionAPIResponse> call = getApiInterface().getRoutes(Constants.token, points, "car", false, true);
         call.enqueue(new Callback<DirectionAPIResponse>() {
             @Override
             public void onResponse(Call<DirectionAPIResponse> call, Response<DirectionAPIResponse> response) {
+
                 if (response.body() != null && response.body().getMessage().equals("Success")) {
                     NavResponse navResponse = response.body().getData().get(0);
                     encodedPolyline = navResponse.getEncoded_polyline();
                     initRouteCoordinates();
 
                     ObjectNode obj = NavigateResponseConverter.convertFromGHResponse(navResponse, "car");
+//                    ObjectNode obj = SimpleConverter.convertFromGHResponse(navResponse, "car");
 //                ObjectMapper mapper = new ObjectMapper();
 //                mapper.getFactory().configure(JsonGenerator.Feature.ESCAPE_NON_ASCII, true);
 //                ObjectNode node = mapper.getNodeFactory().objectNode();
@@ -667,15 +712,15 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 //                    return;
 //                }
 
-                    Log.wtf("On direction:", response.raw().toString());
+
                     directionsResponse = DirectionsResponse.fromJson(obj.toString());
 //                currentRoute = directionsResponse.routes().get(0);
                     currentRoute = directionsResponse.routes().get(0);
                     navMapRoute(currentRoute);
                     boundCameraToRoute();
-//                Log.wtf("My route",String.valueOf(directionsRoute));
+                Log.wtf("My route",String.valueOf(obj));
 
-//                Timber.d(String.valueOf(obj));
+                Timber.d(String.valueOf(obj));
 //                addLine("simplifiedLine", Feature.fromGeometry(LineString.fromLngLats(PolylineUtils.simplify(points, 0.001))), "#3bb2d0");
                 }
             }
@@ -686,8 +731,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 Log.d(TAG, "Request:" + call.request());
             }
         });
- */
     }
+
 
 //    @Override
 //    public void onNewPrimaryRouteSelected(DirectionsRoute directionsRoute) {

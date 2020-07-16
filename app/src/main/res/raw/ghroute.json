@@ -1,0 +1,118 @@
+{
+  "hints": {
+    "visited_nodes.sum": 38,
+    "visited_nodes.average": 38
+  },
+  "info": {
+    "copyrights": [
+      "GraphHopper",
+      "OpenStreetMap contributors"
+    ],
+    "took": 10
+  },
+  "paths": [
+    {
+      "distance": 1454.635,
+      "weight": 185.322826,
+      "time": 163490,
+      "transfers": 0,
+      "points_encoded": true,
+      "bbox": [
+        85.331112,
+        27.718478,
+        85.340856,
+        27.724724
+      ],
+      "points": "o~ehDic{gOj@X^p@V`DFDBBANvAz@rB|@~Av@zAj@xAP`A@PXKfABLAnFIp@aAbDt@f@nBjAtKdFvAt@mCzMSE",
+      "instructions": [
+        {
+          "distance": 138.672,
+          "heading": 208.06,
+          "sign": 0,
+          "interval": [
+            0,
+            3
+          ],
+          "text": "Continue onto Baraha Marga",
+          "time": 15599,
+          "street_name": "Baraha Marga"
+        },
+        {
+          "exit_number": 1,
+          "distance": 364.722,
+          "sign": 6,
+          "exited": true,
+          "turn_angle": 2.28,
+          "interval": [
+            3,
+            13
+          ],
+          "text": "At roundabout, take exit 1 onto Dhumbharai Marg",
+          "time": 41028,
+          "street_name": "Dhumbharai Marg"
+        },
+        {
+          "distance": 275.609,
+          "sign": 2,
+          "interval": [
+            13,
+            18
+          ],
+          "text": "Turn right onto Pragati Marga 1",
+          "time": 31003,
+          "street_name": "Pragati Marga 1"
+        },
+        {
+          "distance": 417.128,
+          "sign": -2,
+          "interval": [
+            18,
+            22
+          ],
+          "text": "Turn left onto Bishalnagar Marga",
+          "time": 46925,
+          "street_name": "Bishalnagar Marga"
+        },
+        {
+          "distance": 247.031,
+          "sign": 2,
+          "interval": [
+            22,
+            23
+          ],
+          "text": "Turn right onto Bishalnagar Marga",
+          "time": 27788,
+          "street_name": "Bishalnagar Marga"
+        },
+        {
+          "distance": 11.473,
+          "sign": 2,
+          "interval": [
+            23,
+            24
+          ],
+          "text": "Turn right onto Thirbam Sadak",
+          "time": 1147,
+          "street_name": "Thirbam Sadak"
+        },
+        {
+          "distance": 0,
+          "sign": 4,
+          "last_heading": 16.472536610011165,
+          "interval": [
+            24,
+            24
+          ],
+          "text": "Arrive at destination",
+          "time": 0,
+          "street_name": ""
+        }
+      ],
+      "legs": [],
+      "details": {},
+      "ascend": 12.37890625,
+      "descend": 20.01495361328125,
+      "snapped_waypoints": "o~ehDic{gO~`@t{@"
+    }
+  ]
+}

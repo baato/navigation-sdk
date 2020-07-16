@@ -1,0 +1,790 @@
+{
+  "routes": [
+    {
+      "geometry": "_zd{s@cjxwaDvLbG~HrNnFrq@nAz@f@f@S~CnZvQfc@jR~\\nPv[vLb[rDbVvB~C~CkCzYS~iAcBrN_Sjp@fOjM~a@vVz}BzfAnZzOkk@vsCv_C~k@{Jfr@oPsDcBbBwQg@",
+      "legs": [
+        {
+          "steps": [
+            {
+              "intersections": [
+                {
+                  "out": 0,
+                  "entry": [
+                    true
+                  ],
+                  "bearings": [
+                    208
+                  ],
+                  "location": [
+                    85.34085,
+                    27.72472
+                  ]
+                },
+                {
+                  "out": 0,
+                  "entry": [
+                    true
+                  ],
+                  "bearings": [
+                    234
+                  ],
+                  "location": [
+                    85.34072,
+                    27.7245
+                  ]
+                }
+              ],
+              "driving_side": "left",
+              "geometry": "_zd{s@cjxwaDvLbG~HrNnFrq@",
+              "mode": "driving",
+              "maneuver": {
+                "bearing_after": 234,
+                "bearing_before": 0,
+                "location": [
+                  85.34085,
+                  27.72472
+                ],
+                "modifier": "straight",
+                "type": "depart",
+                "instruction": "continue_onto"
+              },
+              "weight": 138.6,
+              "duration": 20,
+              "name": "Baraha Marga",
+              "distance": 138.6,
+              "voiceInstructions": [
+                {
+                  "distanceAlongGeometry": 25,
+                  "announcement": "Continue on Baraha Marga",
+                  "ssmlAnnouncement": "<speak><amazon:effect name=\"drc\"><prosody rate=\"1.08\">Continue on Baraha Marga</prosody></amazon:effect></speak>"
+                }
+              ],
+              "bannerInstructions": [
+                {
+                  "distanceAlongGeometry": 138.6,
+                  "primary": {
+                    "text": "Dhumbharai Marga",
+                    "components": [
+                      {
+                        "text": "Dhumbharai Marga",
+                        "type": "text"
+                      }
+                    ],
+                    "type": "roundabout",
+                    "modifier": "left"
+                  },
+                  "secondary": null
+                }
+              ]
+            },
+            {
+              "intersections": [
+                {
+                  "out": 0,
+                  "entry": [
+                    true
+                  ],
+                  "bearings": [
+                    214
+                  ],
+                  "location": [
+                    85.33966,
+                    27.72422
+                  ]
+                },
+                {
+                  "out": 0,
+                  "entry": [
+                    true
+                  ],
+                  "bearings": [
+                    222
+                  ],
+                  "location": [
+                    85.33963,
+                    27.72418
+                  ]
+                },
+                {
+                  "out": 0,
+                  "entry": [
+                    true
+                  ],
+                  "bearings": [
+                    278
+                  ],
+                  "location": [
+                    85.33961,
+                    27.72416
+                  ]
+                },
+                {
+                  "out": 0,
+                  "entry": [
+                    true
+                  ],
+                  "bearings": [
+                    211
+                  ],
+                  "location": [
+                    85.33953,
+                    27.72417
+                  ]
+                },
+                {
+                  "out": 0,
+                  "entry": [
+                    true
+                  ],
+                  "bearings": [
+                    205
+                  ],
+                  "location": [
+                    85.33923,
+                    27.72373
+                  ]
+                },
+                {
+                  "out": 0,
+                  "entry": [
+                    true
+                  ],
+                  "bearings": [
+                    207
+                  ],
+                  "location": [
+                    85.33892,
+                    27.72315
+                  ]
+                },
+                {
+                  "out": 0,
+                  "entry": [
+                    true
+                  ],
+                  "bearings": [
+                    203
+                  ],
+                  "location": [
+                    85.33864,
+                    27.72267
+                  ]
+                },
+                {
+                  "out": 0,
+                  "entry": [
+                    true
+                  ],
+                  "bearings": [
+                    190
+                  ],
+                  "location": [
+                    85.33842,
+                    27.72221
+                  ]
+                },
+                {
+                  "out": 0,
+                  "entry": [
+                    true
+                  ],
+                  "bearings": [
+                    188
+                  ],
+                  "location": [
+                    85.33833,
+                    27.72176
+                  ]
+                }
+              ],
+              "driving_side": "left",
+              "geometry": "wzc{s@w_vwaDnAz@f@f@S~CnZvQfc@jR~\\nPv[vLb[rDbVvB~C~C",
+              "mode": "driving",
+              "maneuver": {
+                "bearing_after": 203,
+                "bearing_before": 213,
+                "location": [
+                  85.33966,
+                  27.72422
+                ],
+                "modifier": "left",
+                "type": "roundabout",
+                "instruction": "unknown"
+              },
+              "weight": 365.3,
+              "duration": 52.6,
+              "name": "Dhumbharai Marga",
+              "distance": 365.3,
+              "voiceInstructions": [
+                {
+                  "distanceAlongGeometry": 200,
+                  "announcement": "In 200 meters turn right onto Pragati Marga 1",
+                  "ssmlAnnouncement": "<speak><amazon:effect name=\"drc\"><prosody rate=\"1.08\">In 200 meters turn right onto Pragati Marga 1</prosody></amazon:effect></speak>"
+                },
+                {
+                  "distanceAlongGeometry": 25,
+                  "announcement": "turn right onto Pragati Marga 1",
+                  "ssmlAnnouncement": "<speak><amazon:effect name=\"drc\"><prosody rate=\"1.08\">turn right onto Pragati Marga 1</prosody></amazon:effect></speak>"
+                }
+              ],
+              "bannerInstructions": [
+                {
+                  "distanceAlongGeometry": 365.3,
+                  "primary": {
+                    "text": "Pragati Marga 1",
+                    "components": [
+                      {
+                        "text": "Pragati Marga 1",
+                        "type": "text"
+                      }
+                    ],
+                    "type": "turn",
+                    "modifier": "right"
+                  },
+                  "secondary": null
+                }
+              ]
+            },
+            {
+              "intersections": [
+                {
+                  "out": 0,
+                  "entry": [
+                    true
+                  ],
+                  "bearings": [
+                    280
+                  ],
+                  "location": [
+                    85.33819,
+                    27.72131
+                  ]
+                },
+                {
+                  "out": 0,
+                  "entry": [
+                    true
+                  ],
+                  "bearings": [
+                    271
+                  ],
+                  "location": [
+                    85.33776,
+                    27.72138
+                  ]
+                },
+                {
+                  "out": 0,
+                  "entry": [
+                    true
+                  ],
+                  "bearings": [
+                    283
+                  ],
+                  "location": [
+                    85.33656,
+                    27.72139
+                  ]
+                }
+              ],
+              "driving_side": "left",
+              "geometry": "{d~zs@{cswaDkCzYS~iAcBrN_Sjp@",
+              "mode": "driving",
+              "maneuver": {
+                "bearing_after": 273,
+                "bearing_before": 272,
+                "location": [
+                  85.33819,
+                  27.72131
+                ],
+                "modifier": "right",
+                "type": "turn",
+                "instruction": "turn_onto"
+              },
+              "weight": 272.2,
+              "duration": 39.2,
+              "name": "Pragati Marga 1",
+              "distance": 272.2,
+              "voiceInstructions": [
+                {
+                  "distanceAlongGeometry": 200,
+                  "announcement": "In 200 meters turn left onto Bishalnagar Marga",
+                  "ssmlAnnouncement": "<speak><amazon:effect name=\"drc\"><prosody rate=\"1.08\">In 200 meters turn left onto Bishalnagar Marga</prosody></amazon:effect></speak>"
+                },
+                {
+                  "distanceAlongGeometry": 25,
+                  "announcement": "turn left onto Bishalnagar Marga",
+                  "ssmlAnnouncement": "<speak><amazon:effect name=\"drc\"><prosody rate=\"1.08\">turn left onto Bishalnagar Marga</prosody></amazon:effect></speak>"
+                }
+              ],
+              "bannerInstructions": [
+                {
+                  "distanceAlongGeometry": 272.2,
+                  "primary": {
+                    "text": "Bishalnagar Marga",
+                    "components": [
+                      {
+                        "text": "Bishalnagar Marga",
+                        "type": "text"
+                      }
+                    ],
+                    "type": "turn",
+                    "modifier": "left"
+                  },
+                  "secondary": null
+                }
+              ]
+            },
+            {
+              "intersections": [
+                {
+                  "out": 0,
+                  "entry": [
+                    true
+                  ],
+                  "bearings": [
+                    218
+                  ],
+                  "location": [
+                    85.33552,
+                    27.72176
+                  ]
+                },
+                {
+                  "out": 0,
+                  "entry": [
+                    true
+                  ],
+                  "bearings": [
+                    211
+                  ],
+                  "location": [
+                    85.33529,
+                    27.7215
+                  ]
+                },
+                {
+                  "out": 0,
+                  "entry": [
+                    true
+                  ],
+                  "bearings": [
+                    207
+                  ],
+                  "location": [
+                    85.33491,
+                    27.72094
+                  ]
+                }
+              ],
+              "driving_side": "left",
+              "geometry": "_a_{s@_}mwaDfOjM~a@vVz}BzfAnZzO",
+              "mode": "driving",
+              "maneuver": {
+                "bearing_after": 208,
+                "bearing_before": 222,
+                "location": [
+                  85.33552,
+                  27.72176
+                ],
+                "modifier": "left",
+                "type": "turn",
+                "instruction": "turn_onto"
+              },
+              "weight": 417.2,
+              "duration": 60.1,
+              "name": "Bishalnagar Marga",
+              "distance": 417.2,
+              "voiceInstructions": [
+                {
+                  "distanceAlongGeometry": 400,
+                  "announcement": "In 400 meters turn right onto Bishalnagar Marga",
+                  "ssmlAnnouncement": "<speak><amazon:effect name=\"drc\"><prosody rate=\"1.08\">In 400 meters turn right onto Bishalnagar Marga</prosody></amazon:effect></speak>"
+                },
+                {
+                  "distanceAlongGeometry": 25,
+                  "announcement": "turn right onto Bishalnagar Marga",
+                  "ssmlAnnouncement": "<speak><amazon:effect name=\"drc\"><prosody rate=\"1.08\">turn right onto Bishalnagar Marga</prosody></amazon:effect></speak>"
+                }
+              ],
+              "bannerInstructions": [
+                {
+                  "distanceAlongGeometry": 417.2,
+                  "primary": {
+                    "text": "Bishalnagar Marga",
+                    "components": [
+                      {
+                        "text": "Bishalnagar Marga",
+                        "type": "text"
+                      }
+                    ],
+                    "type": "turn",
+                    "modifier": "right"
+                  },
+                  "secondary": null
+                }
+              ]
+            },
+            {
+              "intersections": [
+                {
+                  "out": 0,
+                  "entry": [
+                    true
+                  ],
+                  "bearings": [
+                    0
+                  ],
+                  "location": [
+                    85.33349,
+                    27.71847
+                  ]
+                }
+              ],
+              "driving_side": "left",
+              "geometry": "ksxzs@c~iwaDkk@vsC",
+              "mode": "driving",
+              "maneuver": {
+                "bearing_after": 0,
+                "bearing_before": 0,
+                "location": [
+                  85.33349,
+                  27.71847
+                ],
+                "modifier": "right",
+                "type": "turn",
+                "instruction": "turn_onto"
+              },
+              "weight": 247,
+              "duration": 35.6,
+              "name": "Bishalnagar Marga",
+              "distance": 247,
+              "voiceInstructions": [
+                {
+                  "distanceAlongGeometry": 200,
+                  "announcement": "In 200 meters turn left onto Thirbam Sadak",
+                  "ssmlAnnouncement": "<speak><amazon:effect name=\"drc\"><prosody rate=\"1.08\">In 200 meters turn left onto Thirbam Sadak</prosody></amazon:effect></speak>"
+                },
+                {
+                  "distanceAlongGeometry": 25,
+                  "announcement": "turn left onto Thirbam Sadak",
+                  "ssmlAnnouncement": "<speak><amazon:effect name=\"drc\"><prosody rate=\"1.08\">turn left onto Thirbam Sadak</prosody></amazon:effect></speak>"
+                }
+              ],
+              "bannerInstructions": [
+                {
+                  "distanceAlongGeometry": 247,
+                  "primary": {
+                    "text": "Thirbam Sadak",
+                    "components": [
+                      {
+                        "text": "Thirbam Sadak",
+                        "type": "text"
+                      }
+                    ],
+                    "type": "turn",
+                    "modifier": "left"
+                  },
+                  "secondary": null
+                }
+              ]
+            },
+            {
+              "intersections": [
+                {
+                  "out": 0,
+                  "entry": [
+                    true
+                  ],
+                  "bearings": [
+                    0
+                  ],
+                  "location": [
+                    85.33111,
+                    27.71918
+                  ]
+                }
+              ],
+              "driving_side": "left",
+              "geometry": "w_zzs@kiewaDv_C~k@",
+              "mode": "driving",
+              "maneuver": {
+                "bearing_after": 0,
+                "bearing_before": 0,
+                "location": [
+                  85.33111,
+                  27.71918
+                ],
+                "modifier": "left",
+                "type": "turn",
+                "instruction": "turn_onto"
+              },
+              "weight": 240.1,
+              "duration": 34.6,
+              "name": "Thirbam Sadak",
+              "distance": 240.1,
+              "voiceInstructions": [
+                {
+                  "distanceAlongGeometry": 200,
+                  "announcement": "In 200 meters turn right onto Gairidhara Road, then turn right onto Bhrikuti Tole Marga",
+                  "ssmlAnnouncement": "<speak><amazon:effect name=\"drc\"><prosody rate=\"1.08\">In 200 meters turn right onto Gairidhara Road, then turn right onto Bhrikuti Tole Marga</prosody></amazon:effect></speak>"
+                },
+                {
+                  "distanceAlongGeometry": 25,
+                  "announcement": "turn right onto Gairidhara Road, then turn right onto Bhrikuti Tole Marga",
+                  "ssmlAnnouncement": "<speak><amazon:effect name=\"drc\"><prosody rate=\"1.08\">turn right onto Gairidhara Road, then turn right onto Bhrikuti Tole Marga</prosody></amazon:effect></speak>"
+                }
+              ],
+              "bannerInstructions": [
+                {
+                  "distanceAlongGeometry": 240.1,
+                  "primary": {
+                    "text": "Gairidhara Road",
+                    "components": [
+                      {
+                        "text": "Gairidhara Road",
+                        "type": "text"
+                      }
+                    ],
+                    "type": "turn",
+                    "modifier": "right"
+                  },
+                  "secondary": null
+                }
+              ]
+            },
+            {
+              "intersections": [
+                {
+                  "out": 0,
+                  "entry": [
+                    true
+                  ],
+                  "bearings": [
+                    0
+                  ],
+                  "location": [
+                    85.33039,
+                    27.71712
+                  ]
+                }
+              ],
+              "driving_side": "left",
+              "geometry": "__vzs@k|cwaD{Jfr@",
+              "mode": "driving",
+              "maneuver": {
+                "bearing_after": 0,
+                "bearing_before": 0,
+                "location": [
+                  85.33039,
+                  27.71712
+                ],
+                "modifier": "right",
+                "type": "turn",
+                "instruction": "turn_onto"
+              },
+              "weight": 83.4,
+              "duration": 12,
+              "name": "Gairidhara Road",
+              "distance": 83.4,
+              "voiceInstructions": [
+                {
+                  "distanceAlongGeometry": 25,
+                  "announcement": "turn right onto Bhrikuti Tole Marga, then you will arrive your destination.",
+                  "ssmlAnnouncement": "<speak><amazon:effect name=\"drc\"><prosody rate=\"1.08\">turn right onto Bhrikuti Tole Marga, then you will arrive your destination.</prosody></amazon:effect></speak>"
+                }
+              ],
+              "bannerInstructions": [
+                {
+                  "distanceAlongGeometry": 83.4,
+                  "primary": {
+                    "text": "Bhrikuti Tole Marga",
+                    "components": [
+                      {
+                        "text": "Bhrikuti Tole Marga",
+                        "type": "text"
+                      }
+                    ],
+                    "type": "turn",
+                    "modifier": "right"
+                  },
+                  "secondary": null,
+                  "sub": {
+                    "components": [
+                      {
+                        "text": "Destination",
+                        "type": "text"
+                      }
+                    ],
+                    "type": "arrive"
+                  }
+                }
+              ]
+            },
+            {
+              "intersections": [
+                {
+                  "out": 0,
+                  "entry": [
+                    true
+                  ],
+                  "bearings": [
+                    16
+                  ],
+                  "location": [
+                    85.32957,
+                    27.71731
+                  ]
+                },
+                {
+                  "out": 0,
+                  "entry": [
+                    true
+                  ],
+                  "bearings": [
+                    318
+                  ],
+                  "location": [
+                    85.32966,
+                    27.71759
+                  ]
+                }
+              ],
+              "driving_side": "left",
+              "geometry": "{jvzs@cibwaDoPsDcBbB",
+              "mode": "driving",
+              "maneuver": {
+                "bearing_after": 318,
+                "bearing_before": 307,
+                "location": [
+                  85.32957,
+                  27.71731
+                ],
+                "modifier": "right",
+                "type": "turn",
+                "instruction": "turn_onto"
+              },
+              "weight": 72.3,
+              "duration": 17.3,
+              "name": "Bhrikuti Tole Marga",
+              "distance": 72.3,
+              "voiceInstructions": [
+                {
+                  "distanceAlongGeometry": 5,
+                  "announcement": "You have arrived at your destination",
+                  "ssmlAnnouncement": "<speak><amazon:effect name=\"drc\"><prosody rate=\"1.08\">You have arrived at your destination</prosody></amazon:effect></speak>"
+                }
+              ],
+              "bannerInstructions": [
+                {
+                  "distanceAlongGeometry": 72.3,
+                  "primary": {
+                    "components": [
+                      {
+                        "text": "Destination",
+                        "type": "text"
+                      }
+                    ],
+                    "type": "arrive"
+                  },
+                  "secondary": null
+                }
+              ]
+            },
+            {
+              "intersections": [
+                {
+                  "out": 0,
+                  "entry": [
+                    true
+                  ],
+                  "bearings": [
+                    -180
+                  ],
+                  "location": [
+                    85.32963,
+                    27.71794
+                  ]
+                }
+              ],
+              "driving_side": "left",
+              "geometry": "grwzs@{lbwaD??",
+              "mode": "driving",
+              "maneuver": {
+                "bearing_after": 0,
+                "bearing_before": 0,
+                "location": [
+                  85.32963,
+                  27.71794
+                ],
+                "type": "arrive",
+                "instruction": "unknown"
+              },
+              "weight": 0,
+              "duration": 0,
+              "name": "",
+              "distance": 0,
+              "voiceInstructions": [],
+              "bannerInstructions": []
+            }
+          ],
+          "summary": "Baato Route 0",
+          "weight": 271.3,
+          "duration": 271.3,
+          "distance": 1836
+        }
+      ],
+      "weight_name": "routability",
+      "weight": 0,
+      "duration": 271.3,
+      "distance": 1836,
+      "routeOptions": {
+        "baseUrl": "https://api.baato.io",
+        "user": "mapbox",
+        "profile": "driving",
+        "coordinates": [
+          [
+            85.34085,
+            27.72472
+          ],
+          [
+            85.32963,
+            27.71794
+          ]
+        ],
+        "language": "en",
+        "bearings": ";",
+        "continueStraight": true,
+        "roundaboutExits": true,
+        "geometries": "polyline6",
+        "overview": "full",
+        "steps": true,
+        "annotations": "",
+        "voiceInstructions": true,
+        "bannerInstructions": true,
+        "voiceUnits": "METRIC",
+        "accessToken": "pk.xxx",
+        "requestUuid": "a5b481957f7a4c7ea5c266c633afcc20"
+      },
+      "voiceLocale": "en-US"
+    }
+  ],
+  "waypoints": [
+    {
+      "name": "Baraha Marga",
+      "location": [
+        85.34085,
+        27.72472
+      ]
+    },
+    {
+      "name": "",
+      "location": [
+        85.32963,
+        27.71794
+      ]
+    }
+  ],
+  "code": "Ok",
+  "uuid": "a5b481957f7a4c7ea5c266c633afcc20"
+}
