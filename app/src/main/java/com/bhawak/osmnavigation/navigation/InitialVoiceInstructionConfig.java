@@ -68,9 +68,9 @@ public class InitialVoiceInstructionConfig extends VoiceInstructionConfig {
     private final int distanceDelay; // delay distance in meter
     private final int distanceForInitialStayInstruction; // min distance in meter for initial instruction
     private final DistanceUtils.Unit unit;
-    private final TranslationMap translationMap;
+    private final BaatoTranslationMap translationMap;
 
-    public InitialVoiceInstructionConfig(String key, TranslationMap translationMap, TranslationMap navigateResponseConverterTranslationMap, Locale locale, int distanceForInitialStayInstruction, int distanceDelay, DistanceUtils.Unit unit) {
+    public InitialVoiceInstructionConfig(String key, BaatoTranslationMap translationMap, BaatoTranslationMap navigateResponseConverterTranslationMap, Locale locale, int distanceForInitialStayInstruction, int distanceDelay, DistanceUtils.Unit unit) {
         super(key, navigateResponseConverterTranslationMap, locale);
         this.distanceForInitialStayInstruction = distanceForInitialStayInstruction;
         this.distanceDelay = distanceDelay;

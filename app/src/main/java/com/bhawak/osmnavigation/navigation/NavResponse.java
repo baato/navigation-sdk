@@ -1,11 +1,20 @@
 package com.bhawak.osmnavigation.navigation;
 
+import android.util.Log;
+
 import androidx.annotation.Nullable;
 
 import com.bhawak.osmnavigation.navigation.OSMPath;
 import com.bhawak.osmnavigation.navigation.OSMPathWrapper;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 import com.graphhopper.util.Instruction;
+import com.graphhopper.util.InstructionAnnotation;
+import com.graphhopper.util.PointList;
+import com.graphhopper.util.RoundaboutInstruction;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class NavResponse {
@@ -13,7 +22,12 @@ public class NavResponse {
     private double routeWeight;
     private double distanceInMeters;
     private long timeInMs;
-    private List<Instruction> instructionList = null;
+//    @SerializedName("instructionList")
+//    @Expose
+    private List<Instruction> instructionList = new ArrayList<>();
+//    @SerializedName("instructionList")
+//    @Expose
+//    private List<InstructionResponse> baatoInstruction = new ArrayList<>();
 
     public String getEncoded_polyline () {
         return encodedPolyline;
@@ -62,7 +76,13 @@ public class NavResponse {
         this.timeInMs = timeInMs;
         this.instructionList = instructionList;
     }
-
+//    public NavResponse(String encoded_polyline, double distanceInMeters, long timeInMs, List<
+//            InstructionResponse> baatoInstruction){
+//        this.encodedPolyline = encoded_polyline;
+//        this.distanceInMeters = distanceInMeters;
+//        this.timeInMs = timeInMs;
+//        this.baatoInstruction = baatoInstruction;
+//    }
     public NavResponse() {
         super();
         // TODO Auto-generated constructor stub
@@ -73,4 +93,20 @@ public class NavResponse {
         return "NavigationResponse [encoded_polyline=" + encodedPolyline + ", distance=" + distanceInMeters + ", timeInMs="
                 + timeInMs + ", instructionList=" + instructionList + "]";
     }
-    }
+
+//    public List<Instruction> getInstructionList(){
+//        List<Instruction> myInstruction = new ArrayList<>();
+//        for (int i = 0; i< baatoInstruction.size(); i++){
+//            Instruction instruction = new Instruction(baatoInstruction.get(i).getSign(), baatoInstruction.get(i).getName(), new InstructionAnnotation(baatoInstruction.get(i).getAnnotation().getImportance(),
+//                    baatoInstruction.get(i).getAnnotation().getMessage()), new PointList(baatoInstruction.get(i).getLength(), false));
+//            myInstruction.add(i, instruction);
+//        }
+////        for (InstructionResponse irs: baatoInstruction
+////             ) {
+////            Instruction instruction = new Instruction(irs.getSign(), irs.getName(), new InstructionAnnotation(irs.getAnnotation().getImportance(), irs.getAnnotation().getMessage()), new PointList(irs.getLength(), false));
+////                myInstruction.add(instruction);
+////        }
+//        return myInstruction;
+//    }
+
+}

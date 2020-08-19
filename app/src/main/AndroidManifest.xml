@@ -22,7 +22,7 @@
         android:usesCleartextTraffic="true"
         >
         <activity
-            android:name=".navigation.view.ComponentNavigationActivity"
+            android:name=".MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar"
             android:screenOrientation="portrait">

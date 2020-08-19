@@ -26,6 +26,7 @@ android {
             assets {
                 srcDirs 'src/main/assets', 'src/main/java/api'
             }
+            res.srcDirs 'src/main/res'
         }
     }
 }
