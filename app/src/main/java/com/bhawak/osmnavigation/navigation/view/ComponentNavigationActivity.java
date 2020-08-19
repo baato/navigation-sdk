@@ -21,6 +21,8 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.transition.TransitionManager;
 
 
+import com.baato.baatolibrary.models.DirectionsAPIResponse;
+import com.baato.baatolibrary.services.BaatoRouting;
 import com.bhawak.osmnavigation.MainActivity;
 import com.bhawak.osmnavigation.R;
 import com.bhawak.osmnavigation.navigation.DirectionAPIResponse;
@@ -178,7 +180,7 @@ public class ComponentNavigationActivity extends AppCompatActivity implements On
     ButterKnife.bind(this);
       Bundle extras = getIntent().getExtras();
 //    mapView.setStyleUrl("http://api-staging.baato.io/api/v1/styles/retro?key=" + Constants.token);
-    mapView.setStyleUrl("https://sgp1.digitaloceanspaces.com/baatocdn/retro_without_boundaries.json");
+    mapView.setStyleUrl("http://api-staging.baato.io/api/v1/styles/breeze?key=" + Constants.token);
     mapView.onCreate(savedInstanceState);
 
     // Will call onMapReady
@@ -222,7 +224,7 @@ public class ComponentNavigationActivity extends AppCompatActivity implements On
     navigationMap = new NavigationMapboxMap(mapView, mapboxMap);
     navigationMap.updateCameraTrackingEnabled(true);
 
-      mapboxMap.setStyleUrl("https://sgp1.digitaloceanspaces.com/baatocdn/retro_without_boundaries.json", new MapboxMap.OnStyleLoadedListener() {
+      mapboxMap.setStyleUrl("http://api-staging.baato.io/api/v1/styles/breeze?key=" + Constants.token, new MapboxMap.OnStyleLoadedListener() {
       @Override
       public void onStyleLoaded(@NonNull String style) {
 //    mapboxMap.setStyleUrl("http://178.128.59.143:8080/api/v2/styles/a1e37ae99cdb4f29910cdf27a51a0282.json");
@@ -604,7 +606,7 @@ public class ComponentNavigationActivity extends AppCompatActivity implements On
 //              }
 //            })
 //            .doRequest();
-
+/*
     Call<DirectionAPIResponse> call = MainActivity.getApiInterface().getRoutes(Constants.token, points, "car", false, true);
     call.enqueue(new Callback<DirectionAPIResponse>() {
       @Override
@@ -629,6 +631,8 @@ public class ComponentNavigationActivity extends AppCompatActivity implements On
         Timber.d("Request:%s", call.request());
       }
     });
+
+ */
   }
 
   private void handleRoute(DirectionsResponse response, boolean isOffRoute) {

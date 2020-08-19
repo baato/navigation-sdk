@@ -2,7 +2,7 @@ package com.bhawak.osmnavigation.navigation;
 
 import android.util.Log;
 
-import com.graphhopper.util.TranslationMap;
+//import com.graphhopper.util.TranslationMap;
 
 import java.util.Locale;
 
@@ -36,7 +36,7 @@ public class FixedDistanceVoiceInstructionConfig extends VoiceInstructionConfig 
     private final int distanceAlongGeometry; // distance in meter in which the instruction should be spoken
     private final int distanceVoiceValue; // distance in required unit. f.e: 1km, 300m or 2mi
 
-    public FixedDistanceVoiceInstructionConfig(String key, TranslationMap navigateResponseConverterTranslationMap, Locale locale, int distanceAlongGeometry, int distanceVoiceValue) {
+    public FixedDistanceVoiceInstructionConfig(String key, BaatoTranslationMap navigateResponseConverterTranslationMap, Locale locale, int distanceAlongGeometry, int distanceVoiceValue) {
         super(key, navigateResponseConverterTranslationMap, locale);
         this.distanceAlongGeometry = distanceAlongGeometry;
         this.distanceVoiceValue = distanceVoiceValue;

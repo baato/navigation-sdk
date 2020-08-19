@@ -25,6 +25,7 @@ import com.baato.baatolibrary.models.DirectionsAPIResponse;
 import com.baato.baatolibrary.models.NavResponse;
 import com.baato.baatolibrary.services.BaatoRouting;
 import com.bhawak.osmnavigation.R;
+import com.bhawak.osmnavigation.navigation.DistanceUtils;
 import com.bhawak.osmnavigation.navigation.NavigateResponseConverter;
 import com.bhawak.osmnavigation.navigation.view.notification.CustomNavigationNotification;
 import com.fasterxml.jackson.databind.node.ObjectNode;
@@ -70,11 +71,13 @@ import com.mapbox.services.android.navigation.v5.milestone.TriggerProperty;
 import com.mapbox.services.android.navigation.v5.milestone.VoiceInstructionMilestone;
 import com.mapbox.services.android.navigation.v5.navigation.MapboxNavigation;
 import com.mapbox.services.android.navigation.v5.navigation.MapboxNavigationOptions;
+import com.mapbox.services.android.navigation.v5.navigation.NavigationConstants;
 import com.mapbox.services.android.navigation.v5.navigation.NavigationEventListener;
 import com.mapbox.services.android.navigation.v5.navigation.NavigationRoute;
 import com.mapbox.services.android.navigation.v5.offroute.OffRouteListener;
 import com.mapbox.services.android.navigation.v5.routeprogress.ProgressChangeListener;
 import com.mapbox.services.android.navigation.v5.routeprogress.RouteProgress;
+import com.mapbox.services.android.navigation.v5.utils.DistanceFormatter;
 import com.mapbox.turf.TurfConstants;
 import com.mapbox.turf.TurfMeasurement;
 
@@ -185,7 +188,7 @@ public class MockNavigationActivity extends AppCompatActivity implements OnMapRe
       lastLocation = (Location) extras.get("lastLocation");
       // and get whatever type user account id is
     }
-    mapView.setStyleUrl("http://api-staging.baato.io/api/v1/styles/retro?key=" + Constants.token);
+    mapView.setStyleUrl("http://api-staging.baato.io/api/v1/styles/breeze?key=" + Constants.token);
     mapView.onCreate(savedInstanceState);
 
     // Will call onMapReady
@@ -197,7 +200,6 @@ public class MockNavigationActivity extends AppCompatActivity implements OnMapRe
             .defaultMilestonesEnabled(true)
             .build();
     navigation = new MapboxNavigation(this, Constants.token, options);
-
     navigation.addMilestone(new RouteMilestone.Builder()
             .setIdentifier(BEGIN_ROUTE_MILESTONE)
             .setInstruction(new BeginRouteInstruction())
@@ -230,7 +232,7 @@ public class MockNavigationActivity extends AppCompatActivity implements OnMapRe
     //remove mapbox attribute
     mapboxMap.getUiSettings().setAttributionEnabled(false);
     mapboxMap.getUiSettings().setLogoEnabled(false);
-    mapboxMap.setStyleUrl("http://api-staging.baato.io/api/v1/styles/retro?key=" + Constants.token, new MapboxMap.OnStyleLoadedListener() {
+    mapboxMap.setStyleUrl("http://api-staging.baato.io/api/v1/styles/breeze?key=" + Constants.token, new MapboxMap.OnStyleLoadedListener() {
       //        mapboxMap.setStyle(Style.MAPBOX_STREETS, new MapboxMap.OnStyleLoadedListener() {
       @Override
       public void onStyleLoaded(@NonNull String style) {
@@ -304,13 +306,13 @@ public class MockNavigationActivity extends AppCompatActivity implements OnMapRe
     // Update InstructionView data from RouteProgress
     instructionView.update(routeProgress);
     summaryBottomSheet.update(routeProgress);
-    Log.d("Progress", String.valueOf(routeProgress.currentStepPoints()));
-    Log.d("Location", String.valueOf(location));
+//    Log.d("Progress", String.valueOf(routeProgress.currentStepPoints()));
+//    Log.d("Location", String.valueOf(location));
   }
 
   @Override
   public void onMilestoneEvent(RouteProgress routeProgress, String instruction, Milestone milestone) {
-    Log.d("milestone", instruction);
+//    Log.d("milestone", instruction);
     playAnnouncement(milestone);
   }
 
@@ -386,7 +388,10 @@ public class MockNavigationActivity extends AppCompatActivity implements OnMapRe
   }
 
   private void initializeSpeechPlayer() {
-    String english = Locale.US.getLanguage();
+    Locale locale = new Locale("ne", "NP");
+    String english = locale.getLanguage();
+//    String english = Locale.US.getLanguage();
+
 //    String accessToken = Mapbox.getAccessToken();
 //      String accessToken = "pk.xxx";
     SpeechPlayerProvider speechPlayerProvider = new SpeechPlayerProvider(getApplication(), english, true, Constants.token);

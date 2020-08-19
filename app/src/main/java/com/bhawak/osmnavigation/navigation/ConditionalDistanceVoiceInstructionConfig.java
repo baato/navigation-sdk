@@ -1,6 +1,6 @@
 package com.bhawak.osmnavigation.navigation;
 
-import com.graphhopper.util.TranslationMap;
+//import com.graphhopper.util.TranslationMap;
 
 import java.util.Locale;
 
@@ -44,7 +44,7 @@ public class ConditionalDistanceVoiceInstructionConfig extends VoiceInstructionC
 //        return new VoiceInstructionValue(spokenDistance, totalDescription);
 //    }
 
-    public ConditionalDistanceVoiceInstructionConfig(String key, TranslationMap navigateResponseConverterTranslationMap, Locale locale, int[] distanceAlongGeometry, int[] distanceVoiceValue) {
+    public ConditionalDistanceVoiceInstructionConfig(String key, BaatoTranslationMap navigateResponseConverterTranslationMap, Locale locale, int[] distanceAlongGeometry, int[] distanceVoiceValue) {
         super(key, navigateResponseConverterTranslationMap, locale);
         this.distanceAlongGeometry = distanceAlongGeometry;
         this.distanceVoiceValue = distanceVoiceValue;

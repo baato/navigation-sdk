@@ -1,8 +1,5 @@
 package com.bhawak.osmnavigation.navigation;
 
-import android.util.Log;
-
-import com.graphhopper.util.Helper;
 import com.graphhopper.util.TranslationMap;
 
 import java.util.Locale;
@@ -12,10 +9,10 @@ import java.util.Locale;
 
 abstract class VoiceInstructionConfig extends DistanceUtils {
     protected final String key; // TranslationMap key
-    protected final TranslationMap navigateResponseConverterTranslationMap;
+    protected final BaatoTranslationMap navigateResponseConverterTranslationMap;
     protected Locale locale = Locale.ENGLISH;
 
-    public VoiceInstructionConfig(String key, TranslationMap navigateResponseConverterTranslationMap, Locale locale) {
+    public VoiceInstructionConfig(String key, BaatoTranslationMap navigateResponseConverterTranslationMap, Locale locale) {
         this.key = key;
         this.navigateResponseConverterTranslationMap = navigateResponseConverterTranslationMap;
         this.locale = locale;

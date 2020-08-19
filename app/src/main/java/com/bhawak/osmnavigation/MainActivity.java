@@ -10,6 +10,7 @@ import android.location.Location;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.StyleRes;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Handler;
@@ -18,11 +19,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.baato.baatolibrary.models.DirectionsAPIResponse;
+import com.baato.baatolibrary.services.BaatoRouting;
 import com.bhawak.osmnavigation.navigation.DirectionAPIResponse;
 import com.bhawak.osmnavigation.navigation.NavResponse;
 import com.bhawak.osmnavigation.navigation.NavigateResponseConverter;
 import com.bhawak.osmnavigation.navigation.NavigateResponseConverterTranslationMap;
-import com.bhawak.osmnavigation.navigation.SimpleConverter;
+//import com.bhawak.osmnavigation.navigation.SimpleConverter;
+//import com.bhawak.osmnavigation.navigation.SimpleConverter;
 import com.bhawak.osmnavigation.navigation.view.ComponentNavigationActivity;
 import com.bhawak.osmnavigation.navigation.view.Constants;
 import com.bhawak.osmnavigation.navigation.view.MockNavigationActivity;
@@ -136,8 +140,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     private String encodedPolyline;
     private Button button;
     List<Point> points;
-    private TranslationMap translationMap;
-    private static final TranslationMap navigateResponseConverterTranslationMap = new NavigateResponseConverterTranslationMap().doImport();
+//    private TranslationMap translationMap;
+//    private static final TranslationMap navigateResponseConverterTranslationMap = new NavigateResponseConverterTranslationMap().doImport();
     private boolean isInTrackingMode;
 
 
@@ -182,7 +186,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         setContentView(R.layout.activity_main);
         mapView = (MapView) findViewById(R.id.mapView);
         button = findViewById(R.id.startButton);
-        mapView.setStyleUrl("http://api-staging.baato.io/api/v1/styles/retro?key=" + Constants.token);
+        mapView.setStyleUrl("http://api-staging.baato.io/api/v1/styles/breeze?key=" + Constants.token);
+//        mapView.setStyleUrl("https://bhawak.github.io/testJson/styleFile.json");
         mapView.onCreate(savedInstanceState);
         mapView.getMapAsync(this);
     }
@@ -337,7 +342,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         initLocationEngine();
         initLocationLayer();
-        mapboxMap.setStyleUrl("http://api-staging.baato.io/api/v1/styles/retro?key=" + Constants.token, new MapboxMap.OnStyleLoadedListener() {
+//        mapboxMap.setStyleUrl("https://bhawak.github.io/testJson/styleFile.json", new MapboxMap.OnStyleLoadedListener() {
+        mapboxMap.setStyleUrl("http://api-staging.baato.io/api/v1/styles/breeze?key=" + Constants.token, new MapboxMap.OnStyleLoadedListener() {
             @Override
             public void onStyleLoaded(@NonNull String style) {
                 mapboxMap.addOnMapClickListener(MainActivity.this);
@@ -610,6 +616,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 //                .setMode("car") //eg bike, car, foot
 //                .setAlternatives(false) //optional parameter
 //                .setInstructions(true) //optional parameter
+//                .setAPIBaseURL("http://api-staging.baato.io/api/")//optional parameter
+//                .setAPIVersion("1")
 //                .withListener(new BaatoRouting.BaatoRoutingRequestListener() {
 //                    @Override
 //                    public void onSuccess(DirectionsAPIResponse directionResponse) {
@@ -690,43 +698,62 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 //        }
 
 
-        Call<DirectionAPIResponse> call = getApiInterface().getRoutes(Constants.token, points, "car", false, true);
-        call.enqueue(new Callback<DirectionAPIResponse>() {
+//        Call<DirectionAPIResponse> call = getApiInterface().getRoutes(Constants.token, points, "car", false, true);
+//        call.enqueue(new Callback<DirectionAPIResponse>() {
+//            @Override
+//            public void onResponse(Call<DirectionAPIResponse> call, Response<DirectionAPIResponse> response) {
+//
+//                if (response.body() != null && response.body().getMessage().equals("Success")) {
+//                    NavResponse navResponse = response.body().getData().get(0);
+//                    encodedPolyline = navResponse.getEncoded_polyline();
+//                    initRouteCoordinates();
+//
+//                    ObjectNode obj = NavigateResponseConverter.convertFromGHResponse(navResponse, "car");
+//                    directionsResponse = DirectionsResponse.fromJson(obj.toString());
+////                currentRoute = directionsResponse.routes().get(0);
+//                    currentRoute = directionsResponse.routes().get(0);
+//                    navMapRoute(currentRoute);
+//                    boundCameraToRoute();
+//                Log.wtf("My route",String.valueOf(obj));
+//                Log.wtf("request", String.valueOf(call.request()));
+//
+//                Timber.d(String.valueOf(obj));
+////                addLine("simplifiedLine", Feature.fromGeometry(LineString.fromLngLats(PolylineUtils.simplify(points, 0.001))), "#3bb2d0");
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<DirectionAPIResponse> call, Throwable t) {
+//                Log.d(TAG, "onFailure: " + t);
+//                Log.d(TAG, "Request:" + call.request());
+//            }
+//        });
+        Call<NavAPIResponse> call = getApiInterface().getNavigationRoute(Constants.token, points, "car", false, true);
+        call.enqueue(new Callback<NavAPIResponse>() {
             @Override
-            public void onResponse(Call<DirectionAPIResponse> call, Response<DirectionAPIResponse> response) {
+            public void onResponse(Call<NavAPIResponse> call, Response<NavAPIResponse> response) {
 
                 if (response.body() != null && response.body().getMessage().equals("Success")) {
-                    NavResponse navResponse = response.body().getData().get(0);
+                    NavigationResponse navResponse = response.body().getData().get(0);
                     encodedPolyline = navResponse.getEncoded_polyline();
                     initRouteCoordinates();
-
-                    ObjectNode obj = NavigateResponseConverter.convertFromGHResponse(navResponse, "car");
-//                    ObjectNode obj = SimpleConverter.convertFromGHResponse(navResponse, "car");
-//                ObjectMapper mapper = new ObjectMapper();
-//                mapper.getFactory().configure(JsonGenerator.Feature.ESCAPE_NON_ASCII, true);
-//                ObjectNode node = mapper.getNodeFactory().objectNode();
-//                encodedPolyline = response.body().getEncoded_polyline();
-//                currentRoute = response.body().getEncoded_polyline();
-//                else if (response.body().getAll().size() < 1) {
-//                    Log.e(TAG, "No routes found");
-//                    return;
-//                }
-
-
+                    Locale locale = new Locale("ne", "NP");
+                    ObjectNode obj = NavigateResponseConverter.convertFromGHResponse(navResponse, "car", locale);
                     directionsResponse = DirectionsResponse.fromJson(obj.toString());
 //                currentRoute = directionsResponse.routes().get(0);
                     currentRoute = directionsResponse.routes().get(0);
                     navMapRoute(currentRoute);
                     boundCameraToRoute();
-                Log.wtf("My route",String.valueOf(obj));
+                    Log.wtf("My route",String.valueOf(obj));
+                    Log.wtf("request", String.valueOf(call.request()));
 
-                Timber.d(String.valueOf(obj));
+                    Timber.d(String.valueOf(obj));
 //                addLine("simplifiedLine", Feature.fromGeometry(LineString.fromLngLats(PolylineUtils.simplify(points, 0.001))), "#3bb2d0");
                 }
             }
 
             @Override
-            public void onFailure(Call<DirectionAPIResponse> call, Throwable t) {
+            public void onFailure(Call<NavAPIResponse> call, Throwable t) {
                 Log.d(TAG, "onFailure: " + t);
                 Log.d(TAG, "Request:" + call.request());
             }

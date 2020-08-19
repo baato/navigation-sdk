@@ -23,7 +23,7 @@ public class LocaleUtils {
       case "US": // US
       case "LR": // Liberia
       case "MM": // Burma
-        return DirectionsCriteria.IMPERIAL;
+        return DirectionsCriteria.METRIC;
       default:
         return DirectionsCriteria.METRIC;
     }
