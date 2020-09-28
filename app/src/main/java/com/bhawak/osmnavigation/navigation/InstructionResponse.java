@@ -8,10 +8,7 @@ import com.graphhopper.util.Translation;
 
 import retrofit2.http.Header;
 
-public class
-
-
-InstructionResponse {
+public class InstructionResponse {
     public static final int UNKNOWN = -99;
     public static final int U_TURN_UNKNOWN = -98;
     public static final int U_TURN_LEFT = -8;

@@ -11,6 +11,7 @@ import android.os.Bundle;
 
 import android.os.VibrationEffect;
 import android.os.Vibrator;
+import android.speech.tts.TextToSpeech;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -109,6 +110,7 @@ public class MockNavigationActivity extends AppCompatActivity implements OnMapRe
   private static final double DEFAULT_BEARING = 0d;
   private static final int ONE_SECOND_INTERVAL = 1000;
   private static final int BEGIN_ROUTE_MILESTONE = 1001;
+  private TextToSpeech mTts;
 
   @BindView(R.id.componentNavigationLayout)
   ConstraintLayout navigationLayout;
@@ -193,10 +195,9 @@ public class MockNavigationActivity extends AppCompatActivity implements OnMapRe
 
     // Will call onMapReady
     mapView.getMapAsync(this);
-        CustomNavigationNotification customNotification = new CustomNavigationNotification(getApplicationContext());
+//        CustomNavigationNotification customNotification = new CustomNavigationNotification(getApplicationContext());
 //        .navigationNotification(customNotification)
     MapboxNavigationOptions options = MapboxNavigationOptions.builder()
-            .navigationNotification(customNotification)
             .defaultMilestonesEnabled(true)
             .build();
     navigation = new MapboxNavigation(this, Constants.token, options);
@@ -215,7 +216,7 @@ public class MockNavigationActivity extends AppCompatActivity implements OnMapRe
 //                            Trigger.gte(TriggerProperty.STEP_DISTANCE_TRAVELED_METERS, 5)
 //                    )
 //            ).build());
-        customNotification.register(new MyBroadcastReceiver(navigation), getApplicationContext());
+//        customNotification.register(new MyBroadcastReceiver(navigation), getApplicationContext());
   }
 
   private static class BeginRouteInstruction extends Instruction {
@@ -396,6 +397,16 @@ public class MockNavigationActivity extends AppCompatActivity implements OnMapRe
 //      String accessToken = "pk.xxx";
     SpeechPlayerProvider speechPlayerProvider = new SpeechPlayerProvider(getApplication(), english, true, Constants.token);
     speechPlayer = new NavigationSpeechPlayer(speechPlayerProvider);
+    mTts = new TextToSpeech(this, new TextToSpeech.OnInitListener() {
+      @Override
+      public void onInit(int status) {
+        if(mTts.getEngines().size() == 0) {
+          Toast.makeText(MockNavigationActivity.this, "No voice engine found", Toast.LENGTH_SHORT).show();
+        } else {
+          mTts.setLanguage(locale);
+        }
+      }
+    });
 //      speechPlayer.speak(text, TextToSpeech.QUEUE_ADD, null);
   }
 
@@ -404,13 +415,14 @@ public class MockNavigationActivity extends AppCompatActivity implements OnMapRe
   }
 
   private void playAnnouncement(Milestone milestone) {
-//      Log.d("Announcement", milestone.toString());
     if (!isMuted) {
       if (milestone instanceof VoiceInstructionMilestone) {
         SpeechAnnouncement announcement = SpeechAnnouncement.builder()
                 .voiceInstructionMilestone((VoiceInstructionMilestone) milestone)
                 .build();
-        speechPlayer.play(announcement);
+        mTts.speak(announcement.announcement(), TextToSpeech.QUEUE_ADD, null);
+        Log.d("Announcement", announcement.announcement());
+//        speechPlayer.play(announcement);
       }
     }
   }

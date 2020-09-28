@@ -24,6 +24,8 @@ import androidx.transition.TransitionManager;
 import com.baato.baatolibrary.models.DirectionsAPIResponse;
 import com.baato.baatolibrary.services.BaatoRouting;
 import com.bhawak.osmnavigation.MainActivity;
+import com.bhawak.osmnavigation.NavAPIResponse;
+import com.bhawak.osmnavigation.NavigationResponse;
 import com.bhawak.osmnavigation.R;
 import com.bhawak.osmnavigation.navigation.DirectionAPIResponse;
 import com.bhawak.osmnavigation.navigation.DistanceConfig;
@@ -606,15 +608,15 @@ public class ComponentNavigationActivity extends AppCompatActivity implements On
 //              }
 //            })
 //            .doRequest();
-/*
-    Call<DirectionAPIResponse> call = MainActivity.getApiInterface().getRoutes(Constants.token, points, "car", false, true);
-    call.enqueue(new Callback<DirectionAPIResponse>() {
+
+    Call<NavAPIResponse> call = MainActivity.getApiInterface().getNavigationRoute(Constants.token, points, "car", false, true);
+    call.enqueue(new Callback<NavAPIResponse>() {
       @Override
-      public void onResponse(Call<DirectionAPIResponse> call, Response<DirectionAPIResponse> response) {
-        NavResponse navResponse = null;
-        if (response.body() != null) {
-          navResponse = response.body().getData().get(0);
-          ObjectNode obj = NavigateResponseConverter.convertFromGHResponse(navResponse, "car");
+      public void onResponse(Call<NavAPIResponse> call, Response<NavAPIResponse> response) {
+        if (response.body() != null && response.body().getMessage().equals("Success")) {
+          NavigationResponse navResponse = response.body().getData().get(0);
+          Locale locale = new Locale("ne", "NP");
+          ObjectNode obj = NavigateResponseConverter.convertFromGHResponse(navResponse, "car", locale);
 
 //          Timber.d("On direction:" + obj);
 
@@ -626,13 +628,12 @@ public class ComponentNavigationActivity extends AppCompatActivity implements On
         }
       }
       @Override
-      public void onFailure(Call<DirectionAPIResponse> call, Throwable t) {
+      public void onFailure(Call<NavAPIResponse> call, Throwable t) {
         Timber.d(t, "onFailure:");
         Timber.d("Request:%s", call.request());
       }
     });
 
- */
   }
 
   private void handleRoute(DirectionsResponse response, boolean isOffRoute) {
