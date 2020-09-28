@@ -1,7 +1,5 @@
 package com.bhawak.osmnavigation.navigation;
 
-import com.graphhopper.util.TranslationMap;
-
 import java.util.Locale;
 
 //import static com.graphhopper.navigation.DistanceUtils.meterToKilometer;

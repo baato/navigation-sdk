@@ -2,16 +2,16 @@
 
 continue=गई राख्नुहोस्
 continue_onto=%1$s गई राख्नुहोस्
-turn_left=बाया मोड्नुहोस्
-turn_right=दाया मोड्नुहोस्
-turn_slight_left=थोरै बाया मोड्नुहोस्
-turn_slight_right=थोरै दाया मोड्नुहोस्
-turn_sharp_left=धेरै बाया मोड्नुहोस्
-turn_sharp_right=धेरै दाया मोड्नुहोस्
+turn_left=बाया मोड्नु होस्
+turn_right=दाया मोड्नु होस्
+turn_slight_left=थोरै बाया मोड्नु होस्
+turn_slight_right=थोरै दाया मोड्नु होस्
+turn_sharp_left=धेरै बाया मोड्नु होस्
+turn_sharp_right=धेरै दाया मोड्नु होस्
 keep_left=बाया तर्फ गई राख्नुहोस्
 keep_right=दाया तर्फ गई राख्नुहोस्
 turn_onto=%2$s मा %1$s
-u_turn=पुरा मोड्नुहोस्
+u_turn=पुरा मोड्नु होस्
 arrive=तपाईं आफ्नो गन्तव्यमा पुग्नुहुनेछ
 unknown=
 web.search_button=खोज 

@@ -118,9 +118,8 @@ import static com.mapbox.mapboxsdk.style.layers.PropertyFactory.lineColor;
 import static com.mapbox.mapboxsdk.style.layers.PropertyFactory.lineWidth;
 import static com.mapbox.mapboxsdk.style.layers.PropertyFactory.visibility;
 
-public class MainActivity extends AppCompatActivity implements OnMapReadyCallback,
-        MapboxMap.OnMapClickListener, LocationListener, PermissionsListener, GoogleApiClient.ConnectionCallbacks,
-        GoogleApiClient.OnConnectionFailedListener {
+public class MainActivity extends AppCompatActivity implements PermissionsListener, GoogleApiClient.ConnectionCallbacks,
+        GoogleApiClient.OnConnectionFailedListener, LocationListener,OnMapReadyCallback, MapboxMap.OnMapClickListener {
     private static final int CAMERA_ANIMATION_DURATION = 1000;
     private static final int DEFAULT_CAMERA_ZOOM = 16;
     private static final int CHANGE_SETTING_REQUEST_CODE = 1;
@@ -364,8 +363,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 //                                .shouldSimulateRoute(simulateRoute)
 //                                .build();
 //                        NavigationLauncher.startNavigation(MainActivity.this, options);
-                        Intent intent = new Intent(MainActivity.this, MockNavigationActivity.class);
-//                        Intent intent = new Intent(MainActivity.this, ComponentNavigationActivity.class);
+//                        Intent intent = new Intent(MainActivity.this, MockNavigationActivity.class);
+                        Intent intent = new Intent(MainActivity.this, ComponentNavigationActivity.class);
                         intent.putExtra("Route",directionsResponse);
                         intent.putExtra("origin", originPoint);
                         intent.putExtra("lastLocation", mylocation);

@@ -12,7 +12,7 @@ import static com.graphhopper.util.Helper.getLocale;
 /**
  * Simple class that extends the TranslationMap to add new translations.
  *
- * @author Robin Boldt
+ * @author Bhawak
  */
 public class NavigateResponseConverterTranslationMap extends BaatoTranslationMap {
 private String translation;
