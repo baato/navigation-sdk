@@ -198,7 +198,10 @@ public class NavigateResponseConverter {
 
     private static String getName(int index){
 //        Log.d("Index", String.valueOf(index));
-        return ghResponse.getInstructionList().get(index).getName();
+        if(ghResponse.getInstructionList().get(index).getExtraInfoJSON().getLandmark() != null)
+            return ghResponse.getInstructionList().get(index).getExtraInfoJSON().getLandmark();
+        else
+         return ghResponse.getInstructionList().get(index).getName();
     }
 
     private static void putRouteInformation(ObjectNode pathJson, int routeNr, Locale locale, DistanceConfig distanceConfig, PointList polyline) {
@@ -342,7 +345,10 @@ public class NavigateResponseConverter {
         double distance = Helper.round(instruction.getDistance(), 1);
         instructionJson.put("weight", distance);
         instructionJson.put("duration", convertToSeconds(instruction.getTime()));
-        instructionJson.put("name", instruction.getName());
+        if (instruction.getExtraInfoJSON().getLandmark() != null)
+            instructionJson.put("name", instruction.getExtraInfoJSON().getLandmark());
+        else
+            instructionJson.put("name", instruction.getName());
         instructionJson.put("distance", distance);
         ArrayNode voiceInstructions = instructionJson.putArray("voiceInstructions");
         ArrayNode bannerInstructions = instructionJson.putArray("bannerInstructions");

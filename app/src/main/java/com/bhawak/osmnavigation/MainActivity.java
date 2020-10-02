@@ -363,8 +363,8 @@ public class MainActivity extends AppCompatActivity implements PermissionsListen
 //                                .shouldSimulateRoute(simulateRoute)
 //                                .build();
 //                        NavigationLauncher.startNavigation(MainActivity.this, options);
-//                        Intent intent = new Intent(MainActivity.this, MockNavigationActivity.class);
-                        Intent intent = new Intent(MainActivity.this, ComponentNavigationActivity.class);
+                        Intent intent = new Intent(MainActivity.this, MockNavigationActivity.class);
+//                        Intent intent = new Intent(MainActivity.this, ComponentNavigationActivity.class);
                         intent.putExtra("Route",directionsResponse);
                         intent.putExtra("origin", originPoint);
                         intent.putExtra("lastLocation", mylocation);
@@ -737,6 +737,7 @@ public class MainActivity extends AppCompatActivity implements PermissionsListen
                     encodedPolyline = navResponse.getEncoded_polyline();
                     initRouteCoordinates();
                     Locale locale = new Locale("ne", "NP");
+//                    Locale locale = new Locale("en", "US");
                     ObjectNode obj = NavigateResponseConverter.convertFromGHResponse(navResponse, "car", locale);
                     directionsResponse = DirectionsResponse.fromJson(obj.toString());
 //                currentRoute = directionsResponse.routes().get(0);

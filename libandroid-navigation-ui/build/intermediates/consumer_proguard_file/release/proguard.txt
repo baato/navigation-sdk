@@ -1,0 +1,36 @@
+# Consumer proguard rules for libandroid-navigation-ui
+
+# --- OkHttp ---
+-dontwarn okhttp3.**
+# A resource is loaded with a relative path so the package of this class must be preserved.
+-keepnames class okhttp3.internal.publicsuffix.PublicSuffixDatabase
+
+# --- Picasso ---
+-dontwarn com.squareup.okhttp.**
+
+# --- Java ---
+-dontwarn java.awt.Color
+
+# --- com.mapbox.api.directions.v5.MapboxDirections ---
+-dontwarn com.sun.xml.internal.ws.spi.db.BindingContextFactory
+
+# --- com.amazonaws.util.json.JacksonFactory ---
+-dontwarn com.fasterxml.jackson.core.**
+
+# Generated keep rule for Lifecycle observer adapter.
+-if class com.mapbox.services.android.navigation.ui.v5.route.NavigationMapRoute {
+    <init>(...);
+}
+-keep class com.mapbox.services.android.navigation.ui.v5.route.NavigationMapRoute_LifecycleAdapter {
+    <init>(...);
+}
+
+# Generated keep rule for Lifecycle observer adapter.
+-if class com.mapbox.services.android.navigation.ui.v5.camera.NavigationCamera {
+    <init>(...);
+}
+-keep class com.mapbox.services.android.navigation.ui.v5.camera.NavigationCamera_LifecycleAdapter {
+    <init>(...);
+}
+
+
