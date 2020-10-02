@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="muted">Som desligado</string>
+    <string name="rerouting">Retraçando rota...</string>
+    <string name="unmuted">Som ligado</string>
+</resources>
