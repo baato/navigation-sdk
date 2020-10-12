@@ -198,9 +198,9 @@ public class NavigateResponseConverter {
 
     private static String getName(int index){
 //        Log.d("Index", String.valueOf(index));
-        if(ghResponse.getInstructionList().get(index).getExtraInfoJSON().getLandmark() != null)
-            return ghResponse.getInstructionList().get(index).getExtraInfoJSON().getLandmark();
-        else
+//        if(ghResponse.getInstructionList().get(index).getExtraInfoJSON().getLandmark() != null)
+//            return ghResponse.getInstructionList().get(index).getExtraInfoJSON().getLandmark();
+//        else
          return ghResponse.getInstructionList().get(index).getName();
     }
 
@@ -345,9 +345,9 @@ public class NavigateResponseConverter {
         double distance = Helper.round(instruction.getDistance(), 1);
         instructionJson.put("weight", distance);
         instructionJson.put("duration", convertToSeconds(instruction.getTime()));
-        if (instruction.getExtraInfoJSON().getLandmark() != null)
-            instructionJson.put("name", instruction.getExtraInfoJSON().getLandmark());
-        else
+//        if (instruction.getExtraInfoJSON().getLandmark() != null)
+//            instructionJson.put("name", instruction.getExtraInfoJSON().getLandmark());
+//        else
             instructionJson.put("name", instruction.getName());
         instructionJson.put("distance", distance);
         ArrayNode voiceInstructions = instructionJson.putArray("voiceInstructions");
@@ -607,6 +607,14 @@ public class NavigateResponseConverter {
             else
               description = "You have arrived at your destination";
         }
+        if(ghResponse.getInstructionList().get(index + 1).getExtraInfoJSON().getLandmark() != null) {
+            String extraInfo = ghResponse.getInstructionList().get(index + 1).getExtraInfoJSON().getLandmark();
+            if (locale.getLanguage().equals("ne"))
+                extraInfo = "तपाईं " + extraInfo + " भएर जानुहुनेछ";
+            else
+                extraInfo = "you will pass through " + extraInfo;
+            description = description + ", " + extraInfo;
+        }
         String value = getTranslatedDistance((int) distanceAlongGeometry);
 //        Log.wtf("turn desc then", description);
 //        description = description.replace("unknown instruction sign '6'", "Continue on " + instructions.get(index).getName());
@@ -713,6 +721,14 @@ public class NavigateResponseConverter {
         } else {
             singleBannerInstruction.put("text", bannerInstruction);
         }
+//        if(instruction.getExtraInfoJSON().getLandmark() != null) {
+//            String extraInfo = instruction.getExtraInfoJSON().getLandmark();
+//            if (locale.getLanguage().equals("ne"))
+//                extraInfo = "नजिकै: " + extraInfo;
+//            else
+//                extraInfo = "Nearby: " + extraInfo;
+//            bannerInstruction = bannerInstruction + ". " + extraInfo;
+//        }
 
         ArrayNode components = singleBannerInstruction.putArray("components");
         ObjectNode component = components.addObject();
