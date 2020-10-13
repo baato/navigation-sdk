@@ -588,6 +588,7 @@ public class NavigateResponseConverter {
                 turnDesc = voiceValue.turnDescription.replace("unknown instruction sign '4'", "you will arrive at your destination.");
             }
 //            Log.wtf("turn desc", turnDesc);
+            if (!(voiceValue.spokenDistance > 0 && nextInstruction.getSign() == 0))
             putSingleVoiceInstruction(voiceValue.spokenDistance, turnDesc, voiceInstructions);
         }
 
@@ -609,11 +610,15 @@ public class NavigateResponseConverter {
         }
         if(ghResponse.getInstructionList().get(index + 1).getExtraInfoJSON().getLandmark() != null) {
             String extraInfo = ghResponse.getInstructionList().get(index + 1).getExtraInfoJSON().getLandmark();
-            if (locale.getLanguage().equals("ne"))
+            if (locale.getLanguage().equals("ne")) {
                 extraInfo = "तपाईं " + extraInfo + " भएर जानुहुनेछ";
-            else
-                extraInfo = "you will pass through " + extraInfo;
-            description = description + ", " + extraInfo;
+                description = description + "। " + extraInfo;
+            }
+            else {
+                extraInfo = "You will pass by " + extraInfo;
+                description = description + ". " + extraInfo;
+            }
+
         }
         String value = getTranslatedDistance((int) distanceAlongGeometry);
 //        Log.wtf("turn desc then", description);

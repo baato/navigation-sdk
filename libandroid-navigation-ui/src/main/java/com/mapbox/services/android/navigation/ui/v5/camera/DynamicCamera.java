@@ -19,8 +19,12 @@ import java.util.List;
 
 public class DynamicCamera extends SimpleCamera {
 
-  private static final double MAX_CAMERA_TILT = 50d;
-  private static final double MIN_CAMERA_TILT = 35d;
+//  private static final double MAX_CAMERA_TILT = 50d;
+//  private static final double MIN_CAMERA_TILT = 35d;
+
+  private static final double MAX_CAMERA_TILT = 70d;
+  private static final double MIN_CAMERA_TILT = 55d;
+
   private static final double MAX_CAMERA_ZOOM = 20d;
   private static final double MIN_CAMERA_ZOOM = 17d;
   private static final Point DEFAULT_TARGET = Point.fromLngLat(0d, 0d);
