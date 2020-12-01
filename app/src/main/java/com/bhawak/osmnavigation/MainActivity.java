@@ -363,8 +363,8 @@ public class MainActivity extends AppCompatActivity implements PermissionsListen
 //                                .shouldSimulateRoute(simulateRoute)
 //                                .build();
 //                        NavigationLauncher.startNavigation(MainActivity.this, options);
-//                        Intent intent = new Intent(MainActivity.this, MockNavigationActivity.class);
-                        Intent intent = new Intent(MainActivity.this, ComponentNavigationActivity.class);
+                        Intent intent = new Intent(MainActivity.this, MockNavigationActivity.class);
+//                        Intent intent = new Intent(MainActivity.this, ComponentNavigationActivity.class);
                         intent.putExtra("Route",directionsResponse);
                         intent.putExtra("origin", originPoint);
                         intent.putExtra("lastLocation", mylocation);
@@ -736,8 +736,8 @@ public class MainActivity extends AppCompatActivity implements PermissionsListen
                     NavigationResponse navResponse = response.body().getData().get(0);
                     encodedPolyline = navResponse.getEncoded_polyline();
                     initRouteCoordinates();
-                    Locale locale = new Locale("ne", "NP");
-//                    Locale locale = new Locale("en", "US");
+//                    Locale locale = new Locale("ne", "NP");
+                    Locale locale = new Locale("en", "US");
                     ObjectNode obj = NavigateResponseConverter.convertFromGHResponse(navResponse, "car", locale);
                     directionsResponse = DirectionsResponse.fromJson(obj.toString());
 //                currentRoute = directionsResponse.routes().get(0);
@@ -745,7 +745,7 @@ public class MainActivity extends AppCompatActivity implements PermissionsListen
                     navMapRoute(currentRoute);
                     boundCameraToRoute();
                     Log.wtf("My route",String.valueOf(obj));
-                    Log.wtf("request", String.valueOf(call.request()));
+//                    Log.wtf("request", String.valueOf(call.request()));
 
                     Timber.d(String.valueOf(obj));
 //                addLine("simplifiedLine", Feature.fromGeometry(LineString.fromLngLats(PolylineUtils.simplify(points, 0.001))), "#3bb2d0");

@@ -1,4 +1,5 @@
 package com.bhawak.osmnavigation.navigation;
+import com.baato.baatolibrary.models.LatLon;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import com.graphhopper.util.details.PathDetail;
@@ -275,6 +276,18 @@ class ExtraInfoJSON {
     @SerializedName("landmark")
     @Expose
     private String landmark;
+
+    @SerializedName("landmark_centroid")
+    @Expose
+    private List<Double> landmarkCentroid = null;
+
+    public List<Double> getLandmarkCentroid() {
+        return landmarkCentroid;
+    }
+
+    public void setLandmarkCentroid(List<Double> landmarkCentroid) {
+        this.landmarkCentroid = landmarkCentroid;
+    }
 
     public String getLandmark() {
         return landmark;

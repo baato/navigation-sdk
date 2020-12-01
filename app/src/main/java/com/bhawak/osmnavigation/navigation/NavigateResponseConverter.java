@@ -26,7 +26,9 @@ import androidx.annotation.RequiresApi;
 import android.os.Environment;
 import android.text.TextUtils;
 import android.util.Log;
+import android.widget.Switch;
 
+import com.baato.baatolibrary.models.LatLon;
 import com.bhawak.osmnavigation.DecodeLine;
 import com.bhawak.osmnavigation.NavigationResponse;
 import com.fasterxml.jackson.databind.node.ArrayNode;
@@ -610,21 +612,110 @@ public class NavigateResponseConverter {
         }
         if(ghResponse.getInstructionList().get(index + 1).getExtraInfoJSON().getLandmark() != null) {
             String extraInfo = ghResponse.getInstructionList().get(index + 1).getExtraInfoJSON().getLandmark();
-            if (locale.getLanguage().equals("ne")) {
-                extraInfo = "तपाईं " + extraInfo + " भएर जानुहुनेछ";
-                description = description + "। " + extraInfo;
+            String mySide  = computeSide(ghResponse.getInstructionList().get(index + 1));
+            String continueSide = "";
+            String turnSide = "";
+            switch (mySide) {
+                case "right":
+                    if (locale.getLanguage().equals("ne")) {
+                        continueSide = "को दायामा";
+                        turnSide = "दाया तर्फ";
+                    } else {
+                        continueSide = " on your right";
+                        turnSide = " on your right";
+                    }
+                    break;
+                case "left":
+                    if (locale.getLanguage().equals("ne")) {
+                        continueSide = "को बायामा";
+                        turnSide = " बाया तर्फ";
+                    } else {
+                        continueSide = " on your left";
+                        turnSide = " on your left";
+                    }
+                    break;
+                default: break;
             }
-            else {
-                extraInfo = "You will pass by " + extraInfo;
-                description = description + ". " + extraInfo;
+            if(nextInstruction.getSign() == 0) {
+                if (locale.getLanguage().equals("ne")) {
+                    extraInfo = "तपाईं" + continueSide + " " + extraInfo + " भएर जानुहुनेछ";
+                    description = description + "। " + extraInfo;
+                } else {
+                    extraInfo = "You will pass by " + extraInfo;
+                    description = description + ". " + extraInfo + continueSide;
+                }
+            } else {
+                if (locale.getLanguage().equals("ne")) {
+                    extraInfo = "त्यसपछि तपाईंले " + turnSide + extraInfo + " देख्नुहुनेछ";
+                    description = description + "। " + extraInfo;
+                } else {
+                    extraInfo = "Then you will see " + extraInfo;
+                    description = description + ". " + extraInfo + turnSide;
+                }
             }
-
         }
+
         String value = getTranslatedDistance((int) distanceAlongGeometry);
 //        Log.wtf("turn desc then", description);
 //        description = description.replace("unknown instruction sign '6'", "Continue on " + instructions.get(index).getName());
 //        description = description.replace("then unknown instruction sign '4'", "you will arrive your destination.");
         putSingleVoiceInstruction(distanceAlongGeometry, description, voiceInstructions);
+    }
+    public static String computeSide(InstructionResponse instruction) {
+        List<Double> landmarkCentroid = instruction.getExtraInfoJSON().getLandmarkCentroid();
+        if (landmarkCentroid != null && landmarkCentroid.size() == 2) {
+            MapObj mapObj = computeInterval(instruction);
+            if (mapObj.getPointList() != null && mapObj.getPointList().size() > 1) {
+                PointList ps = mapObj.getPointList();
+//                Log.d("Landmark centroid", String.valueOf(landmarkCentroid.get(0)));
+//        List<Double> coord1 = allCord.get(mapObj.getEnd());
+//        List<Double> coord2 = allCord.get(mapObj.getEnd()-1);
+                DirectionForLine.DirectionPoint A = new DirectionForLine.DirectionPoint();
+                DirectionForLine.DirectionPoint B = new DirectionForLine.DirectionPoint();
+                DirectionForLine.DirectionPoint P = new DirectionForLine.DirectionPoint();
+
+                DirectionForLine.DirectionPoint C = new DirectionForLine.DirectionPoint();
+                DirectionForLine.DirectionPoint D = new DirectionForLine.DirectionPoint();
+                int i = ps.size() - 1;
+                A.x = ps.get(0).lat;
+                A.y = ps.get(0).lon;
+                B.x = ps.get(1).lat;
+                B.y = ps.get(1).lon;
+                int checkDirection = 0;
+                int j = 0;
+                if (i > 1) {
+                    j = i - 1;
+
+                    C.x = ps.get(j-1).lat;
+                    C.y = ps.get(j-1).lon;
+                    D.x = ps.get(j).lat;
+                    D.y = ps.get(j).lon;
+                     checkDirection = DirectionForLine.directionOfPoint(C, D, P);
+                }
+
+
+//                C.x = coord1.get(0);
+//                C.y = coord1.get(1);
+//                D.x = coord2.get(0);
+//                D.y = coord2.get(1);;
+
+                P.x = landmarkCentroid.get(0);
+                P.y = landmarkCentroid.get(1);
+                int direction = DirectionForLine.directionOfPoint(A, B, P);
+
+                if (checkDirection == 0 || direction == checkDirection) {
+                    switch (direction) {
+                        case 1:
+                            return "right";
+                        case -1:
+                            return "left";
+                        default:
+                            return "";
+                    }
+                }
+            }
+        }
+        return "";
     }
     public static String getTranslatedDistance(int distance){
         String unit = "meters";
@@ -698,9 +789,15 @@ public class NavigateResponseConverter {
         bannerInstruction.put("distanceAlongGeometry", distance);
 
         ObjectNode primary = bannerInstruction.putObject("primary");
-        putSingleBannerInstruction(instructions.get(index + 1), locale, translationMap, primary);
+        putSingleBannerInstruction(instructions.get(index+1), locale, translationMap, primary);
 
-        bannerInstruction.putNull("secondary");
+
+        if(instructions.get(index+1).getExtraInfoJSON().getLandmark() != null) {
+            ObjectNode secondary = bannerInstruction.putObject("secondary");
+            putLmbnBannerInstruction(instructions.get(index+1), locale, translationMap, secondary);
+        } else {
+           bannerInstruction.putNull("secondary");
+        }
 
         if (instructions.size() > index + 2 && instructions.get(index + 2).getSign() != InstructionResponse.REACHED_VIA && instructions.get(index+2).getDistance() < 60) {
             // Sub shows the instruction after the current one
@@ -732,7 +829,7 @@ public class NavigateResponseConverter {
 //                extraInfo = "नजिकै: " + extraInfo;
 //            else
 //                extraInfo = "Nearby: " + extraInfo;
-//            bannerInstruction = bannerInstruction + ". " + extraInfo;
+//            bannerInstruction = bannerInstruction + "\n" + extraInfo;
 //        }
 
         ArrayNode components = singleBannerInstruction.putArray("components");
@@ -755,7 +852,18 @@ public class NavigateResponseConverter {
                 }
             }
     }
-
+    private static void putLmbnBannerInstruction(InstructionResponse instruction, Locale locale, BaatoTranslationMap translationMap, ObjectNode singleBannerInstruction) {
+            String extraInfo = instruction.getExtraInfoJSON().getLandmark();
+            singleBannerInstruction.put("text", extraInfo);
+            ArrayNode components = singleBannerInstruction.putArray("components");
+            ObjectNode component = components.addObject();
+            component.put("text", extraInfo);
+            component.put("type", "text");
+            ArrayNode coms = singleBannerInstruction.putArray("components");
+            ObjectNode com = coms.addObject();
+            com.put("text", extraInfo);
+            com.put("type", "text");
+    }
     @SuppressLint("NewApi")
     private static void putManeuver(InstructionResponse instruction, ObjectNode instructionJson, Locale locale, boolean isFirstInstructionOfLeg) {
         ObjectNode maneuver = instructionJson.putObject("maneuver");

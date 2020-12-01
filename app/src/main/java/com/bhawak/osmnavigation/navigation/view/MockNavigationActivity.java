@@ -389,7 +389,7 @@ public class MockNavigationActivity extends AppCompatActivity implements OnMapRe
   }
 
   private void initializeSpeechPlayer() {
-    Locale locale = new Locale("ne", "NP");
+    Locale locale = new Locale("en", "US");
     String english = locale.getLanguage();
 //    String english = Locale.US.getLanguage();
 
