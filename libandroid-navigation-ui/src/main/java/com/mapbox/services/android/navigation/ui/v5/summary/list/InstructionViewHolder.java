@@ -19,7 +19,7 @@ class InstructionViewHolder extends RecyclerView.ViewHolder implements Instructi
   private static final int PRIMARY_MIN_TEXT_SIZE_SP = 26;
   private static final int PRIMARY_MAX_TEXT_SIZE_SP = 28;
   private static final int SECONDARY_MIN_TEXT_SIZE_SP = 20;
-  private static final int SECONDARY_MAX_TEXT_SIZE_SP = 26;
+  private static final int SECONDARY_MAX_TEXT_SIZE_SP = 24;
   private static final int DISTANCE_MIN_TEXT_SIZE_SP = 16;
   private static final int DISTANCE_MAX_TEXT_SIZE_SP = 20;
   private static final int AUTO_SIZE_STEP_GRANULARITY = 1;
