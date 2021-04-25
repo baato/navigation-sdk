@@ -1,7 +1,10 @@
 package com.bhawak.osmnavigation;
 
+import androidx.annotation.Keep;
+
 import java.util.List;
 
+@Keep
 public class NavAPIResponse {
     private String timestamp;
     private Integer status;

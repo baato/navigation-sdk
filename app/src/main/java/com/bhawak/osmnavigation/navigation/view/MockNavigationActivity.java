@@ -26,8 +26,7 @@ import com.baato.baatolibrary.models.DirectionsAPIResponse;
 import com.baato.baatolibrary.models.NavResponse;
 import com.baato.baatolibrary.services.BaatoRouting;
 import com.bhawak.osmnavigation.R;
-import com.bhawak.osmnavigation.navigation.DistanceUtils;
-import com.bhawak.osmnavigation.navigation.NavigateResponseConverter;
+
 import com.bhawak.osmnavigation.navigation.view.notification.CustomNavigationNotification;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;

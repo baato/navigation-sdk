@@ -9,4 +9,5 @@ public interface Constants {
 
     //product flavors
     String KLL = "kll";
+    int PHONE_STATE_PERMISSION_REQUEST = 1002;
 }
