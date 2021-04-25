@@ -1,13 +1,16 @@
 package com.bhawak.osmnavigation;
-import com.bhawak.osmnavigation.navigation.InstructionResponse;
-import com.bhawak.osmnavigation.navigation.OSMPath;
-import com.bhawak.osmnavigation.navigation.OSMPathWrapper;
+
 
 //import com.graphhopper.util.InstructionResponse;
 
 
+import androidx.annotation.Keep;
+
+import com.bhawak.osmnavigation.navigation.model.InstructionResponse;
+
 import java.util.List;
 
+@Keep
 public class NavigationResponse {
         private String encodedPolyline;
     private double routeWeight;

@@ -19,3 +19,22 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+#-dontshrink
+-keepattributes Signature
+-keepattributes Annotation
+-keep class okhttp3.** { *; }
+-keep interface okhttp3.** { *; }
+-dontwarn okhttp3.**
+-dontwarn okio.**
+
+# Retrofit
+-keep class retrofit2.** { *; }
+-keep class com.google.appengine.** { *; }
+
+-keep class com.bhawak.osmnavigation.navigation.model.** { *; }
+-keepclasseswithmembers class com.bhawak.osmnavigation.navigation.model.** {
+   public static *** parseparse(...);
+   private static *** parseparse(...);
+}
+
+

@@ -1,13 +1,20 @@
 package com.bhawak.osmnavigation;
 
 import android.Manifest;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.location.Location;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+
+import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StyleRes;
@@ -21,12 +28,10 @@ import android.widget.Toast;
 
 import com.baato.baatolibrary.models.DirectionsAPIResponse;
 import com.baato.baatolibrary.services.BaatoRouting;
-import com.bhawak.osmnavigation.navigation.DirectionAPIResponse;
-import com.bhawak.osmnavigation.navigation.NavResponse;
-import com.bhawak.osmnavigation.navigation.NavigateResponseConverter;
-import com.bhawak.osmnavigation.navigation.NavigateResponseConverterTranslationMap;
+
 //import com.bhawak.osmnavigation.navigation.SimpleConverter;
 //import com.bhawak.osmnavigation.navigation.SimpleConverter;
+import com.bhawak.osmnavigation.navigation.model.NavigateResponseConverter;
 import com.bhawak.osmnavigation.navigation.view.ComponentNavigationActivity;
 import com.bhawak.osmnavigation.navigation.view.Constants;
 import com.bhawak.osmnavigation.navigation.view.MockNavigationActivity;
@@ -117,7 +122,7 @@ import static com.mapbox.mapboxsdk.style.layers.PropertyFactory.iconImage;
 import static com.mapbox.mapboxsdk.style.layers.PropertyFactory.lineColor;
 import static com.mapbox.mapboxsdk.style.layers.PropertyFactory.lineWidth;
 import static com.mapbox.mapboxsdk.style.layers.PropertyFactory.visibility;
-
+@Keep
 public class MainActivity extends AppCompatActivity implements PermissionsListener, GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener, LocationListener,OnMapReadyCallback, MapboxMap.OnMapClickListener {
     private static final int CAMERA_ANIMATION_DURATION = 1000;
@@ -155,6 +160,7 @@ public class MainActivity extends AppCompatActivity implements PermissionsListen
         return navigateResponseConverter;
     }
     private Location mylocation;
+//    private final static int REQUEST_CODE_ASK_PERMISSIONS = 1002;
 
     public static ApiInterface getApiInterface() {
         OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
@@ -166,7 +172,6 @@ public class MainActivity extends AppCompatActivity implements PermissionsListen
                 .build();
         return retrofit.create(ApiInterface.class);
     }
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -194,7 +199,33 @@ public class MainActivity extends AppCompatActivity implements PermissionsListen
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
                                            @NonNull int[] grantResults) {
-        permissionsManager.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == Constants.PHONE_STATE_PERMISSION_REQUEST) {
+            if (grantResults[0] != PackageManager.PERMISSION_GRANTED) {
+                displayPhoneStateRequiredDialog(this);
+            } else
+                startNavigationActivity();
+        } else
+            permissionsManager.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
+    public static void displayPhoneStateRequiredDialog(Context context) {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setMessage("Turn by turn navigation task requires PHONE_STATE_PERMISSION enabled. Please permit the permission through "
+                + "Settings screen.\n\nSelect Permissions -> Enable permission");
+        builder.setCancelable(false);
+        builder.setPositiveButton("Permit Manually", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+                Intent intent = new Intent();
+                intent.setAction(android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                Uri uri = Uri.fromParts("package", context.getPackageName(), null);
+                intent.setData(uri);
+                context.startActivity(intent);
+            }
+        });
+        builder.setNegativeButton("Cancel", null);
+        builder.show();
     }
 
     @Override
@@ -205,18 +236,6 @@ public class MainActivity extends AppCompatActivity implements PermissionsListen
     private void initLocationEngine() {
         if (PermissionsManager.areLocationPermissionsGranted(this)) {
             getMyLocation();
-//            locationEngine = new LocationEngineProvider(this).obtainLocationEngineBy(LocationEngine.Type.ANDROID);
-//            locationEngine.setPriority(HIGH_ACCURACY);
-//            locationEngine.setInterval(0);
-//            locationEngine.setFastestInterval(1000);
-//            locationEngine.addLocationEngineListener((LocationEngineListener) this);
-//            locationEngine.activate();
-//
-//            if (locationEngine.getLastLocation() != null) {
-//                Location lastLocation = locationEngine.getLastLocation();
-//                onLocationChanged(lastLocation);
-//                currentLocation = Point.fromLngLat(lastLocation.getLongitude(), lastLocation.getLatitude());
-//            } else getMyLocation();
         } else {
             permissionsManager = new PermissionsManager(this);
             permissionsManager.requestLocationPermissions(this);
@@ -356,23 +375,26 @@ public class MainActivity extends AppCompatActivity implements PermissionsListen
                     @Override
                     public void onClick(View v) {
                         boolean simulateRoute = true;
-
+                        checkPhoneStatePermission();
 //                        Log.d("current route:", String.valueOf(currentRoute));
 //                        NavigationLauncherOptions options = NavigationLauncherOptions.builder()
 //                                .directionsRoute(currentRoute)
 //                                .shouldSimulateRoute(simulateRoute)
 //                                .build();
 //                        NavigationLauncher.startNavigation(MainActivity.this, options);
-                        Intent intent = new Intent(MainActivity.this, MockNavigationActivity.class);
-//                        Intent intent = new Intent(MainActivity.this, ComponentNavigationActivity.class);
-                        intent.putExtra("Route",directionsResponse);
-                        intent.putExtra("origin", originPoint);
-                        intent.putExtra("lastLocation", mylocation);
-                        startActivity(intent);
+
                     }
                 });
             }
         });
+    }
+    private void startNavigationActivity(){
+        Intent intent = new Intent(MainActivity.this, MockNavigationActivity.class);
+//        Intent intent = new Intent(MainActivity.this, ComponentNavigationActivity.class);
+        intent.putExtra("Route",directionsResponse);
+        intent.putExtra("origin", originPoint);
+        intent.putExtra("lastLocation", mylocation);
+        startActivity(intent);
     }
         private void addDestinationIconSymbolLayer() {
         mapboxMap.addImage("destination-icon-id",
@@ -558,7 +580,14 @@ public class MainActivity extends AppCompatActivity implements PermissionsListen
         mylocation =location;
         originPoint = Point.fromLngLat(location.getLongitude(), location.getLatitude());
     }
-
+    private void checkPhoneStatePermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            int res = checkSelfPermission(android.Manifest.permission.READ_PHONE_STATE);
+            if (res != PackageManager.PERMISSION_GRANTED) {
+                requestPermissions(new String[]{android.Manifest.permission.READ_PHONE_STATE}, Constants.PHONE_STATE_PERMISSION_REQUEST);
+            } else startNavigationActivity();
+        }
+    }
     @Override
     public void onMapClick(@NonNull LatLng point) {
 

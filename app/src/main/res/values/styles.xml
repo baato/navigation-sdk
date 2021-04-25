@@ -13,7 +13,7 @@
         <item name="windowNoTitle">true</item>
     </style>
     <style name="CustomNavigationMapRoute" parent="NavigationMapRoute">
-        <item name="upcomingManeuverArrowBorderColor"></item>
+        <item name="upcomingManeuverArrowBorderColor">@color/mapbox_navigation_view_color_primary</item>
     </style>
 
     <style name="CustomNavigationView" parent="NavigationViewLight">

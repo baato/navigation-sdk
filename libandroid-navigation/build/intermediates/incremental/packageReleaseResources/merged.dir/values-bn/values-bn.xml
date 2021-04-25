@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="channel_name">ন্যাভিগেশন প্রজ্ঞাপন</string>
+    <string name="end_navigation">ন্যাভিগেশন শেষ</string>
+    <string name="notification_arrival_time_format">পৌঁছাতে %s</string>
+</resources>

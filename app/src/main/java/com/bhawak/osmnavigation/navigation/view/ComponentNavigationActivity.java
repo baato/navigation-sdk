@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.location.Location;
 import android.os.Build;
@@ -27,12 +28,8 @@ import com.bhawak.osmnavigation.MainActivity;
 import com.bhawak.osmnavigation.NavAPIResponse;
 import com.bhawak.osmnavigation.NavigationResponse;
 import com.bhawak.osmnavigation.R;
-import com.bhawak.osmnavigation.navigation.DirectionAPIResponse;
-import com.bhawak.osmnavigation.navigation.DistanceConfig;
-import com.bhawak.osmnavigation.navigation.DistanceUtils;
-import com.bhawak.osmnavigation.navigation.NavResponse;
-import com.bhawak.osmnavigation.navigation.NavigateResponseConverter;
-import com.bhawak.osmnavigation.navigation.NavigateResponseConverterTranslationMap;
+
+import com.bhawak.osmnavigation.navigation.model.NavigateResponseConverter;
 import com.bhawak.osmnavigation.navigation.view.notification.CustomNavigationNotification;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -209,6 +206,7 @@ public class ComponentNavigationActivity extends AppCompatActivity implements On
 //                    )
 //            ).build());
   }
+
 //  private static class BeginRouteInstruction extends Instruction {
 //
 //    @Override
