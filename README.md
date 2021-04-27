@@ -21,7 +21,7 @@ allprojects{
 ```
 
 2. Open up your application's build.gradle file. Add the following code:
-```
+```    
 android {
  compileOptions {
         sourceCompatibility = 1.8
@@ -77,17 +77,27 @@ If you are using MapBox as your map service, our library only supports the **ver
 
 <uses-permission android:name="android.permission.INTERNET" />
 <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+// This sdk usage phone state permission for telemetry service (i.e, it use cellular network and other connectivity status to compute gps for navigation. This permission must be explicitly added to the code for android 11 and above.) 
+<uses-permission android:name="android.permission.READ_PHONE_STATE" />
 ```
 
 ### Implementation
 
-#### Managing the location permission and location update
+#### Managing the location permission and location update (add phone state permission for android 11 and above)
 
 1. Implement the PermissionsListener, for navigation to work with better experience you need to provide the runtime location permission
 ```
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
                                            @NonNull int[] grantResults) {
+     // here Constants.PHONE_STATE_PERMISSION_REQUEST is a static integer can be also be defined in seperate interface/class.                                  
+     if (requestCode == Constants.PHONE_STATE_PERMISSION_REQUEST) {
+            if (grantResults[0] != PackageManager.PERMISSION_GRANTED) {
+                displayPhoneStateRequiredDialog(this);
+            } else
+                onStartNavigation(); // Use this method to start navigation (The method used here can be method that triggers intent if navigation is in different activity)
+        } else                                      
         permissionsManager.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
     
@@ -102,9 +112,32 @@ If you are using MapBox as your map service, our library only supports the **ver
            //do something
         }
     }
+    
+    // Example asking phone state permission you can implement your own method
+     public static void displayPhoneStateRequiredDialog(Context context) {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setMessage("Turn by turn navigation task requires PHONE_STATE_PERMISSION enabled. Please permit the permission through "
+                + "Settings screen.\n\nSelect Permissions -> Enable permission");
+        builder.setCancelable(false);
+        builder.setPositiveButton("Permit Manually", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+                Intent intent = new Intent();
+                intent.setAction(android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                Uri uri = Uri.fromParts("package", context.getPackageName(), null);
+                intent.setData(uri);
+                context.startActivity(intent);
+            }
+        });
+        builder.setNegativeButton("Cancel", null);
+        builder.show();
+    }
 ```    
-2. Use permission manager to check if location permission is granted
+2. Use permission manager to check if location permission is granted. Also check phone state permission before launching navigation.
 ```
+// For location 
        permissionsManager = new PermissionsManager(context);
         if (!PermissionsManager.areLocationPermissionsGranted(context)) {
             permissionsManager.requestLocationPermissions(context);
@@ -112,6 +145,16 @@ If you are using MapBox as your map service, our library only supports the **ver
         // get location and set map component accordingly
             getMyLocation();
         }
+        
+ // For phone state (call this function just before starting navigation) 
+ private void checkPhoneStatePermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            int res = checkSelfPermission(android.Manifest.permission.READ_PHONE_STATE);
+            if (res != PackageManager.PERMISSION_GRANTED) {
+                requestPermissions(new String[]{android.Manifest.permission.READ_PHONE_STATE}, Constants.PHONE_STATE_PERMISSION_REQUEST);
+            } else onStartNavigation(); // Use this method to start navigation.
+        }
+    }
 ```
 3. Initilization of Location service to track the user with google api client; implemented methods LocationListener, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener
 ```
