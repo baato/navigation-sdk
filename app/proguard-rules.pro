@@ -23,6 +23,7 @@
 -keepattributes Signature
 -keepattributes Annotation
 -keep class okhttp3.** { *; }
+-keep class com.mapbox.android.core.location** { *; }
 -keep interface okhttp3.** { *; }
 -dontwarn okhttp3.**
 -dontwarn okio.**

@@ -93,6 +93,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import timber.log.Timber;
 
+
 public class MockNavigationActivity extends AppCompatActivity implements OnMapReadyCallback, ProgressChangeListener,
         MilestoneEventListener, OffRouteListener, NavigationEventListener, SpeechAnnouncementListener {
 
@@ -144,7 +145,7 @@ public class MockNavigationActivity extends AppCompatActivity implements OnMapRe
 
   @Override
   public void onRunning(boolean running) {
-  Log.wtf("Status: ", String.valueOf(running));
+    Log.wtf("Status: ", String.valueOf(running));
   }
 
   @Override
