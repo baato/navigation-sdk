@@ -389,8 +389,8 @@ public class MainActivity extends AppCompatActivity implements PermissionsListen
         });
     }
     private void startNavigationActivity(){
-        Intent intent = new Intent(MainActivity.this, MockNavigationActivity.class);
-//        Intent intent = new Intent(MainActivity.this, ComponentNavigationActivity.class);
+//        Intent intent = new Intent(MainActivity.this, MockNavigationActivity.class);
+        Intent intent = new Intent(MainActivity.this, ComponentNavigationActivity.class);
         intent.putExtra("Route",directionsResponse);
         intent.putExtra("origin", originPoint);
         intent.putExtra("lastLocation", mylocation);
@@ -586,7 +586,7 @@ public class MainActivity extends AppCompatActivity implements PermissionsListen
             if (res != PackageManager.PERMISSION_GRANTED) {
                 requestPermissions(new String[]{android.Manifest.permission.READ_PHONE_STATE}, Constants.PHONE_STATE_PERMISSION_REQUEST);
             } else startNavigationActivity();
-        }
+        } else startNavigationActivity();
     }
     @Override
     public void onMapClick(@NonNull LatLng point) {
