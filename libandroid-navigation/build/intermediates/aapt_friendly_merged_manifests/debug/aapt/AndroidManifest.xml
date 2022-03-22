@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     package="com.mapbox.services.android.navigation" >
 
     <uses-sdk
@@ -13,7 +12,7 @@
             android:foregroundServiceType="location" />
         <!-- Include the telemetry service to simplify set up (https://www.mapbox.com/telemetry) -->
         <service
-            android:name="com.mapbox.services.android.telemetry.service.TelemetryService"
+            android:name="com.mapbox.services.android.navigation.v5.navigation.telemetry.MapboxTelemetryService"
             android:foregroundServiceType="location" />
     </application>
 
