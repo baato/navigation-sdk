@@ -2,7 +2,7 @@ package com.mapbox.services.android.navigation.v5.navigation.metrics;
 
 import androidx.annotation.StringDef;
 
-import com.mapbox.android.telemetry.TelemetryUtils;
+import com.mapbox.services.android.navigation.v5.navigation.telemetry.TelemetryUtils;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;

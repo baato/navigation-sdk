@@ -5,25 +5,25 @@
 5
 6    <uses-sdk
 7        android:minSdkVersion="14"
-7-->/Users/bhawak/Desktop/KLL/OSMNavigation/libandroid-navigation/src/main/AndroidManifest.xml
+7-->F:\kll\navigation-sdk\libandroid-navigation\src\main\AndroidManifest.xml
 8        android:targetSdkVersion="30" />
-8-->/Users/bhawak/Desktop/KLL/OSMNavigation/libandroid-navigation/src/main/AndroidManifest.xml
+8-->F:\kll\navigation-sdk\libandroid-navigation\src\main\AndroidManifest.xml
 9
 10    <application>
-10-->/Users/bhawak/Desktop/KLL/OSMNavigation/libandroid-navigation/src/main/AndroidManifest.xml:5:5-12:19
+10-->F:\kll\navigation-sdk\libandroid-navigation\src\main\AndroidManifest.xml:5:5-12:19
 11        <service
-11-->/Users/bhawak/Desktop/KLL/OSMNavigation/libandroid-navigation/src/main/AndroidManifest.xml:6:9-8:15
+11-->F:\kll\navigation-sdk\libandroid-navigation\src\main\AndroidManifest.xml:6:9-8:15
 12            android:name="com.mapbox.services.android.navigation.v5.navigation.NavigationService"
-12-->/Users/bhawak/Desktop/KLL/OSMNavigation/libandroid-navigation/src/main/AndroidManifest.xml:6:18-103
+12-->F:\kll\navigation-sdk\libandroid-navigation\src\main\AndroidManifest.xml:6:18-103
 13            android:foregroundServiceType="location" />
-13-->/Users/bhawak/Desktop/KLL/OSMNavigation/libandroid-navigation/src/main/AndroidManifest.xml:7:13-53
+13-->F:\kll\navigation-sdk\libandroid-navigation\src\main\AndroidManifest.xml:7:13-53
 14        <!-- Include the telemetry service to simplify set up (https://www.mapbox.com/telemetry) -->
 15        <service
-15-->/Users/bhawak/Desktop/KLL/OSMNavigation/libandroid-navigation/src/main/AndroidManifest.xml:10:9-11:55
+15-->F:\kll\navigation-sdk\libandroid-navigation\src\main\AndroidManifest.xml:10:9-11:55
 16            android:name="com.mapbox.services.android.telemetry.service.TelemetryService"
-16-->/Users/bhawak/Desktop/KLL/OSMNavigation/libandroid-navigation/src/main/AndroidManifest.xml:10:18-95
+16-->F:\kll\navigation-sdk\libandroid-navigation\src\main\AndroidManifest.xml:10:18-95
 17            android:foregroundServiceType="location" />
-17-->/Users/bhawak/Desktop/KLL/OSMNavigation/libandroid-navigation/src/main/AndroidManifest.xml:11:13-53
+17-->F:\kll\navigation-sdk\libandroid-navigation\src\main\AndroidManifest.xml:11:13-53
 18    </application>
 19
 20</manifest>

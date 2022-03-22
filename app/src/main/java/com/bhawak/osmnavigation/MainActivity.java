@@ -122,15 +122,16 @@ import static com.mapbox.mapboxsdk.style.layers.PropertyFactory.iconImage;
 import static com.mapbox.mapboxsdk.style.layers.PropertyFactory.lineColor;
 import static com.mapbox.mapboxsdk.style.layers.PropertyFactory.lineWidth;
 import static com.mapbox.mapboxsdk.style.layers.PropertyFactory.visibility;
+
 @Keep
 public class MainActivity extends AppCompatActivity implements PermissionsListener, GoogleApiClient.ConnectionCallbacks,
-        GoogleApiClient.OnConnectionFailedListener, LocationListener,OnMapReadyCallback, MapboxMap.OnMapClickListener {
+        GoogleApiClient.OnConnectionFailedListener, LocationListener, OnMapReadyCallback, MapboxMap.OnMapClickListener {
     private static final int CAMERA_ANIMATION_DURATION = 1000;
     private static final int DEFAULT_CAMERA_ZOOM = 16;
     private static final int CHANGE_SETTING_REQUEST_CODE = 1;
 
     private LocationLayerPlugin locationLayer;
-//    private LocationEngine locationEngine;
+    //    private LocationEngine locationEngine;
     private MapboxMap mapboxMap;
     private NavigateResponseConverter navigateResponseConverter;
     private MapView mapView;
@@ -144,7 +145,7 @@ public class MainActivity extends AppCompatActivity implements PermissionsListen
     private String encodedPolyline;
     private Button button;
     List<Point> points;
-//    private TranslationMap translationMap;
+    //    private TranslationMap translationMap;
 //    private static final TranslationMap navigateResponseConverterTranslationMap = new NavigateResponseConverterTranslationMap().doImport();
     private boolean isInTrackingMode;
 
@@ -156,9 +157,11 @@ public class MainActivity extends AppCompatActivity implements PermissionsListen
     private DirectionsResponse directionsResponse = null;
     private GoogleApiClient googleApiClient;
     private FusedLocationProviderClient fusedLocationClient;
+
     public NavigateResponseConverter getNavigateResponseConverter() {
         return navigateResponseConverter;
     }
+
     private Location mylocation;
 //    private final static int REQUEST_CODE_ASK_PERMISSIONS = 1002;
 
@@ -186,7 +189,7 @@ public class MainActivity extends AppCompatActivity implements PermissionsListen
 //        Mapbox.getInstance(this.getBaseContext(), "pk.eyJ1IjoiYmhhd2FrIiwiYSI6ImNqdXJ1d3dkNzBmODIzeW42OGxsYzM2ZmMifQ.pw4f4jlgom6wSzovGQIT7w");
 //        "pk.xxx"
 //        getString(R.string.mapbox_access_token);
-        Mapbox.getInstance(getApplicationContext(),null);
+        Mapbox.getInstance(getApplicationContext(), null);
         setContentView(R.layout.activity_main);
         mapView = (MapView) findViewById(R.id.mapView);
         button = findViewById(R.id.startButton);
@@ -199,6 +202,7 @@ public class MainActivity extends AppCompatActivity implements PermissionsListen
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
                                            @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == Constants.PHONE_STATE_PERMISSION_REQUEST) {
             if (grantResults[0] != PackageManager.PERMISSION_GRANTED) {
                 displayPhoneStateRequiredDialog(this);
@@ -207,22 +211,20 @@ public class MainActivity extends AppCompatActivity implements PermissionsListen
         } else
             permissionsManager.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
+
     public static void displayPhoneStateRequiredDialog(Context context) {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setMessage("Turn by turn navigation task requires PHONE_STATE_PERMISSION enabled. Please permit the permission through "
                 + "Settings screen.\n\nSelect Permissions -> Enable permission");
         builder.setCancelable(false);
-        builder.setPositiveButton("Permit Manually", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-                Intent intent = new Intent();
-                intent.setAction(android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
-                Uri uri = Uri.fromParts("package", context.getPackageName(), null);
-                intent.setData(uri);
-                context.startActivity(intent);
-            }
+        builder.setPositiveButton("Permit Manually", (dialog, which) -> {
+            dialog.dismiss();
+            Intent intent = new Intent();
+            intent.setAction(android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+            Uri uri = Uri.fromParts("package", context.getPackageName(), null);
+            intent.setData(uri);
+            context.startActivity(intent);
         });
         builder.setNegativeButton("Cancel", null);
         builder.show();
@@ -233,6 +235,7 @@ public class MainActivity extends AppCompatActivity implements PermissionsListen
         Toast.makeText(this, "This app needs location permissions in order to show its functionality.",
                 Toast.LENGTH_LONG).show();
     }
+
     private void initLocationEngine() {
         if (PermissionsManager.areLocationPermissionsGranted(this)) {
             getMyLocation();
@@ -242,19 +245,14 @@ public class MainActivity extends AppCompatActivity implements PermissionsListen
         }
 
     }
+
     @Override
     public void onPermissionResult(boolean granted) {
-        Log.d("granted", String.valueOf(granted));
-//        if (!granted) {
-//            Toast.makeText(this, "You didn't grant location permissions.",
-//                    Toast.LENGTH_LONG).show();
-//        } else {
         if (granted) {
             Toast.makeText(this, "Please wait ...",
                     Toast.LENGTH_LONG).show();
             getMyLocation();
         }
-//        }//        initLocationLayer();
     }
 
     private void _launchNavigationWithRoute() {
@@ -344,6 +342,7 @@ public class MainActivity extends AppCompatActivity implements PermissionsListen
         super.onSaveInstanceState(outState);
         mapView.onSaveInstanceState(outState);
     }
+
     private void initLocationLayer() {
 //        locationLayer = new LocationLayerPlugin(mapView, mapboxMap, locationEngine);
 
@@ -371,11 +370,9 @@ public class MainActivity extends AppCompatActivity implements PermissionsListen
                         .build());
                 addDestinationIconSymbolLayer();
                 addPolylinelayer();
-                button.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        boolean simulateRoute = true;
-                        checkPhoneStatePermission();
+                button.setOnClickListener(v -> {
+                    boolean simulateRoute = true;
+                    checkPhoneStatePermission();
 //                        Log.d("current route:", String.valueOf(currentRoute));
 //                        NavigationLauncherOptions options = NavigationLauncherOptions.builder()
 //                                .directionsRoute(currentRoute)
@@ -383,20 +380,29 @@ public class MainActivity extends AppCompatActivity implements PermissionsListen
 //                                .build();
 //                        NavigationLauncher.startNavigation(MainActivity.this, options);
 
-                    }
                 });
             }
         });
     }
-    private void startNavigationActivity(){
-//        Intent intent = new Intent(MainActivity.this, MockNavigationActivity.class);
+
+    private void startNavigationActivity() {
+        Log.d(TAG, "startNavigationActivity: "+directionsResponse+" origin "+originPoint+" last "+mylocation);
+//        Intent intent = new Intent(MainActivity.this, ComponentNavigationActivity.class);
+//        intent.putExtra("Route", directionsResponse);
+//        intent.putExtra("origin", originPoint);
+//        intent.putExtra("lastLocation", mylocation);
+//        startActivity(intent);
+    }
+
+    private void startNewNavigationActivity() {
         Intent intent = new Intent(MainActivity.this, ComponentNavigationActivity.class);
-        intent.putExtra("Route",directionsResponse);
+        intent.putExtra("Route", directionsResponse);
         intent.putExtra("origin", originPoint);
         intent.putExtra("lastLocation", mylocation);
         startActivity(intent);
     }
-        private void addDestinationIconSymbolLayer() {
+
+    private void addDestinationIconSymbolLayer() {
         mapboxMap.addImage("destination-icon-id",
                 BitmapFactory.decodeResource(this.getResources(), R.drawable.mapbox_marker_icon_default));
         GeoJsonSource geoJsonSource = new GeoJsonSource("destination-source-id");
@@ -420,15 +426,18 @@ public class MainActivity extends AppCompatActivity implements PermissionsListen
         mapboxMap.addLayer(lineLayer);
 
     }
-    private void navMapRoute(DirectionsRoute myRoute){
+
+    private void navMapRoute(DirectionsRoute myRoute) {
         if (navigationMapRoute != null) {
-                            navigationMapRoute.removeRoute();
+            navigationMapRoute.removeRoute();
         } else {
             navigationMapRoute = new NavigationMapRoute(null, mapView, mapboxMap, R.style.NavigationMapRoute);
         }
         navigationMapRoute.addRoute(myRoute);
+        startNewNavigationActivity();
     }
-        private String returnFromRaw() throws IOException {
+
+    private String returnFromRaw() throws IOException {
         InputStream is = getResources().openRawResource(R.raw.baatomodified);
         Writer writer = new StringWriter();
         char[] buffer = new char[1024];
@@ -450,6 +459,7 @@ public class MainActivity extends AppCompatActivity implements PermissionsListen
         Log.wtf("jsonString", jsonString);
         return jsonString;
     }
+
     public String loadJSONFromAsset() {
         String json = null;
         try {
@@ -466,7 +476,7 @@ public class MainActivity extends AppCompatActivity implements PermissionsListen
         return json;
     }
 
-//    @Override
+    //    @Override
 //    public void onConnected() {
 //        locationEngine.requestLocationUpdates();
 ////        locationLayer.setCameraMode(CameraMode.TRACKING_GPS);
@@ -563,6 +573,7 @@ public class MainActivity extends AppCompatActivity implements PermissionsListen
             } else googleApiClient.connect();
         } else setUpGClient();
     }
+
     private synchronized void setUpGClient() {
         googleApiClient = new GoogleApiClient.Builder(this)
                 .enableAutoManage(this, 0, this)
@@ -574,12 +585,12 @@ public class MainActivity extends AppCompatActivity implements PermissionsListen
     }
 
 
-
     @Override
     public void onLocationChanged(Location location) {
-        mylocation =location;
+        mylocation = location;
         originPoint = Point.fromLngLat(location.getLongitude(), location.getLatitude());
     }
+
     private void checkPhoneStatePermission() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             int res = checkSelfPermission(android.Manifest.permission.READ_PHONE_STATE);
@@ -588,6 +599,7 @@ public class MainActivity extends AppCompatActivity implements PermissionsListen
             } else startNavigationActivity();
         } else startNavigationActivity();
     }
+
     @Override
     public void onMapClick(@NonNull LatLng point) {
 
@@ -612,7 +624,7 @@ public class MainActivity extends AppCompatActivity implements PermissionsListen
                         // Got last known location. In some rare situations this can be null.
                         if (location != null) {
                             originPoint = Point.fromLngLat(location.getLongitude(),
-                    location.getLatitude());
+                                    location.getLatitude());
                             getRoute(originPoint, destinationPoint);
                             // Logic to handle location object
                         }
@@ -633,6 +645,7 @@ public class MainActivity extends AppCompatActivity implements PermissionsListen
                     ))}));
         }
     }
+
     private void getRoute(Point origin, Point destination) {
         String[] points = new String[2];
         points[0] = origin.latitude() + "," + origin.longitude();
@@ -773,7 +786,7 @@ public class MainActivity extends AppCompatActivity implements PermissionsListen
                     currentRoute = directionsResponse.routes().get(0);
                     navMapRoute(currentRoute);
                     boundCameraToRoute();
-                    Log.wtf("My route",String.valueOf(obj));
+                    Log.d(TAG, String.valueOf(obj));
 //                    Log.wtf("request", String.valueOf(call.request()));
 
                     Timber.d(String.valueOf(obj));

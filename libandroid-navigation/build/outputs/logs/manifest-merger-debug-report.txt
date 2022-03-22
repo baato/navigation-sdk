@@ -1,41 +1,41 @@
 -- Merging decision tree log ---
 manifest
-ADDED from /Users/bhawak/Desktop/KLL/OSMNavigation/libandroid-navigation/src/main/AndroidManifest.xml:1:1-14:12
-INJECTED from /Users/bhawak/Desktop/KLL/OSMNavigation/libandroid-navigation/src/main/AndroidManifest.xml:1:1-14:12
-INJECTED from /Users/bhawak/Desktop/KLL/OSMNavigation/libandroid-navigation/src/main/AndroidManifest.xml:1:1-14:12
+ADDED from F:\kll\navigation-sdk\libandroid-navigation\src\main\AndroidManifest.xml:1:1-14:12
+INJECTED from F:\kll\navigation-sdk\libandroid-navigation\src\main\AndroidManifest.xml:1:1-14:12
+INJECTED from F:\kll\navigation-sdk\libandroid-navigation\src\main\AndroidManifest.xml:1:1-14:12
 	package
-		ADDED from /Users/bhawak/Desktop/KLL/OSMNavigation/libandroid-navigation/src/main/AndroidManifest.xml:3:5-53
-		INJECTED from /Users/bhawak/Desktop/KLL/OSMNavigation/libandroid-navigation/src/main/AndroidManifest.xml
-		INJECTED from /Users/bhawak/Desktop/KLL/OSMNavigation/libandroid-navigation/src/main/AndroidManifest.xml
+		ADDED from F:\kll\navigation-sdk\libandroid-navigation\src\main\AndroidManifest.xml:3:5-53
+		INJECTED from F:\kll\navigation-sdk\libandroid-navigation\src\main\AndroidManifest.xml
+		INJECTED from F:\kll\navigation-sdk\libandroid-navigation\src\main\AndroidManifest.xml
 	xmlns:tools
-		ADDED from /Users/bhawak/Desktop/KLL/OSMNavigation/libandroid-navigation/src/main/AndroidManifest.xml:2:5-51
+		ADDED from F:\kll\navigation-sdk\libandroid-navigation\src\main\AndroidManifest.xml:2:5-51
 	xmlns:android
-		ADDED from /Users/bhawak/Desktop/KLL/OSMNavigation/libandroid-navigation/src/main/AndroidManifest.xml:1:11-69
+		ADDED from F:\kll\navigation-sdk\libandroid-navigation\src\main\AndroidManifest.xml:1:11-69
 application
-ADDED from /Users/bhawak/Desktop/KLL/OSMNavigation/libandroid-navigation/src/main/AndroidManifest.xml:5:5-12:19
+ADDED from F:\kll\navigation-sdk\libandroid-navigation\src\main\AndroidManifest.xml:5:5-12:19
 service#com.mapbox.services.android.navigation.v5.navigation.NavigationService
-ADDED from /Users/bhawak/Desktop/KLL/OSMNavigation/libandroid-navigation/src/main/AndroidManifest.xml:6:9-8:15
+ADDED from F:\kll\navigation-sdk\libandroid-navigation\src\main\AndroidManifest.xml:6:9-8:15
 	android:foregroundServiceType
-		ADDED from /Users/bhawak/Desktop/KLL/OSMNavigation/libandroid-navigation/src/main/AndroidManifest.xml:7:13-53
+		ADDED from F:\kll\navigation-sdk\libandroid-navigation\src\main\AndroidManifest.xml:7:13-53
 	android:name
-		ADDED from /Users/bhawak/Desktop/KLL/OSMNavigation/libandroid-navigation/src/main/AndroidManifest.xml:6:18-103
+		ADDED from F:\kll\navigation-sdk\libandroid-navigation\src\main\AndroidManifest.xml:6:18-103
 service#com.mapbox.services.android.telemetry.service.TelemetryService
-ADDED from /Users/bhawak/Desktop/KLL/OSMNavigation/libandroid-navigation/src/main/AndroidManifest.xml:10:9-11:55
+ADDED from F:\kll\navigation-sdk\libandroid-navigation\src\main\AndroidManifest.xml:10:9-11:55
 	android:foregroundServiceType
-		ADDED from /Users/bhawak/Desktop/KLL/OSMNavigation/libandroid-navigation/src/main/AndroidManifest.xml:11:13-53
+		ADDED from F:\kll\navigation-sdk\libandroid-navigation\src\main\AndroidManifest.xml:11:13-53
 	android:name
-		ADDED from /Users/bhawak/Desktop/KLL/OSMNavigation/libandroid-navigation/src/main/AndroidManifest.xml:10:18-95
+		ADDED from F:\kll\navigation-sdk\libandroid-navigation\src\main\AndroidManifest.xml:10:18-95
 uses-sdk
-INJECTED from /Users/bhawak/Desktop/KLL/OSMNavigation/libandroid-navigation/src/main/AndroidManifest.xml reason: use-sdk injection requested
-INJECTED from /Users/bhawak/Desktop/KLL/OSMNavigation/libandroid-navigation/src/main/AndroidManifest.xml
-INJECTED from /Users/bhawak/Desktop/KLL/OSMNavigation/libandroid-navigation/src/main/AndroidManifest.xml
-INJECTED from /Users/bhawak/Desktop/KLL/OSMNavigation/libandroid-navigation/src/main/AndroidManifest.xml
-INJECTED from /Users/bhawak/Desktop/KLL/OSMNavigation/libandroid-navigation/src/main/AndroidManifest.xml
+INJECTED from F:\kll\navigation-sdk\libandroid-navigation\src\main\AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from F:\kll\navigation-sdk\libandroid-navigation\src\main\AndroidManifest.xml
+INJECTED from F:\kll\navigation-sdk\libandroid-navigation\src\main\AndroidManifest.xml
+INJECTED from F:\kll\navigation-sdk\libandroid-navigation\src\main\AndroidManifest.xml
+INJECTED from F:\kll\navigation-sdk\libandroid-navigation\src\main\AndroidManifest.xml
 	android:targetSdkVersion
-		INJECTED from /Users/bhawak/Desktop/KLL/OSMNavigation/libandroid-navigation/src/main/AndroidManifest.xml
-		ADDED from /Users/bhawak/Desktop/KLL/OSMNavigation/libandroid-navigation/src/main/AndroidManifest.xml
-		INJECTED from /Users/bhawak/Desktop/KLL/OSMNavigation/libandroid-navigation/src/main/AndroidManifest.xml
+		INJECTED from F:\kll\navigation-sdk\libandroid-navigation\src\main\AndroidManifest.xml
+		ADDED from F:\kll\navigation-sdk\libandroid-navigation\src\main\AndroidManifest.xml
+		INJECTED from F:\kll\navigation-sdk\libandroid-navigation\src\main\AndroidManifest.xml
 	android:minSdkVersion
-		INJECTED from /Users/bhawak/Desktop/KLL/OSMNavigation/libandroid-navigation/src/main/AndroidManifest.xml
-		ADDED from /Users/bhawak/Desktop/KLL/OSMNavigation/libandroid-navigation/src/main/AndroidManifest.xml
-		INJECTED from /Users/bhawak/Desktop/KLL/OSMNavigation/libandroid-navigation/src/main/AndroidManifest.xml
+		INJECTED from F:\kll\navigation-sdk\libandroid-navigation\src\main\AndroidManifest.xml
+		ADDED from F:\kll\navigation-sdk\libandroid-navigation\src\main\AndroidManifest.xml
+		INJECTED from F:\kll\navigation-sdk\libandroid-navigation\src\main\AndroidManifest.xml
