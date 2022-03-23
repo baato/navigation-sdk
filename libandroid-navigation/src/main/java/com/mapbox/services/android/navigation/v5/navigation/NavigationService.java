@@ -134,16 +134,16 @@ public class NavigationService extends Service {
     final Notification notification = navigationNotification.getNotification();
     final int notificationId = navigationNotification.getNotificationId();
     notification.flags = Notification.FLAG_FOREGROUND_SERVICE;
-    new Handler(Looper.getMainLooper()).post(new Runnable() {
-      public void run() {
-        startForeground(notificationId, notification);
-        try {
-          Thread.sleep(10000);
-        } catch (InterruptedException e) {
-          e.printStackTrace();
-        }
-      }
-    });
+//    new Handler(Looper.getMainLooper()).post(new Runnable() {
+//      public void run() {
+//        startForeground(notificationId, notification);
+//        try {
+//          Thread.sleep(10000);
+//        } catch (InterruptedException e) {
+//          e.printStackTrace();
+//        }
+//      }
+//    });
 //    startForeground(notificationId, notification);
   }
 
