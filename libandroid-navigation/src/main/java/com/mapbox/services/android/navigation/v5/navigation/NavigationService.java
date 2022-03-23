@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.os.Binder;
 import android.os.Handler;
 import android.os.IBinder;
+import android.os.Looper;
+
 import androidx.annotation.Nullable;
 
 import com.mapbox.android.core.location.LocationEngine;
@@ -49,7 +51,7 @@ public class NavigationService extends Service {
   @Override
   public int onStartCommand(Intent intent, int flags, int startId) {
     NavigationTelemetry.getInstance().initializeLifecycleMonitor(getApplication());
-    startForegroundNotification(notificationProvider.retrieveNotification());
+//    startForegroundNotification(notificationProvider.retrieveNotification());
     return START_STICKY;
   }
 
@@ -129,10 +131,20 @@ public class NavigationService extends Service {
   }
 
   private void startForegroundNotification(NavigationNotification navigationNotification) {
-    Notification notification = navigationNotification.getNotification();
-    int notificationId = navigationNotification.getNotificationId();
+    final Notification notification = navigationNotification.getNotification();
+    final int notificationId = navigationNotification.getNotificationId();
     notification.flags = Notification.FLAG_FOREGROUND_SERVICE;
-    startForeground(notificationId, notification);
+    new Handler(Looper.getMainLooper()).post(new Runnable() {
+      public void run() {
+        startForeground(notificationId, notification);
+        try {
+          Thread.sleep(10000);
+        } catch (InterruptedException e) {
+          e.printStackTrace();
+        }
+      }
+    });
+//    startForeground(notificationId, notification);
   }
 
   class LocalBinder extends Binder {
