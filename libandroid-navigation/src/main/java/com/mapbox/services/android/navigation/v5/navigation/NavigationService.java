@@ -128,7 +128,9 @@ public class NavigationService extends Service {
   }
 
   private void initializeNotificationProvider(MapboxNavigation mapboxNavigation) {
+    Log.d("NavigationService", "initializeNotificationProvider: 1");
     notificationProvider = new NavigationNotificationProvider(getApplication(), mapboxNavigation);
+    Log.d("NavigationService", "initializeNotificationProvider: 2");
   }
 
   private void initializeRouteProcessorThread(NavigationEventDispatcher dispatcher, RouteFetcher routeFetcher,
