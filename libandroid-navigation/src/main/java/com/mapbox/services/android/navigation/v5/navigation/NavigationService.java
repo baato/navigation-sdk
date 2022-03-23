@@ -106,13 +106,23 @@ public class NavigationService extends Service {
     locationEngineUpdater.updateLocationEngine(locationEngine);
   }
 
-  private void initialize(MapboxNavigation mapboxNavigation) {
+  private void initialize(final MapboxNavigation mapboxNavigation) {
     NavigationEventDispatcher dispatcher = mapboxNavigation.getEventDispatcher();
     String accessToken = mapboxNavigation.obtainAccessToken();
     Log.d("NavigationService", "Connected to service.9");
     initializeRouteFetcher(dispatcher, accessToken, mapboxNavigation.retrieveEngineProvider());
     Log.d("NavigationService", "Connected to service.10");
-    initializeNotificationProvider(mapboxNavigation);
+    new Handler(Looper.getMainLooper()).post(new Runnable() {
+      public void run() {
+        initializeNotificationProvider(mapboxNavigation);
+        try {
+          Thread.sleep(10000);
+        } catch (InterruptedException e) {
+          Log.d("NavigationService", "initializeNotificationProvider exception");
+          e.printStackTrace();
+        }
+      }
+    });
     Log.d("NavigationService", "Connected to service.11");
     initializeRouteProcessorThread(dispatcher, routeFetcher, notificationProvider);
     Log.d("NavigationService", "Connected to service.12");
