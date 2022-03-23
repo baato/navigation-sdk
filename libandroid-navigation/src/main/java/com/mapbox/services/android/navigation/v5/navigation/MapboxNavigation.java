@@ -834,6 +834,7 @@ public class MapboxNavigation implements ServiceConnection {
         NavigationService.LocalBinder binder = (NavigationService.LocalBinder) service;
         navigationService = binder.getService();
         navigationService.startNavigation(this);
+        Log.d("NavigationService", "Connected to service.1");
         isBound = true;
     }
 

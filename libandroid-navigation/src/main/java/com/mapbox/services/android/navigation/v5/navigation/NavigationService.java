@@ -7,6 +7,7 @@ import android.os.Binder;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Looper;
+import android.util.Log;
 
 import androidx.annotation.Nullable;
 
@@ -50,7 +51,9 @@ public class NavigationService extends Service {
    */
   @Override
   public int onStartCommand(Intent intent, int flags, int startId) {
+    Log.d("NavigationService", "Connected to service.7");
     NavigationTelemetry.getInstance().initializeLifecycleMonitor(getApplication());
+    Log.d("NavigationService", "Connected to service.8");
     return START_STICKY;
   }
 
@@ -65,9 +68,13 @@ public class NavigationService extends Service {
    * setups variables among other things on the Navigation Service side.
    */
   void startNavigation(MapboxNavigation mapboxNavigation) {
+    Log.d("NavigationService", "Connected to service.3");
     initialize(mapboxNavigation);
+    Log.d("NavigationService", "Connected to service.4");
     startForegroundNotification(notificationProvider.retrieveNotification());
+    Log.d("NavigationService", "Connected to service.5");
     locationEngineUpdater.forceLocationUpdate(mapboxNavigation.getRoute());
+    Log.d("NavigationService", "Connected to service.6");
   }
 
   /**
