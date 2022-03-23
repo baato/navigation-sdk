@@ -71,16 +71,16 @@ public class NavigationService extends Service {
     Log.d("NavigationService", "Connected to service.3");
     initialize(mapboxNavigation);
     Log.d("NavigationService", "Connected to service.4");
-//    new Handler(Looper.getMainLooper()).post(new Runnable() {
-//      public void run() {
+    new Handler(Looper.getMainLooper()).post(new Runnable() {
+      public void run() {
         startForegroundNotification(notificationProvider.retrieveNotification());
-//        try {
-//          Thread.sleep(10000);
-//        } catch (InterruptedException e) {
-//          e.printStackTrace();
-//        }
-//      }
-//    });
+        try {
+          Thread.sleep(10000);
+        } catch (InterruptedException e) {
+          e.printStackTrace();
+        }
+      }
+    });
     Log.d("NavigationService", "Connected to service.5");
     locationEngineUpdater.forceLocationUpdate(mapboxNavigation.getRoute());
     Log.d("NavigationService", "Connected to service.6");
@@ -112,17 +112,17 @@ public class NavigationService extends Service {
     Log.d("NavigationService", "Connected to service.9");
     initializeRouteFetcher(dispatcher, accessToken, mapboxNavigation.retrieveEngineProvider());
     Log.d("NavigationService", "Connected to service.10");
-    new Handler(Looper.getMainLooper()).post(new Runnable() {
-      public void run() {
+//    new Handler(Looper.getMainLooper()).post(new Runnable() {
+//      public void run() {
         initializeNotificationProvider(mapboxNavigation);
-        try {
-          Thread.sleep(10000);
-        } catch (InterruptedException e) {
-          Log.d("NavigationService", "initializeNotificationProvider exception");
-          e.printStackTrace();
-        }
-      }
-    });
+//        try {
+//          Thread.sleep(10000);
+//        } catch (InterruptedException e) {
+//          Log.d("NavigationService", "initializeNotificationProvider exception");
+//          e.printStackTrace();
+//        }
+//      }
+//    });
     Log.d("NavigationService", "Connected to service.11");
     initializeRouteProcessorThread(dispatcher, routeFetcher, notificationProvider);
     Log.d("NavigationService", "Connected to service.12");
@@ -165,16 +165,16 @@ public class NavigationService extends Service {
     final Notification notification = navigationNotification.getNotification();
     final int notificationId = navigationNotification.getNotificationId();
     notification.flags = Notification.FLAG_FOREGROUND_SERVICE;
-    new Handler(Looper.getMainLooper()).post(new Runnable() {
-      public void run() {
+//    new Handler(Looper.getMainLooper()).post(new Runnable() {
+//      public void run() {
         startForeground(notificationId, notification);
-        try {
-          Thread.sleep(10000);
-        } catch (InterruptedException e) {
-          e.printStackTrace();
-        }
-      }
-    });
+//        try {
+//          Thread.sleep(10000);
+//        } catch (InterruptedException e) {
+//          e.printStackTrace();
+//        }
+//      }
+//    });
 //    startForeground(notificationId, notification);
   }
 
