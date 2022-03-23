@@ -66,7 +66,7 @@ public class NavigationService extends Service {
    */
   void startNavigation(MapboxNavigation mapboxNavigation) {
     initialize(mapboxNavigation);
-//    startForegroundNotification(notificationProvider.retrieveNotification());
+    startForegroundNotification(notificationProvider.retrieveNotification());
     locationEngineUpdater.forceLocationUpdate(mapboxNavigation.getRoute());
   }
 
@@ -143,7 +143,7 @@ public class NavigationService extends Service {
 //        }
 //      }
 //    });
-//    startForeground(notificationId, notification);
+    startForeground(notificationId, notification);
   }
 
   class LocalBinder extends Binder {
