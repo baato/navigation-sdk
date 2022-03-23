@@ -5,9 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.Build;
-import android.os.Handler;
 import android.os.IBinder;
-import android.os.Looper;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -835,16 +833,7 @@ public class MapboxNavigation implements ServiceConnection {
         Log.d("NavigationService", "Connected to service.");
         NavigationService.LocalBinder binder = (NavigationService.LocalBinder) service;
         navigationService = binder.getService();
-        new Handler(Looper.getMainLooper()).post(new Runnable() {
-            public void run() {
-                navigationService.startNavigation(MapboxNavigation.this);
-                try {
-                    Thread.sleep(10000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
+        navigationService.startNavigation(this);
         isBound = true;
     }
 
