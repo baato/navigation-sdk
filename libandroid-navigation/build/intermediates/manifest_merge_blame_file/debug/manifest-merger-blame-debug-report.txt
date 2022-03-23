@@ -9,20 +9,20 @@
 7-->F:\kll\navigation-sdk\libandroid-navigation\src\main\AndroidManifest.xml
 8
 9    <application>
-9-->F:\kll\navigation-sdk\libandroid-navigation\src\main\AndroidManifest.xml:4:5-11:19
+9-->F:\kll\navigation-sdk\libandroid-navigation\src\main\AndroidManifest.xml:4:5-12:19
 10        <service
-10-->F:\kll\navigation-sdk\libandroid-navigation\src\main\AndroidManifest.xml:5:9-7:15
+10-->F:\kll\navigation-sdk\libandroid-navigation\src\main\AndroidManifest.xml:5:9-7:56
 11            android:name="com.mapbox.services.android.navigation.v5.navigation.NavigationService"
-11-->F:\kll\navigation-sdk\libandroid-navigation\src\main\AndroidManifest.xml:5:18-103
+11-->F:\kll\navigation-sdk\libandroid-navigation\src\main\AndroidManifest.xml:6:13-98
 12            android:foregroundServiceType="location" />
-12-->F:\kll\navigation-sdk\libandroid-navigation\src\main\AndroidManifest.xml:6:13-53
+12-->F:\kll\navigation-sdk\libandroid-navigation\src\main\AndroidManifest.xml:7:13-53
 13        <!-- Include the telemetry service to simplify set up (https://www.mapbox.com/telemetry) -->
 14        <service
-14-->F:\kll\navigation-sdk\libandroid-navigation\src\main\AndroidManifest.xml:9:9-10:55
+14-->F:\kll\navigation-sdk\libandroid-navigation\src\main\AndroidManifest.xml:9:9-11:56
 15            android:name="com.mapbox.services.android.navigation.v5.navigation.telemetry.MapboxTelemetryService"
-15-->F:\kll\navigation-sdk\libandroid-navigation\src\main\AndroidManifest.xml:9:18-80
+15-->F:\kll\navigation-sdk\libandroid-navigation\src\main\AndroidManifest.xml:10:13-75
 16            android:foregroundServiceType="location" />
-16-->F:\kll\navigation-sdk\libandroid-navigation\src\main\AndroidManifest.xml:10:13-53
+16-->F:\kll\navigation-sdk\libandroid-navigation\src\main\AndroidManifest.xml:11:13-53
 17    </application>
 18
 19</manifest>
