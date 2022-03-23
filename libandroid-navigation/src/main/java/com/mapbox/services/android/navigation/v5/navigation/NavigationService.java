@@ -51,7 +51,6 @@ public class NavigationService extends Service {
   @Override
   public int onStartCommand(Intent intent, int flags, int startId) {
     NavigationTelemetry.getInstance().initializeLifecycleMonitor(getApplication());
-//    startForegroundNotification(notificationProvider.retrieveNotification());
     return START_STICKY;
   }
 
@@ -67,7 +66,7 @@ public class NavigationService extends Service {
    */
   void startNavigation(MapboxNavigation mapboxNavigation) {
     initialize(mapboxNavigation);
-    startForegroundNotification(notificationProvider.retrieveNotification());
+//    startForegroundNotification(notificationProvider.retrieveNotification());
     locationEngineUpdater.forceLocationUpdate(mapboxNavigation.getRoute());
   }
 
