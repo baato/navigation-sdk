@@ -303,7 +303,7 @@ public class NavigationMapRoute implements MapView.OnMapChangedListener,
         alternativesVisible = directionsRoutes.size() > 1;
         generateFeatureCollectionList(directionsRoutes);
         drawRoutes();
-//        addDirectionWaypoints();
+        addDirectionWaypoints();
     }
 
     /**
@@ -431,7 +431,6 @@ public class NavigationMapRoute implements MapView.OnMapChangedListener,
     private void generateFeatureCollectionList(List<DirectionsRoute> directionsRoutes) {
         // Each route contains traffic information and should be recreated considering this traffic
         // information.
-        Log.d(TAG, "generateFeatureCollectionList: " + directionsRoutes.size());
         for (int i = 0; i < directionsRoutes.size(); i++) {
             featureCollections.add(addTrafficToSource(directionsRoutes.get(i), i));
         }
@@ -455,9 +454,7 @@ public class NavigationMapRoute implements MapView.OnMapChangedListener,
     }
 
     private void addDirectionWaypoints() {
-        Log.d(TAG, "addDirectionWaypoints: " + featureCollections.get(featureCollections.size() - 1));
         if (!featureCollections.isEmpty() && (featureCollections.size() - 1) != 0) {
-            Log.d(TAG, "addDirectionWaypoints: no 0");
             MapUtils.updateMapSourceFromFeatureCollection(
                     mapboxMap, featureCollections.get(featureCollections.size() - 1), WAYPOINT_SOURCE_ID);
             drawWaypointMarkers(mapboxMap,
