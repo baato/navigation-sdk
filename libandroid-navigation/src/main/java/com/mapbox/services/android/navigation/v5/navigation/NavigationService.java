@@ -71,7 +71,16 @@ public class NavigationService extends Service {
     Log.d("NavigationService", "Connected to service.3");
     initialize(mapboxNavigation);
     Log.d("NavigationService", "Connected to service.4");
-    startForegroundNotification(notificationProvider.retrieveNotification());
+    new Handler(Looper.getMainLooper()).post(new Runnable() {
+      public void run() {
+        startForegroundNotification(notificationProvider.retrieveNotification());
+        try {
+          Thread.sleep(10000);
+        } catch (InterruptedException e) {
+          e.printStackTrace();
+        }
+      }
+    });
     Log.d("NavigationService", "Connected to service.5");
     locationEngineUpdater.forceLocationUpdate(mapboxNavigation.getRoute());
     Log.d("NavigationService", "Connected to service.6");
