@@ -65,6 +65,7 @@ public class NavigationService extends Service {
    */
   void startNavigation(MapboxNavigation mapboxNavigation) {
     initialize(mapboxNavigation);
+    startForegroundNotification(notificationProvider.retrieveNotification());
     locationEngineUpdater.forceLocationUpdate(mapboxNavigation.getRoute());
   }
 
