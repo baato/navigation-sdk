@@ -7,8 +7,6 @@ import androidx.annotation.NonNull;
 
 import com.mapbox.android.core.location.LocationEngine;
 import com.mapbox.android.core.location.LocationEngineListener;
-import com.mapbox.android.telemetry.Event;
-import com.mapbox.android.telemetry.TelemetryUtils;
 import com.mapbox.api.directions.v5.models.DirectionsRoute;
 import com.mapbox.core.constants.Constants;
 import com.mapbox.core.utils.TextUtils;
@@ -22,6 +20,8 @@ import com.mapbox.services.android.navigation.v5.navigation.metrics.NavigationMe
 import com.mapbox.services.android.navigation.v5.navigation.metrics.RerouteEvent;
 import com.mapbox.services.android.navigation.v5.navigation.metrics.SessionState;
 import com.mapbox.services.android.navigation.v5.navigation.metrics.TelemetryEvent;
+import com.mapbox.services.android.navigation.v5.navigation.telemetry.Event;
+import com.mapbox.services.android.navigation.v5.navigation.telemetry.TelemetryUtils;
 import com.mapbox.services.android.navigation.v5.routeprogress.MetricsRouteProgress;
 import com.mapbox.services.android.navigation.v5.routeprogress.RouteProgress;
 import com.mapbox.services.android.navigation.v5.utils.RingBuffer;

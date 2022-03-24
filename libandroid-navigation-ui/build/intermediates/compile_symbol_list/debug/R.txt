@@ -307,6 +307,7 @@ int attr itemTextAppearanceActive 0x0
 int attr itemTextAppearanceInactive 0x0
 int attr itemTextColor 0x0
 int attr keylines 0x0
+int attr lStar 0x0
 int attr labelVisibilityMode 0x0
 int attr lastBaselineToBottomHeight 0x0
 int attr layout 0x0
@@ -1496,6 +1497,10 @@ int id instructionView 0x0
 int id instructionViewLayout 0x0
 int id invisible 0x0
 int id italic 0x0
+int id item1 0x0
+int id item2 0x0
+int id item3 0x0
+int id item4 0x0
 int id item_touch_helper_previous_elevation 0x0
 int id labeled 0x0
 int id largeLabel 0x0
@@ -1648,6 +1653,8 @@ int id up 0x0
 int id useLogo 0x0
 int id view 0x0
 int id view_offset_helper 0x0
+int id view_tree_lifecycle_owner 0x0
+int id view_tree_view_model_store_owner 0x0
 int id visible 0x0
 int id waynameText 0x0
 int id withText 0x0
@@ -1766,6 +1773,8 @@ int layout tooltip 0x0
 int layout turn_lane_layout 0x0
 int layout turn_lane_listitem_layout 0x0
 int layout wayname_view_layout 0x0
+int menu example_menu 0x0
+int menu example_menu2 0x0
 int plurals numberOfDays 0x0
 int string abc_action_bar_home_description 0x0
 int string abc_action_bar_home_description_format 0x0
@@ -2750,10 +2759,12 @@ int styleable CollapsingToolbarLayout_toolbarId 15
 int[] styleable CollapsingToolbarLayout_Layout { 0x0, 0x0 }
 int styleable CollapsingToolbarLayout_Layout_layout_collapseMode 0
 int styleable CollapsingToolbarLayout_Layout_layout_collapseParallaxMultiplier 1
-int[] styleable ColorStateListItem { 0x0, 0x101031f, 0x10101a5 }
+int[] styleable ColorStateListItem { 0x0, 0x101031f, 0x10101a5, 0x0, 0x0 }
 int styleable ColorStateListItem_alpha 0
 int styleable ColorStateListItem_android_alpha 1
 int styleable ColorStateListItem_android_color 2
+int styleable ColorStateListItem_android_lStar 3
+int styleable ColorStateListItem_lStar 4
 int[] styleable CompoundButton { 0x1010107, 0x0, 0x0 }
 int styleable CompoundButton_android_button 0
 int styleable CompoundButton_buttonTint 1

@@ -4,18 +4,18 @@
 4
 5    <uses-sdk
 6        android:minSdkVersion="14"
-6-->/Users/bhawak/Desktop/KLL/OSMNavigation/libandroid-navigation-ui/src/main/AndroidManifest.xml
+6-->F:\kll\navigation-sdk\libandroid-navigation-ui\src\main\AndroidManifest.xml
 7        android:targetSdkVersion="30" />
-7-->/Users/bhawak/Desktop/KLL/OSMNavigation/libandroid-navigation-ui/src/main/AndroidManifest.xml
+7-->F:\kll\navigation-sdk\libandroid-navigation-ui\src\main\AndroidManifest.xml
 8
 9    <application>
-9-->/Users/bhawak/Desktop/KLL/OSMNavigation/libandroid-navigation-ui/src/main/AndroidManifest.xml:5:3-8:17
+9-->F:\kll\navigation-sdk\libandroid-navigation-ui\src\main\AndroidManifest.xml:5:3-8:17
 10        <activity
-10-->/Users/bhawak/Desktop/KLL/OSMNavigation/libandroid-navigation-ui/src/main/AndroidManifest.xml:6:5-7:47
+10-->F:\kll\navigation-sdk\libandroid-navigation-ui\src\main\AndroidManifest.xml:6:5-7:47
 11            android:name="com.mapbox.services.android.navigation.ui.v5.MapboxNavigationActivity"
-11-->/Users/bhawak/Desktop/KLL/OSMNavigation/libandroid-navigation-ui/src/main/AndroidManifest.xml:6:15-55
+11-->F:\kll\navigation-sdk\libandroid-navigation-ui\src\main\AndroidManifest.xml:6:15-55
 12            android:screenOrientation="portrait" />
-12-->/Users/bhawak/Desktop/KLL/OSMNavigation/libandroid-navigation-ui/src/main/AndroidManifest.xml:7:9-45
+12-->F:\kll\navigation-sdk\libandroid-navigation-ui\src\main\AndroidManifest.xml:7:9-45
 13    </application>
 14
 15</manifest>
