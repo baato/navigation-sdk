@@ -1,39 +1,39 @@
 -- Merging decision tree log ---
 manifest
-ADDED from F:\kll\navigation-sdk\libandroid-navigation\src\main\AndroidManifest.xml:1:1-14:12
-INJECTED from F:\kll\navigation-sdk\libandroid-navigation\src\main\AndroidManifest.xml:1:1-14:12
-INJECTED from F:\kll\navigation-sdk\libandroid-navigation\src\main\AndroidManifest.xml:1:1-14:12
+ADDED from D:\navigation-sdk\libandroid-navigation\src\main\AndroidManifest.xml:1:1-14:12
+INJECTED from D:\navigation-sdk\libandroid-navigation\src\main\AndroidManifest.xml:1:1-14:12
+INJECTED from D:\navigation-sdk\libandroid-navigation\src\main\AndroidManifest.xml:1:1-14:12
 	package
-		ADDED from F:\kll\navigation-sdk\libandroid-navigation\src\main\AndroidManifest.xml:2:5-53
-		INJECTED from F:\kll\navigation-sdk\libandroid-navigation\src\main\AndroidManifest.xml
-		INJECTED from F:\kll\navigation-sdk\libandroid-navigation\src\main\AndroidManifest.xml
+		ADDED from D:\navigation-sdk\libandroid-navigation\src\main\AndroidManifest.xml:2:5-53
+		INJECTED from D:\navigation-sdk\libandroid-navigation\src\main\AndroidManifest.xml
+		INJECTED from D:\navigation-sdk\libandroid-navigation\src\main\AndroidManifest.xml
 	xmlns:android
-		ADDED from F:\kll\navigation-sdk\libandroid-navigation\src\main\AndroidManifest.xml:1:11-69
+		ADDED from D:\navigation-sdk\libandroid-navigation\src\main\AndroidManifest.xml:1:11-69
 application
-ADDED from F:\kll\navigation-sdk\libandroid-navigation\src\main\AndroidManifest.xml:4:5-12:19
+ADDED from D:\navigation-sdk\libandroid-navigation\src\main\AndroidManifest.xml:4:5-12:19
 service#com.mapbox.services.android.navigation.v5.navigation.NavigationService
-ADDED from F:\kll\navigation-sdk\libandroid-navigation\src\main\AndroidManifest.xml:5:9-7:56
+ADDED from D:\navigation-sdk\libandroid-navigation\src\main\AndroidManifest.xml:5:9-7:56
 	android:foregroundServiceType
-		ADDED from F:\kll\navigation-sdk\libandroid-navigation\src\main\AndroidManifest.xml:7:13-53
+		ADDED from D:\navigation-sdk\libandroid-navigation\src\main\AndroidManifest.xml:7:13-53
 	android:name
-		ADDED from F:\kll\navigation-sdk\libandroid-navigation\src\main\AndroidManifest.xml:6:13-98
+		ADDED from D:\navigation-sdk\libandroid-navigation\src\main\AndroidManifest.xml:6:13-98
 service#com.mapbox.services.android.navigation.v5.navigation.telemetry.MapboxTelemetryService
-ADDED from F:\kll\navigation-sdk\libandroid-navigation\src\main\AndroidManifest.xml:9:9-11:56
+ADDED from D:\navigation-sdk\libandroid-navigation\src\main\AndroidManifest.xml:9:9-11:56
 	android:foregroundServiceType
-		ADDED from F:\kll\navigation-sdk\libandroid-navigation\src\main\AndroidManifest.xml:11:13-53
+		ADDED from D:\navigation-sdk\libandroid-navigation\src\main\AndroidManifest.xml:11:13-53
 	android:name
-		ADDED from F:\kll\navigation-sdk\libandroid-navigation\src\main\AndroidManifest.xml:10:13-75
+		ADDED from D:\navigation-sdk\libandroid-navigation\src\main\AndroidManifest.xml:10:13-75
 uses-sdk
-INJECTED from F:\kll\navigation-sdk\libandroid-navigation\src\main\AndroidManifest.xml reason: use-sdk injection requested
-INJECTED from F:\kll\navigation-sdk\libandroid-navigation\src\main\AndroidManifest.xml
-INJECTED from F:\kll\navigation-sdk\libandroid-navigation\src\main\AndroidManifest.xml
-INJECTED from F:\kll\navigation-sdk\libandroid-navigation\src\main\AndroidManifest.xml
-INJECTED from F:\kll\navigation-sdk\libandroid-navigation\src\main\AndroidManifest.xml
+INJECTED from D:\navigation-sdk\libandroid-navigation\src\main\AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from D:\navigation-sdk\libandroid-navigation\src\main\AndroidManifest.xml
+INJECTED from D:\navigation-sdk\libandroid-navigation\src\main\AndroidManifest.xml
+INJECTED from D:\navigation-sdk\libandroid-navigation\src\main\AndroidManifest.xml
+INJECTED from D:\navigation-sdk\libandroid-navigation\src\main\AndroidManifest.xml
 	android:targetSdkVersion
-		INJECTED from F:\kll\navigation-sdk\libandroid-navigation\src\main\AndroidManifest.xml
-		ADDED from F:\kll\navigation-sdk\libandroid-navigation\src\main\AndroidManifest.xml
-		INJECTED from F:\kll\navigation-sdk\libandroid-navigation\src\main\AndroidManifest.xml
+		INJECTED from D:\navigation-sdk\libandroid-navigation\src\main\AndroidManifest.xml
+		ADDED from D:\navigation-sdk\libandroid-navigation\src\main\AndroidManifest.xml
+		INJECTED from D:\navigation-sdk\libandroid-navigation\src\main\AndroidManifest.xml
 	android:minSdkVersion
-		INJECTED from F:\kll\navigation-sdk\libandroid-navigation\src\main\AndroidManifest.xml
-		ADDED from F:\kll\navigation-sdk\libandroid-navigation\src\main\AndroidManifest.xml
-		INJECTED from F:\kll\navigation-sdk\libandroid-navigation\src\main\AndroidManifest.xml
+		INJECTED from D:\navigation-sdk\libandroid-navigation\src\main\AndroidManifest.xml
+		ADDED from D:\navigation-sdk\libandroid-navigation\src\main\AndroidManifest.xml
+		INJECTED from D:\navigation-sdk\libandroid-navigation\src\main\AndroidManifest.xml

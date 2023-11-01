@@ -592,12 +592,13 @@ public class MainActivity extends AppCompatActivity implements PermissionsListen
     }
 
     private void checkPhoneStatePermission() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            int res = checkSelfPermission(android.Manifest.permission.READ_PHONE_STATE);
-            if (res != PackageManager.PERMISSION_GRANTED) {
-                requestPermissions(new String[]{android.Manifest.permission.READ_PHONE_STATE}, Constants.PHONE_STATE_PERMISSION_REQUEST);
-            } else startNavigationActivity();
-        } else startNavigationActivity();
+        startNavigationActivity();
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+//            int res = checkSelfPermission(android.Manifest.permission.READ_PHONE_STATE);
+//            if (res != PackageManager.PERMISSION_GRANTED) {
+//                requestPermissions(new String[]{android.Manifest.permission.READ_PHONE_STATE}, Constants.PHONE_STATE_PERMISSION_REQUEST);
+//            } else startNavigationActivity();
+//        } else startNavigationActivity();
     }
 
     @Override
