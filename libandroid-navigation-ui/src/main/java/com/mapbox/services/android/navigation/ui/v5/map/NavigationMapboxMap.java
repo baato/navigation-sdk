@@ -482,7 +482,7 @@ public class NavigationMapboxMap {
 
   private void initializeWayname(MapView mapView, MapboxMap mapboxMap,
                                  MapLayerInteractor layerInteractor, MapPaddingAdjustor paddingAdjustor) {
-    initializeStreetsSource(mapboxMap);
+//    initializeStreetsSource(mapboxMap);
     WaynameLayoutProvider layoutProvider = new WaynameLayoutProvider(mapView.getContext());
     WaynameFeatureFinder featureInteractor = new WaynameFeatureFinder(mapboxMap);
     initializeWaynameLayer(layerInteractor);
@@ -538,7 +538,7 @@ public class NavigationMapboxMap {
   private void initializeRoute(MapView mapView, MapboxMap map) {
     Context context = mapView.getContext();
     int routeStyleRes = ThemeSwitcher.retrieveNavigationViewStyle(context, R.attr.navigationViewRouteStyle);
-    mapRoute = new NavigationMapRoute(null, mapView, map, routeStyleRes);
+    mapRoute = new NavigationMapRoute(null, mapView, map, routeStyleRes, "Place-other");
   }
 
   @NonNull

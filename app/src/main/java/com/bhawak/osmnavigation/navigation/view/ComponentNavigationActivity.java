@@ -222,6 +222,7 @@ public class ComponentNavigationActivity extends AppCompatActivity implements On
                         .target(new LatLng(27.7172, 85.3240))
                         .zoom(12)
                         .build());
+                mapboxMap.setMaxZoomPreference(24);
                 mapState = MapState.INFO;
 
                 // For voice instructions

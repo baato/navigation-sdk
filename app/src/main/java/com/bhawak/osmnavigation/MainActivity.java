@@ -431,7 +431,7 @@ public class MainActivity extends AppCompatActivity implements PermissionsListen
         if (navigationMapRoute != null) {
             navigationMapRoute.removeRoute();
         } else {
-            navigationMapRoute = new NavigationMapRoute(null, mapView, mapboxMap, R.style.NavigationMapRoute);
+            navigationMapRoute = new NavigationMapRoute(null, mapView, mapboxMap, R.style.NavigationMapRoute, "Place-other");
         }
         navigationMapRoute.addRoute(myRoute);
         startNewNavigationActivity();
