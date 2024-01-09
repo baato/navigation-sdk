@@ -538,7 +538,7 @@ public class NavigationMapboxMap {
   private void initializeRoute(MapView mapView, MapboxMap map) {
     Context context = mapView.getContext();
     int routeStyleRes = ThemeSwitcher.retrieveNavigationViewStyle(context, R.attr.navigationViewRouteStyle);
-    mapRoute = new NavigationMapRoute(null, mapView, map, routeStyleRes, "Place-other");
+    mapRoute = new NavigationMapRoute(null, mapView, map, routeStyleRes, "Poi-other");
   }
 
   @NonNull
