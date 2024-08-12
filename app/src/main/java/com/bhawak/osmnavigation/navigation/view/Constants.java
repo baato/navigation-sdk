@@ -5,8 +5,8 @@ public interface Constants {
     int GPS_REQUEST = 1001;
     int POINT_REQUEST = 1002;
     String V2_TOKEN = "{baatov2_token}";
-    String token = "bpk.EqP0EpdiStwOvO7b85-pQU6s5nMyl_Q0JpR_OAnuHhtE";
-//    String token = "{baato_token}";
+
+    String token = "{baato_token}";
 
     //product flavors
     String KLL = "kll";
