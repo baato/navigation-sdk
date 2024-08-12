@@ -2759,7 +2759,7 @@ int styleable CollapsingToolbarLayout_toolbarId 15
 int[] styleable CollapsingToolbarLayout_Layout { 0x0, 0x0 }
 int styleable CollapsingToolbarLayout_Layout_layout_collapseMode 0
 int styleable CollapsingToolbarLayout_Layout_layout_collapseParallaxMultiplier 1
-int[] styleable ColorStateListItem { 0x0, 0x101031f, 0x10101a5, 0x0, 0x0 }
+int[] styleable ColorStateListItem { 0x0, 0x101031f, 0x10101a5, 0x1010647, 0x0 }
 int styleable ColorStateListItem_alpha 0
 int styleable ColorStateListItem_android_alpha 1
 int styleable ColorStateListItem_android_color 2
