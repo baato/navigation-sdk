@@ -1,6 +1,9 @@
 buildscript {
     repositories {
         jcenter()
+        maven { url "https://plugins.gradle.org/m2/" } // For Gradle plugins
+        maven { url "https://repo.jfrog.org/artifactory/libs-release" }
+        maven { url "https://repo.jfrog.org/artifactory/libs-snapshot" }
     }
     dependencies {
         classpath pluginDependencies.dependencyUpdates
@@ -8,6 +11,7 @@ buildscript {
 }
 
 apply plugin: "com.github.ben-manes.versions"
+apply plugin: "maven-publish"
 
 // disallow release candidates as upgradable versions
 dependencyUpdates.resolutionStrategy {

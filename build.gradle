@@ -1,5 +1,6 @@
 apply plugin: 'com.github.kt3k.coveralls'
 apply plugin: 'jacoco'
+apply plugin: 'maven-publish'
 
 buildscript {
     ext.kotlin_version = '1.4.32'
@@ -11,6 +12,9 @@ buildscript {
         jcenter()
         maven { url 'https://plugins.gradle.org/m2' }
         maven { url 'https://maven.fabric.io/public' }
+        maven { url "https://plugins.gradle.org/m2/" } // For Gradle plugins
+        maven { url "https://repo.jfrog.org/artifactory/libs-release" }
+        maven { url "https://repo.jfrog.org/artifactory/libs-snapshot" }
     }
     dependencies {
         classpath pluginDependencies.gradle
@@ -40,6 +44,9 @@ allprojects {
         maven { url 'https://mapbox.bintray.com/mapbox' }
         maven { url 'https://plugins.gradle.org/m2' }
         maven { url "https://oss.sonatype.org/content/repositories/snapshots" }
+        maven { url "https://plugins.gradle.org/m2/" } // For Gradle plugins
+        maven { url "https://repo.jfrog.org/artifactory/libs-release" }
+        maven { url "https://repo.jfrog.org/artifactory/libs-snapshot" }
     }
 
     group = GROUP
