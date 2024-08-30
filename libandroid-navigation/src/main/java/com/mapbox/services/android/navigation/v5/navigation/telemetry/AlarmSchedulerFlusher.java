@@ -34,7 +34,12 @@ class AlarmSchedulerFlusher implements SchedulerFlusher {
         }
         pendingIntent = PendingIntent.getBroadcast(context, 0, alarmIntent, flags);
         IntentFilter filter = new IntentFilter(SCHEDULER_FLUSHER_INTENT);
-        context.registerReceiver(receiver, filter);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            context.registerReceiver(receiver, filter,Context.RECEIVER_EXPORTED);
+        }else{
+            context.registerReceiver(receiver, filter);
+
+        }
     }
 
     @Override
